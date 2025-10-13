@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOKI API Interceptor</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <main class="validator-container" style="max-width: 900px; margin: 2rem auto;">
+    <div class="card">
+      <h3>API Interceptor</h3>
+
+      <div class="form-group">
+        <label>Your Prompt</label>
+        <textarea id="test-prompt" placeholder="Enter prompt to test validation..." rows="6"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Validation Modules</label>
+        <div class="module-checkboxes">
+          <label class="checkbox-label">
+            <input type="checkbox" id="api-module-hr" value="hr_scottish" checked />
+            <span>HR & Employment Law</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="api-module-gdpr" value="gdpr_uk" checked />
+            <span>GDPR Data Protection</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="api-module-nda" value="nda_uk" />
+            <span>NDA Compliance</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="api-module-tax" value="tax_uk" />
+            <span>Tax & Financial (UK SME)</span>
+          </label>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem;">
+        <button id="send-btn" class="btn-primary">Send & Validate</button>
+      </div>
+
+      <div id="result-box" class="result-box hidden">
+        <div id="result-content"></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

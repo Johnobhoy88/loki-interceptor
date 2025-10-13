@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOKI Validator</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <main class="validator-container" style="max-width: 900px; margin: 2rem auto;">
+    <div class="card">
+      <h3>Document Validation</h3>
+
+      <div class="form-group">
+        <label>Validation Modules</label>
+        <div class="module-checkboxes">
+          <label class="checkbox-label">
+            <input type="checkbox" id="module-hr" value="hr_scottish" checked />
+            <span>HR & Employment Law (ACAS)</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="module-gdpr" value="gdpr_uk" checked />
+            <span>GDPR Data Protection</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="module-nda" value="nda_uk" />
+            <span>NDA Compliance (UK/EU)</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="module-tax" value="tax_uk" />
+            <span>Tax & Financial (UK SME)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Document Text</label>
+        <textarea id="doc-text" rows="12" placeholder="Paste your document here for compliance validation..."></textarea>
+      </div>
+
+      <div style="display: flex; gap: 1rem;">
+        <button id="validate-btn" class="btn-primary">Validate Document</button>
+      </div>
+
+      <div id="validation-result" class="result-box hidden">
+        <div id="validation-content"></div>
+      </div>
+    </div>
+  </main>
+  <script src="../app.js?v=5"></script>
+</body>
+</html>

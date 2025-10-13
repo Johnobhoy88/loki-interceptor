@@ -1,0 +1,46 @@
+appId: com.highland.loki
+productName: LOKI Interceptor
+copyright: Copyright © 2025 Highland AI
+
+directories:
+  output: ../dist
+  buildResources: ./build
+
+files:
+  - "**/*"
+  - "../frontend/**/*"
+  - "!../backend/venv"
+  - "!../backend/__pycache__"
+  - "!../backend/*.pyc"
+
+extraResources:
+  - from: ./resources/loki_backend.exe
+    to: ./
+  - from: ../backend/modules
+    to: modules
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: LOKI-Setup-${version}.${ext}
+  icon: ./build/icon.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: LOKI Interceptor
+
+mac:
+  target: dmg
+  category: public.app-category.developer-tools
+  icon: ./build/icon.icns
+
+linux:
+  target: AppImage
+  category: Development
+  icon: ./build/icon.png
+

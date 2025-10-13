@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOKI Interceptor Control Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=8">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar__logo">
+        <span class="logo-mark">⚡</span>
+        <div class="logo-text">
+          <strong>LOKI Interceptor</strong>
+          <span>Claude V1 Safety Layer</span>
+        </div>
+      </div>
+      <nav class="sidebar__nav">
+        <button class="nav-item active" data-tab="interceptor">
+          <span class="nav-title">API Interceptor</span>
+          <span class="nav-meta">Proxy and validate live prompts</span>
+        </button>
+        <button class="nav-item" data-tab="validator">
+          <span class="nav-title">Document Validator</span>
+          <span class="nav-meta">Assess internal policies instantly</span>
+        </button>
+        <button class="nav-item" data-tab="analytics">
+          <span class="nav-title">Analytics</span>
+          <span class="nav-meta">Governance insights & telemetry</span>
+        </button>
+      </nav>
+      <div class="sidebar__status">
+        <button class="status-badge" id="backend-status">
+          🔴 Backend Offline
+        </button>
+        <button class="refresh-button" id="refresh-status">⟳</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- INTERCEPTOR TAB -->
+      <section class="tab-panel active" id="interceptor-tab">
+        <header class="page-header">
+          <h1>API Interceptor</h1>
+          <p>Real-time compliance validation for AI prompts</p>
+        </header>
+
+        <div class="stats-bar">
+          <div class="stat">
+            <span class="stat-value" id="stat-requests">0</span>
+            <span class="stat-label">Requests</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value warning-color" id="stat-warnings">0</span>
+            <span class="stat-label">Warnings</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value critical-color" id="stat-blocked">0</span>
+            <span class="stat-label">Blocked</span>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="card-header">
+              <h3>Configuration</h3>
+            </div>
+            <div class="form-group">
+              <label for="provider-select">LLM Provider</label>
+              <select id="provider-select" class="input">
+                <option value="anthropic">Anthropic Claude</option>
+                <option value="openai">OpenAI GPT</option>
+                <option value="gemini">Google Gemini</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="api-key-input">API Key</label>
+              <input type="password" id="api-key-input" class="input" placeholder="sk-ant-...">
+            </div>
+            <button id="save-key-btn" class="button primary">Save Credentials</button>
+
+            <div class="divider"></div>
+
+            <div class="form-group">
+              <label>Active Validation Modules</label>
+              <div id="modules-interceptor" class="module-chips">
+                <!-- Dynamic modules rendered here -->
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Test Request</h3>
+            </div>
+            <div class="form-group">
+              <label for="test-prompt">Prompt</label>
+              <textarea id="test-prompt" class="input" rows="6" placeholder="Enter your test prompt here..."></textarea>
+            </div>
+            <button id="test-btn" class="button primary">Send to Claude</button>
+
+            <div id="test-result" class="result-box hidden">
+              <div id="result-content"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Activity Feed</h3>
+          </div>
+          <div id="activity-feed">
+            <p class="empty-state">No requests yet. Send a test request to begin.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- VALIDATOR TAB -->
+      <section class="tab-panel" id="validator-tab">
+        <header class="page-header">
+          <h1>Document Validator</h1>
+          <p>Validate policies, contracts, and internal documents against compliance frameworks</p>
+        </header>
+
+        <div class="grid">
+          <div class="card">
+            <div class="card-header">
+              <h3>Document Input</h3>
+            </div>
+            <div class="form-group">
+              <label for="doc-text">Paste your document below</label>
+              <textarea id="doc-text" class="input" rows="12" placeholder="Paste HR policy, NDA, GDPR notice, or any document you want to validate..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Compliance Modules</label>
+              <div id="modules-validator" class="module-chips">
+                <!-- Dynamic modules rendered here -->
+              </div>
+            </div>
+            <button id="validate-btn" class="button primary">Validate Document</button>
+          </div>
+
+          <div class="card">
+            <div id="validation-result" class="result-box hidden">
+              <div id="validation-content"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ANALYTICS TAB -->
+      <section class="tab-panel" id="analytics-tab">
+        <header class="page-header">
+          <h1>Analytics & Insights</h1>
+          <p>Governance telemetry and compliance trend analysis</p>
+          <div class="form-group" style="margin-top: 1rem;">
+            <label for="analytics-window">Time Window</label>
+            <select id="analytics-window" class="input" style="max-width: 200px;">
+              <option value="7">Last 7 Days</option>
+              <option value="30" selected>Last 30 Days</option>
+              <option value="90">Last 90 Days</option>
+            </select>
+          </div>
+        </header>
+
+        <div class="analytics-grid">
+          <div class="card">
+            <div class="card-header">
+              <h3>Overview</h3>
+            </div>
+            <div id="analytics-overview" class="analytics-stats">
+              <p class="empty-state">No analytics data yet.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Risk Trends</h3>
+            </div>
+            <div id="analytics-trends">
+              <p class="empty-state">No trend data available.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Universal Alerts</h3>
+            </div>
+            <div id="analytics-universal">
+              <p class="empty-state">No universal alerts recorded.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Module Performance</h3>
+            </div>
+            <div id="analytics-modules">
+              <p class="empty-state">No module executions captured yet.</p>
+            </div>
+          </div>
+
+          <div class="card full-width">
+            <div class="card-header">
+              <h3>Recent Activity</h3>
+            </div>
+            <div id="analytics-recent">
+              <p class="empty-state">No recent validations logged.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app-web.js"></script>
+</body>
+</html>
