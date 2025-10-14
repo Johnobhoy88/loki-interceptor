@@ -1,4 +1,6 @@
 // Dynamic backend URL getter - fetches from api.txt every time
+const REMOTE_API_BASE = 'https://loki-interceptor-5hqwbuvs4-john-s-projects-2735c2d1.vercel.app';
+
 async function getBackendUrl() {
   try {
     const response = await fetch('/api.txt?t=' + Date.now());
@@ -12,8 +14,8 @@ async function getBackendUrl() {
   } catch (e) {
     console.warn('[LOKI] Failed to load backend URL from api.txt:', e);
   }
-  console.log('[LOKI] Falling back to localhost');
-  return 'http://127.0.0.1:5002';
+  console.log('[LOKI] Falling back to remote API base');
+  return REMOTE_API_BASE;
 }
 
 // State management

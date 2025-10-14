@@ -1,8 +1,10 @@
 // Auto-detect API base: if accessed remotely (not localhost), use same origin
 // EXPERIMENTAL V2 - PORT 5002
+const REMOTE_API_BASE = 'https://loki-interceptor-5hqwbuvs4-john-s-projects-2735c2d1.vercel.app';
+
 const API_BASE = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? 'http://127.0.0.1:5002'  // Local development or Electron app - EXPERIMENTAL PORT
-  : window.location.origin;  // Remote access - use same URL for API
+  : REMOTE_API_BASE;  // Remote access - use the hosted API base
 
 const state = {
   provider: 'anthropic',
@@ -10,7 +12,8 @@ const state = {
   modules: [],
   stats: { validated: 0, warnings: 0, blocked: 0 },
   analyticsWindow: 30,
-  analytics: { loading: false, overview: null, trends: null, modules: null, error: null }
+  analytics: { loading: false, overview: null, trends: null, modules: null, error: null },
+  lastValidation: { text: null, result: null }  // Store for correction feature
 };
 
 // Professional Toast Notification System
@@ -321,6 +324,10 @@ async function handleDocumentValidation() {
     });
 
     const payload = await res.json();
+
+    // Store for correction feature
+    state.lastValidation = { text, result: payload };
+
     displayDocumentResult(payload);
     recordMetrics(payload.risk || 'LOW');
     pushActivity(payload.risk || 'LOW', 'Document validation completed');
@@ -358,10 +365,26 @@ function displayDocumentResult(result) {
   if (risk === 'CRITICAL') wrapper.classList.add('blocked');
   else if (risk === 'HIGH') wrapper.classList.add('warning');
 
+  // Add correction button if there are failures
+  const hasFails = hasFailures(result.validation);
+  const correctionBtn = hasFails ? `
+    <div style="margin-bottom: 1rem; text-align: right;">
+      <button id="apply-corrections-btn" class="btn btn--primary" style="background: #2563eb;">
+        Apply Auto-Corrections
+      </button>
+    </div>
+  ` : '';
+
   body.innerHTML = `
+    ${correctionBtn}
     ${renderModuleBlocks(result.validation?.modules)}
     ${renderCrossFindings(result.validation?.cross)}
   `;
+
+  // Bind correction button
+  if (hasFails) {
+    document.getElementById('apply-corrections-btn')?.addEventListener('click', handleApplyCorrections);
+  }
 }
 
 function renderResponseText(result) {
@@ -589,6 +612,128 @@ function analyticsCard(label, value) {
         <span class="module-chip__title">${escapeHtml(label)}</span>
         <span class="module-chip__meta">${Number(value || 0).toLocaleString()}</span>
       </div>
+    </div>
+  `;
+}
+
+// === DOCUMENT CORRECTION FEATURE ===
+
+function hasFailures(validation) {
+  if (!validation || !validation.modules) return false;
+  return Object.values(validation.modules).some(mod => {
+    const gates = mod?.gates || {};
+    return Object.values(gates).some(gate => gate?.status === 'FAIL');
+  });
+}
+
+async function handleApplyCorrections() {
+  const btn = document.getElementById('apply-corrections-btn');
+  if (!state.lastValidation.text || !state.lastValidation.result) {
+    showToast('No validation data available', 'error', 'Correction Failed');
+    return;
+  }
+
+  console.log('Applying corrections...', {
+    text: state.lastValidation.text.substring(0, 100),
+    validation: state.lastValidation.result.validation
+  });
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Applying Corrections…'; }
+
+  try {
+    const res = await fetch(`${API_BASE}/correct-document`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: state.lastValidation.text,
+        validation_results: state.lastValidation.result.validation
+      })
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    }
+
+    const correctionResult = await res.json();
+    console.log('Correction result:', correctionResult);
+    displayCorrectionComparison(correctionResult);
+    showToast('Corrections applied successfully', 'success', 'Corrections Complete');
+  } catch (error) {
+    console.error('Correction error:', error);
+    showToast('Correction failed: ' + (error?.message || error), 'error', 'Correction Failed');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Apply Auto-Corrections'; }
+  }
+}
+
+function displayCorrectionComparison(correctionResult) {
+  const body = document.getElementById('validation-content');
+  if (!body) return;
+
+  const original = state.lastValidation.text || '';
+  const corrected = correctionResult.corrected_text || original;
+  const changes = correctionResult.changes || [];
+  const changeCount = correctionResult.changes_made || changes.length;
+
+  body.innerHTML = `
+    <div style="margin-bottom: 1.5rem;">
+      <h3 style="margin-bottom: 0.5rem;">Document Comparison</h3>
+      <p style="color: #64748b; font-size: 0.875rem;">${changeCount} correction${changeCount !== 1 ? 's' : ''} applied</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+      <div>
+        <h4 style="margin-bottom: 0.75rem; color: #ef4444;">Original Document</h4>
+        <div style="background: #ffffff; border: 2px solid #ef4444; border-radius: 0.5rem; padding: 1rem; max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; color: #1e293b;">${escapeHtml(original)}</div>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 0.75rem; color: #10b981;">Corrected Document</h4>
+        <div style="background: #ffffff; border: 2px solid #10b981; border-radius: 0.5rem; padding: 1rem; max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; color: #1e293b;">${highlightChanges(corrected, changes)}</div>
+        <button id="copy-corrected-btn" class="btn btn--secondary" style="margin-top: 0.75rem;">Copy Corrected Text</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <h4 style="margin-bottom: 0.75rem;">Changes Applied</h4>
+      ${renderChanges(changes)}
+    </div>
+
+    <div style="text-align: center; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+      <button id="back-to-validation-btn" class="btn btn--secondary">Back to Validation Results</button>
+    </div>
+  `;
+
+  // Bind buttons
+  document.getElementById('copy-corrected-btn')?.addEventListener('click', () => {
+    navigator.clipboard.writeText(corrected);
+    showToast('Corrected text copied to clipboard', 'success', 'Copied');
+  });
+
+  document.getElementById('back-to-validation-btn')?.addEventListener('click', () => {
+    displayDocumentResult(state.lastValidation.result);
+  });
+}
+
+function highlightChanges(text, changes) {
+  // No inline highlighting - just show corrected text cleanly
+  return escapeHtml(text);
+}
+
+function renderChanges(changes) {
+  if (!changes || !changes.length) {
+    return '<p class="empty">No specific changes tracked</p>';
+  }
+
+  return `
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;">
+      ${changes.map((change, idx) => `
+        <div style="margin-bottom: ${idx < changes.length - 1 ? '1rem' : '0'}; padding-bottom: ${idx < changes.length - 1 ? '1rem' : '0'}; border-bottom: ${idx < changes.length - 1 ? '1px solid #e2e8f0' : 'none'};">
+          <div style="font-weight: 600; margin-bottom: 0.25rem; color: #1e293b;">${escapeHtml(change.type || 'Correction')}</div>
+          ${change.before ? `<div style="color: #ef4444; font-size: 0.875rem;"><strong>Before:</strong> ${escapeHtml(change.before)}</div>` : ''}
+          ${change.after ? `<div style="color: #10b981; font-size: 0.875rem;"><strong>After:</strong> ${escapeHtml(change.after)}</div>` : ''}
+          ${change.reason ? `<div style="color: #64748b; font-size: 0.875rem; margin-top: 0.25rem;"><em>${escapeHtml(change.reason)}</em></div>` : ''}
+        </div>
+      `).join('')}
     </div>
   `;
 }
