@@ -86,10 +86,8 @@ def health():
 
         return jsonify(health_data)
     except Exception as e:
-        import traceback
-        trace = traceback.format_exc()
-        print('Health check failed:', trace)
-        return jsonify({'error': str(e), 'trace': trace}), 500
+        print('Health check failed:', repr(e))
+        return jsonify(sanitize_error(e)), 500
 
 
 @app.route('/v1/messages', methods=['POST'])
