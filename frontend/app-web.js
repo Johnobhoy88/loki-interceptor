@@ -1,5 +1,5 @@
 // Dynamic backend URL getter - fetches from api.txt every time
-const REMOTE_API_BASE = 'https://loki-interceptor-5hqwbuvs4-john-s-projects-2735c2d1.vercel.app';
+const REMOTE_API_BASE = 'https://loki-interceptor.vercel.app';
 
 async function getBackendUrl() {
   try {

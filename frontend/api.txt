@@ -1,1 +1,1 @@
-https://loki-interceptor-5hqwbuvs4-john-s-projects-2735c2d1.vercel.app
+https://loki-interceptor.vercel.app
