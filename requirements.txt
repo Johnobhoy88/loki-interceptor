@@ -1,7 +1,7 @@
 Flask
 Flask-Cors
 requests
-vercel-python
+vercel-wsgi
 anthropic
 openai
 google-generativeai
