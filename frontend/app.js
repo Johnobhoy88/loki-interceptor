@@ -13,8 +13,6 @@ const state = {
   stats: { validated: 0, warnings: 0, blocked: 0 },
   analyticsWindow: 30,
   analytics: { loading: false, overview: null, trends: null, modules: null, error: null },
-  realtime: { loading: false, error: null, summary: null, fetchedAt: null },
-  realtimeTimer: null,
   lastValidation: { text: null, result: null }  // Store for correction feature
 };
 
@@ -102,7 +100,6 @@ function bindActions() {
   document.getElementById('analytics-window')?.addEventListener('change', evt => {
     state.analyticsWindow = Number(evt.target.value) || 30;
     loadAnalytics(true);
-    loadRealtimeAnalytics(true);
   });
 }
 
@@ -215,12 +212,7 @@ function switchView(view) {
   document.querySelectorAll('.view').forEach(section => {
     section.classList.toggle('view--active', section.id === `view-${view}`);
   });
-  if (view === 'analytics') {
-    loadAnalytics();
-    startRealtimeAnalytics();
-  } else {
-    stopRealtimeAnalytics();
-  }
+  if (view === 'analytics') loadAnalytics();
 }
 
 async function saveApiKey() {
@@ -520,94 +512,6 @@ function formatDate(date) {
   }
 }
 
-function formatNumber(value, options = {}) {
-  try {
-    return Number(value || 0).toLocaleString(undefined, options);
-  } catch {
-    return String(value || 0);
-  }
-}
-
-function startRealtimeAnalytics() {
-  if (state.realtimeTimer) return;
-  loadRealtimeAnalytics(true);
-  state.realtimeTimer = setInterval(() => loadRealtimeAnalytics(), 30000);
-}
-
-function stopRealtimeAnalytics() {
-  if (state.realtimeTimer) {
-    clearInterval(state.realtimeTimer);
-    state.realtimeTimer = null;
-  }
-}
-
-async function loadRealtimeAnalytics(force = false) {
-  if (!force && state.realtime.loading) return;
-  const panel = document.getElementById('analytics-realtime');
-  if (!panel) return;
-
-  state.realtime.loading = true;
-  renderRealtimeAnalytics();
-
-  try {
-    const res = await fetch(`${API_BASE}/analytics/summary`);
-    const payload = await res.json();
-    if (!res.ok) {
-      throw new Error(payload?.message || payload?.error || `HTTP ${res.status}`);
-    }
-    state.realtime = {
-      loading: false,
-      error: null,
-      summary: payload,
-      fetchedAt: Date.now()
-    };
-  } catch (error) {
-    state.realtime.loading = false;
-    state.realtime.error = error?.message || 'Real-time analytics unavailable';
-  }
-
-  renderRealtimeAnalytics();
-}
-
-function renderRealtimeAnalytics() {
-  const panel = document.getElementById('analytics-realtime');
-  if (!panel) return;
-
-  const { loading, error, summary, fetchedAt } = state.realtime;
-
-  if (loading) {
-    panel.innerHTML = '<p class="empty">Loading…</p>';
-    return;
-  }
-  if (error) {
-    panel.innerHTML = `<p class=\"empty\">${escapeHtml(error)}</p>`;
-    return;
-  }
-  if (!summary) {
-    panel.innerHTML = '<p class="empty">No usage data available.</p>';
-    return;
-  }
-
-  const updated = fetchedAt ? formatDate(new Date(fetchedAt)) : 'Just now';
-  const totalRequests = summary.totalRequests || 0;
-  const latencyP95 = summary.latencyP95 || 0;
-  let errorRate = summary.errorRate || 0;
-  if (typeof errorRate === 'number' && errorRate > 0 && errorRate <= 1) {
-    errorRate = errorRate * 100;
-  }
-
-  panel.innerHTML = `
-    <div class="stats-grid">
-      ${analyticsCard('Requests (24h)', totalRequests)}
-      ${analyticsCard('Latency p95', latencyP95, { suffix: ' ms', numberOptions: { maximumFractionDigits: 0 } })}
-      ${analyticsCard('Error rate', errorRate, { suffix: ' %', numberOptions: { maximumFractionDigits: 2 } })}
-      ${analyticsCard('4xx Errors', summary.error4xx || 0)}
-      ${analyticsCard('5xx Errors', summary.error5xx || 0)}
-    </div>
-    <p class="meta" style="margin-top: 0.75rem; color: #64748b; font-size: 0.85rem;">Refreshed ${escapeHtml(updated)}</p>
-  `;
-}
-
 async function loadAnalytics(force = false) {
   if (!force && state.analytics.overview) return renderAnalytics();
   state.analytics.loading = true;
@@ -701,22 +605,12 @@ function renderAnalytics() {
   `).join('') : '<p class="empty">No recent cases.</p>';
 }
 
-function analyticsCard(label, value, options = {}) {
-  const { suffix = '', numberOptions, formatter } = options;
-  let display;
-  if (typeof formatter === 'function') {
-    display = formatter(value);
-  } else if (typeof value === 'number' && !Number.isNaN(value)) {
-    display = formatNumber(value, numberOptions);
-  } else {
-    display = escapeHtml(String(value ?? ''));
-  }
-  const text = suffix ? `${display}${suffix}` : display;
+function analyticsCard(label, value) {
   return `
     <div class="module-chip module-chip--overview">
       <div class="module-chip__body">
         <span class="module-chip__title">${escapeHtml(label)}</span>
-        <span class="module-chip__meta">${text}</span>
+        <span class="module-chip__meta">${Number(value || 0).toLocaleString()}</span>
       </div>
     </div>
   `;

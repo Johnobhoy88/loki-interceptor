@@ -13,15 +13,6 @@ from core.corrector import DocumentCorrector  # NEW: Document correction engine
 
 app = Flask(__name__)
 
-# Register optional blueprints (placed after app creation to avoid circular imports)
-try:
-    from routes.analytics import bp as analytics_blueprint  # type: ignore
-
-    app.register_blueprint(analytics_blueprint)
-except Exception:
-    # If analytics blueprint fails (e.g., during local dev without file) continue gracefully
-    pass
-
 # CORS - allow Cloudflare tunnel access
 CORS(app, origins=['http://localhost:*', 'http://127.0.0.1:*', 'file://*', 'https://*.trycloudflare.com'])
 
