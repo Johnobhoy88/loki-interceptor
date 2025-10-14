@@ -1,1 +1,1 @@
-https://loki-interceptor.vercel.app
+https://loki-interceptor.vercel.app/api

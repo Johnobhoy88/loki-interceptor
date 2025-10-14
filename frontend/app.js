@@ -1,6 +1,6 @@
 // Auto-detect API base: if accessed remotely (not localhost), use same origin
 // EXPERIMENTAL V2 - PORT 5002
-const REMOTE_API_BASE = 'https://loki-interceptor.vercel.app';
+const REMOTE_API_BASE = 'https://loki-interceptor.vercel.app/api';
 
 const API_BASE = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? 'http://127.0.0.1:5002'  // Local development or Electron app - EXPERIMENTAL PORT
