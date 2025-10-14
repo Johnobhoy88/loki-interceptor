@@ -86,6 +86,7 @@ def health():
 
         return jsonify(health_data)
     except Exception as e:
+        print('Health check failed:', repr(e))
         return jsonify(sanitize_error(e)), 500
 
 
