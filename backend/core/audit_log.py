@@ -7,6 +7,7 @@ from __future__ import annotations
 import json
 import sqlite3
 import hashlib
+import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
@@ -16,9 +17,18 @@ class AuditLogger:
     """SQLite-based audit log for validation requests."""
 
     def __init__(self, db_path: str = 'data/audit.db') -> None:
-        self.db_path = Path(db_path)
-        self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        self._init_db()
+        override = os.environ.get('AUDIT_DB_PATH')
+        if not override and os.environ.get('VERCEL'):
+            override = '/tmp/audit.db'
+        self.db_path = Path(override or db_path)
+        self.disabled = False
+        try:
+            self.db_path.parent.mkdir(parents=True, exist_ok=True)
+            self._init_db()
+        except Exception as exc:
+            # In read-only environments (e.g. Vercel), fall back to disabled mode
+            print(f'AuditLogger disabled: {exc}')
+            self.disabled = True
 
     # ---------------------------------------------------------------------
     # Internal helpers
@@ -29,6 +39,8 @@ class AuditLogger:
         return conn
 
     def _init_db(self) -> None:
+        if self.disabled:
+            return 0
         conn = self._connect()
         cursor = conn.cursor()
 
@@ -206,6 +218,8 @@ class AuditLogger:
     # Retrieval APIs used by endpoints
     # ------------------------------------------------------------------
     def get_recent_entries(self, limit: int = 100) -> List[Dict[str, Any]]:
+        if self.disabled:
+            return []
         conn = self._connect()
         cursor = conn.cursor()
         cursor.execute('''
@@ -232,6 +246,12 @@ class AuditLogger:
         ]
 
     def get_stats(self, since: Optional[str] = None) -> Dict[str, Any]:
+        if self.disabled:
+            return {
+                'total_validations': 0,
+                'risk_breakdown': {'critical': 0, 'high': 0, 'low': 0},
+                'total_issues': {'critical': 0, 'high': 0},
+            }
         conn = self._connect()
         cursor = conn.cursor()
 
@@ -270,6 +290,8 @@ class AuditLogger:
         }
 
     def search_by_document_hash(self, document_hash: str) -> List[Dict[str, Any]]:
+        if self.disabled:
+            return []
         conn = self._connect()
         cursor = conn.cursor()
         cursor.execute('''
@@ -295,6 +317,15 @@ class AuditLogger:
     # Analytics helpers
     # ------------------------------------------------------------------
     def get_overview(self, window_days: int = 30) -> Dict[str, Any]:
+        if self.disabled:
+            return {
+                'window_days': window_days,
+                'stats': self.get_stats(),
+                'module_performance': [],
+                'top_gates': [],
+                'universal_alerts': [],
+                'recent_activity': [],
+            }
         window_days = max(1, min(int(window_days or 30), 365))
         since_dt = datetime.utcnow() - timedelta(days=window_days)
         since = since_dt.isoformat()
@@ -310,6 +341,8 @@ class AuditLogger:
         }
 
     def get_module_performance(self, since: Optional[str] = None) -> List[Dict[str, Any]]:
+        if self.disabled:
+            return []
         conn = self._connect()
         cursor = conn.cursor()
 
@@ -349,6 +382,8 @@ class AuditLogger:
         ]
 
     def get_top_gate_failures(self, since: Optional[str] = None, limit: int = 5) -> List[Dict[str, Any]]:
+        if self.disabled:
+            return []
         conn = self._connect()
         cursor = conn.cursor()
 
@@ -388,6 +423,8 @@ class AuditLogger:
         return top
 
     def get_universal_alerts(self, since: Optional[str] = None, limit: int = 5) -> List[Dict[str, Any]]:
+        if self.disabled:
+            return []
         conn = self._connect()
         cursor = conn.cursor()
 
@@ -422,6 +459,8 @@ class AuditLogger:
         ]
 
     def get_risk_trends(self, days: int = 30) -> Dict[str, Any]:
+        if self.disabled:
+            return {'window_days': days, 'timeline': []}
         days = max(1, min(int(days or 30), 365))
         since_dt = datetime.utcnow() - timedelta(days=days)
         since = since_dt.isoformat()
