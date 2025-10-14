@@ -1,10 +1,13 @@
 {
   "version": 2,
   "builds": [
-    { "src": "frontend/**", "use": "@vercel/static" }
+    { "src": "frontend/pages/*.html", "use": "@vercel/static" },
+    { "src": "frontend/app.html", "use": "@vercel/static" },
+    { "src": "frontend/index.html", "use": "@vercel/static" },
+    { "src": "frontend/style.css", "use": "@vercel/static" },
+    { "src": "frontend/app.js", "use": "@vercel/static" }
   ],
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "frontend/index.html" }
+    { "src": "/(.*)", "dest": "frontend/app.html" }
   ]
 }
