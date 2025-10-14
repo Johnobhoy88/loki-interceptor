@@ -87,7 +87,7 @@ def health():
         return jsonify(health_data)
     except Exception as e:
         print('Health check failed:', repr(e))
-        return jsonify(sanitize_error(e)), 500
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/v1/messages', methods=['POST'])
