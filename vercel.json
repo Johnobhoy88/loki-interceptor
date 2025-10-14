@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "functions": {
-    "api/**/*.py": {
-      "runtime": "python3.11"
-    }
-  },
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.py" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "frontend/index.html" }
+    { "src": "/(.*)\\.(css|js|png|jpg|svg|ico|txt|map)", "dest": "/frontend/$1.$2" },
+    { "src": "/(.*)", "dest": "/frontend/index.html" }
   ]
 }
