@@ -63,6 +63,7 @@ def serve_static(path):
 
 
 @app.route('/health', methods=['GET'])
+@app.route('/api/health', methods=['GET'])
 @rate_limit(rate_limiter)
 def health():
     """Enhanced health check with module validation"""
@@ -89,6 +90,7 @@ def health():
 
 
 @app.route('/v1/messages', methods=['POST'])
+@app.route('/api/v1/messages', methods=['POST'])
 @rate_limit(rate_limiter)
 def proxy_messages():
     try:
@@ -115,6 +117,7 @@ def proxy_messages():
 
 
 @app.route('/modules', methods=['GET'])
+@app.route('/api/modules', methods=['GET'])
 @rate_limit(rate_limiter)
 def list_modules():
     """Return module catalog with dynamic introspection"""
@@ -140,6 +143,7 @@ def list_modules():
 
 
 @app.route('/validate-document', methods=['POST'])
+@app.route('/api/validate-document', methods=['POST'])
 @cross_origin(origins="*")
 @rate_limit(rate_limiter)
 def validate_document():
@@ -199,6 +203,7 @@ def validate_document():
 
 
 @app.route('/proxy', methods=['POST'])
+@app.route('/api/proxy', methods=['POST'])
 @rate_limit(rate_limiter)
 def universal_proxy():
     try:
@@ -241,6 +246,7 @@ def universal_proxy():
 
 
 @app.route('/test-provider', methods=['POST'])
+@app.route('/api/test-provider', methods=['POST'])
 @rate_limit(rate_limiter)
 def test_provider():
     data = request.json or {}
@@ -281,6 +287,7 @@ def test_provider():
 
 # New endpoint: Audit stats
 @app.route('/audit/stats', methods=['GET'])
+@app.route('/api/audit/stats', methods=['GET'])
 @rate_limit(rate_limiter)
 def audit_stats():
     """Get audit log statistics"""
@@ -294,6 +301,7 @@ def audit_stats():
 
 # Analytics endpoints
 @app.route('/analytics/overview', methods=['GET'])
+@app.route('/api/analytics/overview', methods=['GET'])
 @rate_limit(rate_limiter)
 def analytics_overview():
     try:
@@ -307,6 +315,7 @@ def analytics_overview():
 
 
 @app.route('/analytics/trends', methods=['GET'])
+@app.route('/api/analytics/trends', methods=['GET'])
 @rate_limit(rate_limiter)
 def analytics_trends():
     try:
@@ -320,6 +329,7 @@ def analytics_trends():
 
 
 @app.route('/analytics/modules', methods=['GET'])
+@app.route('/api/analytics/modules', methods=['GET'])
 @rate_limit(rate_limiter)
 def analytics_modules():
     try:
@@ -342,6 +352,7 @@ def analytics_modules():
 
 # New endpoint: Cache management
 @app.route('/cache/stats', methods=['GET'])
+@app.route('/api/cache/stats', methods=['GET'])
 @rate_limit(rate_limiter)
 def cache_stats():
     """Get cache statistics"""
@@ -353,6 +364,7 @@ def cache_stats():
 
 
 @app.route('/cache/clear', methods=['POST'])
+@app.route('/api/cache/clear', methods=['POST'])
 @rate_limit(rate_limiter)
 def clear_cache():
     """Clear validation cache"""
@@ -365,6 +377,7 @@ def clear_cache():
 
 # New endpoint: Gate registry
 @app.route('/gates', methods=['GET'])
+@app.route('/api/gates', methods=['GET'])
 @rate_limit(rate_limiter)
 def list_gates():
     """List all registered gates with version information"""
@@ -397,6 +410,7 @@ def list_gates():
 
 
 @app.route('/gates/deprecated', methods=['GET'])
+@app.route('/api/gates/deprecated', methods=['GET'])
 @rate_limit(rate_limiter)
 def list_deprecated_gates():
     """List all deprecated gates"""
@@ -417,6 +431,7 @@ def list_deprecated_gates():
 
 # NEW ENDPOINT: Document Correction
 @app.route('/correct-document', methods=['POST'])
+@app.route('/api/correct-document', methods=['POST'])
 @cross_origin(origins="*")
 @rate_limit(rate_limiter)
 def correct_document():
