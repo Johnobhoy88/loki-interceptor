@@ -117,18 +117,39 @@ async function hydrateBackendStatus() {
     }
 
     // Fallback: Check backend health endpoint directly (for remote/browser access)
-    const res = await fetch(`${API_BASE}/health`, {
+    const probe = await fetch(`${API_BASE}/health`, {
       method: 'GET',
+      credentials: 'include',
+      cache: 'no-store',
       signal: AbortSignal.timeout(5000)  // 5 second timeout
     });
 
-    if (res.ok) {
+    if (probe.ok) {
       pill.textContent = 'ONLINE';
       pill.classList.remove('offline');
-    } else {
-      pill.textContent = 'OFFLINE';
-      pill.classList.add('offline');
+      return;
     }
+
+    if (probe.status === 429) {
+      const challengeToken = probe.headers.get('x-vercel-challenge-token');
+      if (challengeToken) {
+        const challenge = await fetch(`${API_BASE}/health`, {
+          method: 'GET',
+          headers: { 'x-vercel-challenge': challengeToken },
+          credentials: 'include',
+          cache: 'no-store',
+          signal: AbortSignal.timeout(5000)
+        });
+        if (challenge.ok) {
+          pill.textContent = 'ONLINE';
+          pill.classList.remove('offline');
+          return;
+        }
+      }
+    }
+
+    pill.textContent = 'OFFLINE';
+    pill.classList.add('offline');
   } catch {
     pill.textContent = 'OFFLINE';
     pill.classList.add('offline');
