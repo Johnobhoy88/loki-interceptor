@@ -3,6 +3,6 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.py" },
     { "src": "/(.*)\\.(css|js|png|jpg|svg|ico|txt|map)", "dest": "/frontend/$1.$2" },
-    { "src": "/(.*)", "dest": "/frontend/index.html" }
+    { "src": "/(.*)", "dest": "/api/index.py" }
   ]
 }
