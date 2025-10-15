@@ -18,6 +18,8 @@ const state = {
 
 // Toggle experimental auto-correction feature
 const ENABLE_CORRECTIONS = false;
+let lastHandshakeAt = 0;
+const HANDSHAKE_TTL_MS = 60_000;
 
 // Professional Toast Notification System
 function showToast(message, type = 'info', title = null) {
@@ -109,33 +111,66 @@ function bindActions() {
 async function hydrateBackendStatus() {
   const pill = document.getElementById('backend-status');
   if (!pill) return;
+
+  const setStatus = (isOnline) => {
+    pill.textContent = isOnline ? 'ONLINE' : 'OFFLINE';
+    pill.classList.toggle('offline', !isOnline);
+  };
+
   try {
     // Try Electron API first (for local app)
     if (window.electronAPI?.getBackendStatus) {
       const status = await window.electronAPI.getBackendStatus();
       if (status?.online) {
-        pill.textContent = 'ONLINE';
-        pill.classList.remove('offline');
+        setStatus(true);
         return;
       }
     }
 
     // Fallback: Check backend health endpoint directly (for remote/browser access)
-    const res = await fetch(`${API_BASE}/health`, {
+    let res = await fetch(`${API_BASE}/health`, {
       method: 'GET',
+      cache: 'no-store',
+      headers: {
+        'x-loki-health-check': Date.now().toString()
+      },
       signal: AbortSignal.timeout(5000)  // 5 second timeout
     });
 
-    if (res.ok) {
-      pill.textContent = 'ONLINE';
-      pill.classList.remove('offline');
-    } else {
-      pill.textContent = 'OFFLINE';
-      pill.classList.add('offline');
+    if (!res.ok && shouldAttemptHandshake(res.status)) {
+      const handshook = await performDeploymentHandshake(true);
+      if (handshook) {
+        res = await fetch(`${API_BASE}/health`, {
+          method: 'GET',
+          cache: 'no-store',
+          headers: {
+            'x-loki-health-check': `${Date.now()}-retry`
+          },
+          signal: AbortSignal.timeout(5000)
+        });
+      }
     }
+
+    setStatus(res.ok);
   } catch {
-    pill.textContent = 'OFFLINE';
-    pill.classList.add('offline');
+    const recovered = await performDeploymentHandshake();
+    if (recovered) {
+      try {
+        const retry = await fetch(`${API_BASE}/health`, {
+          method: 'GET',
+          cache: 'no-store',
+          headers: {
+            'x-loki-health-check': `${Date.now()}-fallback`
+          },
+          signal: AbortSignal.timeout(5000)
+        });
+        setStatus(retry.ok);
+        return;
+      } catch {
+        // ignore secondary failure
+      }
+    }
+    setStatus(false);
   }
 }
 
@@ -619,6 +654,34 @@ function analyticsCard(label, value) {
       </div>
     </div>
   `;
+}
+
+function shouldAttemptHandshake(status) {
+  return status === 403 || status === 429 || status === 503;
+}
+
+async function performDeploymentHandshake(force = false) {
+  const now = Date.now();
+  if (!force && now - lastHandshakeAt < HANDSHAKE_TTL_MS) {
+    return true;
+  }
+
+  try {
+    const res = await fetch('/', {
+      method: 'GET',
+      cache: 'no-store',
+      credentials: 'same-origin',
+      headers: { 'x-loki-handshake': now.toString() }
+    });
+    if (res.ok) {
+      lastHandshakeAt = now;
+      return true;
+    }
+  } catch {
+    // ignore handshake failures
+  }
+
+  return false;
 }
 
 // === DOCUMENT CORRECTION FEATURE ===
