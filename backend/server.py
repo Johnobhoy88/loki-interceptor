@@ -11,6 +11,7 @@ from core.audit_log import AuditLogger
 from core.cache import ValidationCache
 from core.gate_registry import gate_registry
 from core.corrector import DocumentCorrector  # NEW: Document correction engine
+from core.aggregator import MultiModelAggregator
 
 app = Flask(__name__)
 
@@ -39,6 +40,7 @@ openai_interceptor = OpenAIInterceptor(engine)
 gemini_interceptor = GeminiInterceptor(engine)
 provider_router = ProviderRouter()
 corrector = DocumentCorrector()  # NEW: Initialize corrector
+aggregator = MultiModelAggregator(engine, provider_router)
 
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR.parent / 'frontend'
@@ -360,6 +362,34 @@ def universal_proxy():
         else:
             return jsonify(sanitize_error('Unsupported provider')), 400
 
+    except Exception as e:
+        return jsonify(sanitize_error(e)), 500
+
+
+@app.route('/aggregate', methods=['POST'])
+@app.route('/api/aggregate', methods=['POST'])
+@cross_origin(origins="*")
+@rate_limit(rate_limiter)
+def aggregate_responses():
+    try:
+        data = request.json or {}
+        prompt = data.get('prompt')
+        providers = data.get('providers') or []
+        modules = data.get('modules')
+        max_tokens = data.get('max_tokens') or 1024
+
+        if not prompt:
+            return jsonify(sanitize_error('Missing prompt')), 400
+        if not isinstance(providers, list) or not providers:
+            return jsonify(sanitize_error('At least one provider specification is required')), 400
+
+        result = aggregator.aggregate(
+            prompt=prompt,
+            provider_specs=providers,
+            modules=modules,
+            max_tokens=max_tokens
+        )
+        return jsonify(result), 200
     except Exception as e:
         return jsonify(sanitize_error(e)), 500
 
