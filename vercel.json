@@ -2,6 +2,8 @@
   "version": 2,
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.py" },
+    { "src": "/$", "dest": "/api/index.py" },
+    { "src": "/index.html", "dest": "/api/index.py" },
     { "src": "/(.*)\\.(css|js|png|jpg|svg|ico|txt|map)", "dest": "/frontend/$1.$2" },
     { "src": "/(.*)", "dest": "/frontend/index.html" }
   ]
