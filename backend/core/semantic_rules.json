@@ -1,0 +1,775 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Deterministic semantic augmentation for compliance gates"
+  },
+  "modules": {
+    "fca_uk": {
+      "synonyms": {
+        "guaranteed return": [
+          "assured return",
+          "certain return",
+          "secure return",
+          "guaranteed yield",
+          "guaranteed income",
+          "assured profits",
+          "principal protected",
+          "capital guarantee",
+          "secure income"
+        ],
+        "risk free": [
+          "risk-free",
+          "without risk",
+          "zero risk",
+          "no risk",
+          "risk neutral",
+          "zero-loss",
+          "loss-free",
+          "fully protected"
+        ],
+        "capital at risk": [
+          "your capital is at risk",
+          "capital may be at risk",
+          "capital is subject to risk"
+        ],
+        "risk warning": [
+          "important risk information",
+          "key risk warning",
+          "risk factors",
+          "essential risk warning",
+          "key risk disclosure",
+          "primary risk notice"
+        ],
+        "approval statement": [
+          "approved by",
+          "authorised by",
+          "authorised representative",
+          "compliance approval"
+        ],
+        "target market": [
+          "intended for",
+          "target audience",
+          "suitable customer segment",
+          "intended customer profile",
+          "eligible investors"
+        ],
+        "complaints contact": [
+          "complaints team",
+          "financial ombudsman",
+          "FOS",
+          "complaints escalation",
+          "financial ombudsman service",
+          "FOS helpline",
+          "complaints escalation team"
+        ],
+        "fees disclosure": [
+          "all charges",
+          "fees and charges",
+          "pricing breakdown"
+        ],
+        "vulnerable customer": [
+          "customers with additional needs",
+          "vulnerable clients"
+        ],
+        "distribution control": [
+          "channel controls",
+          "distribution oversight",
+          "sales governance"
+        ],
+        "capital protection": [
+          "protected capital",
+          "capital safeguard",
+          "principal guarantee"
+        ],
+        "generic_all_targeting": [
+          "for everyone",
+          "for any investor",
+          "for all investors",
+          "open to everyone",
+          "open to any investor",
+          "ideal for any investor",
+          "suitable for all",
+          "any investor regardless",
+          "available to everyone",
+          "any customer regardless"
+        ]
+      },
+      "headers": {
+        "risk": [
+          "risk warning",
+          "key risks",
+          "important information",
+          "risk factors"
+        ],
+        "approval": [
+          "compliance approval",
+          "sign-off",
+          "authorisation"
+        ],
+        "target": [
+          "target market",
+          "intended audience",
+          "who this is for"
+        ],
+        "complaints": [
+          "complaints",
+          "contact us",
+          "dispute resolution"
+        ]
+      },
+      "gates": {
+        "fair_clear_not_misleading": {
+          "fail_if_present": {
+            "guaranteed return": {
+              "severity": "critical",
+              "message": "Promotion promises guaranteed outcomes via synonym mapping."
+            },
+            "risk free": {
+              "severity": "critical",
+              "message": "Promotion markets the product as risk free via synonym mapping."
+            }
+          },
+          "require_one_of": {
+            "risk_warning": {
+              "phrases": [
+                "capital at risk",
+                "risk warning"
+              ],
+              "severity": "critical",
+              "message": "Missing balanced risk warning after semantic expansion.",
+              "header": "risk",
+              "human_review": true
+            }
+          }
+        },
+        "promotions_approval": {
+          "require_one_of": {
+            "approval": {
+              "phrases": [
+                "approval statement"
+              ],
+              "severity": "high",
+              "message": "Promotion lacks FCA approval statement after semantic expansion.",
+              "header": "approval",
+              "human_review": true
+            }
+          }
+        },
+        "target_audience": {
+          "require_one_of": {
+            "target_market": {
+              "phrases": [
+                "target market"
+              ],
+              "severity": "high",
+              "message": "Target market wording missing after semantic expansion.",
+              "header": "target",
+              "human_review": true
+            }
+          },
+          "fail_if_present": {
+            "generic_all_targeting": {
+              "severity": "high",
+              "message": "Generic \"for everyone\" targeting detected via semantic mapping.",
+              "human_review": true
+            }
+          }
+        },
+        "complaint_route_clock": {
+          "require_one_of": {
+            "complaints": {
+              "phrases": [
+                "complaints contact"
+              ],
+              "severity": "high",
+              "message": "Complaints escalation wording missing after semantic expansion.",
+              "header": "complaints",
+              "human_review": true
+            }
+          }
+        },
+        "fair_value": {
+          "require_one_of": {
+            "fees": {
+              "phrases": [
+                "fees disclosure"
+              ],
+              "severity": "high",
+              "message": "Fair value assessment lacks explicit fees disclosure.",
+              "header": null,
+              "human_review": true
+            }
+          }
+        },
+        "vulnerability_identification": {
+          "require_one_of": {
+            "vulnerable_customer": {
+              "phrases": [
+                "vulnerable customer"
+              ],
+              "severity": "high",
+              "message": "Vulnerable customer handling not referenced after semantic expansion.",
+              "header": null
+            }
+          }
+        },
+        "distribution_controls": {
+          "require_one_of": {
+            "distribution control": {
+              "phrases": [
+                "distribution control"
+              ],
+              "severity": "high",
+              "message": "Distribution control wording missing after semantic expansion.",
+              "header": null
+            }
+          }
+        }
+      }
+    },
+    "gdpr_uk": {
+      "synonyms": {
+        "lawful basis": [
+          "legal basis",
+          "lawful grounds",
+          "legal grounds",
+          "processing grounds",
+          "legal justification"
+        ],
+        "data retention": [
+          "retention period",
+          "how long we keep",
+          "storage period",
+          "data storage duration",
+          "retention schedule"
+        ],
+        "data subject rights": [
+          "your rights",
+          "individual rights",
+          "data rights",
+          "exercise your rights",
+          "individual privacy rights"
+        ],
+        "data transfer safeguard": [
+          "standard contractual clauses",
+          "SCC",
+          "UK addendum",
+          "IDTA",
+          "adequacy decision",
+          "binding corporate rules",
+          "BCRs",
+          "UK IDTA"
+        ],
+        "dpo contact": [
+          "data protection officer",
+          "privacy officer",
+          "DPO",
+          "privacy office",
+          "data protection team"
+        ],
+        "withdraw consent": [
+          "withdraw your consent",
+          "opt out",
+          "revoke consent",
+          "withdraw your permission",
+          "remove your consent"
+        ],
+        "purpose limitation": [
+          "we use your data for",
+          "processing purpose"
+        ],
+        "security measure": [
+          "technical measures",
+          "organisational measures",
+          "protect your data",
+          "security controls",
+          "safeguards to protect your data"
+        ]
+      },
+      "headers": {
+        "privacy": [
+          "privacy",
+          "data protection",
+          "your data"
+        ],
+        "rights": [
+          "your rights",
+          "data subject rights"
+        ],
+        "retention": [
+          "data retention",
+          "how long"
+        ],
+        "transfers": [
+          "international transfers",
+          "overseas transfers"
+        ],
+        "lawful_basis": [
+          "lawful basis",
+          "legal basis"
+        ]
+      },
+      "gates": {
+        "lawful_basis": {
+          "require_one_of": {
+            "lawful_basis": {
+              "phrases": [
+                "lawful basis"
+              ],
+              "severity": "critical",
+              "message": "Lawful basis missing after semantic expansion.",
+              "header": "lawful_basis"
+            }
+          }
+        },
+        "purpose": {
+          "require_one_of": {
+            "purpose limitation": {
+              "phrases": [
+                "purpose limitation"
+              ],
+              "severity": "high",
+              "message": "Processing purpose missing after semantic expansion.",
+              "header": "privacy"
+            }
+          }
+        },
+        "retention": {
+          "require_one_of": {
+            "data retention": {
+              "phrases": [
+                "data retention"
+              ],
+              "severity": "critical",
+              "message": "Retention period not stated after semantic expansion.",
+              "header": "retention"
+            }
+          }
+        },
+        "rights": {
+          "require_one_of": {
+            "data subject rights": {
+              "phrases": [
+                "data subject rights"
+              ],
+              "severity": "critical",
+              "message": "Data subject rights section missing after semantic expansion.",
+              "header": "rights"
+            }
+          }
+        },
+        "international_transfer": {
+          "require_one_of": {
+            "data transfer safeguard": {
+              "phrases": [
+                "data transfer safeguard"
+              ],
+              "severity": "critical",
+              "message": "Cross-border transfer safeguards missing after semantic expansion.",
+              "header": "transfers"
+            }
+          }
+        },
+        "dpo_contact": {
+          "require_one_of": {
+            "dpo contact": {
+              "phrases": [
+                "dpo contact"
+              ],
+              "severity": "medium",
+              "message": "DPO contact details missing after semantic expansion.",
+              "header": null
+            }
+          }
+        },
+        "withdrawal_consent": {
+          "require_one_of": {
+            "withdraw consent": {
+              "phrases": [
+                "withdraw consent"
+              ],
+              "severity": "medium",
+              "message": "Withdrawal of consent process missing after semantic expansion.",
+              "header": null
+            }
+          }
+        },
+        "security": {
+          "require_one_of": {
+            "security measure": {
+              "phrases": [
+                "security measure"
+              ],
+              "severity": "high",
+              "message": "Security measures not articulated after semantic expansion.",
+              "header": null
+            }
+          }
+        }
+      }
+    },
+    "hr_scottish": {
+      "synonyms": {
+        "acas guidance": [
+          "ACAS code",
+          "ACAS guidance",
+          "advisory conciliation",
+          "ACAS Code of Practice",
+          "ACAS disciplinary code"
+        ],
+        "appeal route": [
+          "appeal process",
+          "appeal to",
+          "right to appeal",
+          "appeal within five working days",
+          "escalate appeal to director"
+        ],
+        "representation": [
+          "chosen companion",
+          "representative",
+          "union representative",
+          "chosen union rep",
+          "named representative"
+        ],
+        "timeline": [
+          "within 5 working days",
+          "timeframe",
+          "deadline",
+          "respond within seven days",
+          "timeline for response"
+        ],
+        "investigation": [
+          "investigation meeting",
+          "fact finding"
+        ],
+        "hearing notice": [
+          "hearing notice",
+          "disciplinary meeting notice"
+        ],
+        "suspension": [
+          "suspended on full pay",
+          "suspension terms"
+        ],
+        "informal threat": [
+          "threat",
+          "intimidation",
+          "coerce"
+        ]
+      },
+      "headers": {
+        "procedure": [
+          "disciplinary procedure",
+          "grievance procedure"
+        ],
+        "appeal": [
+          "appeal",
+          "review"
+        ],
+        "representation": [
+          "representation",
+          "companion"
+        ],
+        "timeline": [
+          "timeline",
+          "timeframe"
+        ]
+      },
+      "gates": {
+        "appeal": {
+          "require_one_of": {
+            "appeal route": {
+              "phrases": [
+                "appeal route"
+              ],
+              "severity": "high",
+              "message": "Appeal route not described after semantic expansion.",
+              "header": "appeal"
+            }
+          }
+        },
+        "representation_choice": {
+          "require_one_of": {
+            "representation": {
+              "phrases": [
+                "representation"
+              ],
+              "severity": "high",
+              "message": "Right to representation absent after semantic expansion.",
+              "header": "representation"
+            }
+          }
+        },
+        "timeframes": {
+          "require_one_of": {
+            "timeline": {
+              "phrases": [
+                "timeline"
+              ],
+              "severity": "high",
+              "message": "Disciplinary timelines missing after semantic expansion.",
+              "header": "timeline"
+            }
+          }
+        },
+        "investigation": {
+          "require_one_of": {
+            "investigation": {
+              "phrases": [
+                "investigation"
+              ],
+              "severity": "high",
+              "message": "Investigation stage not referenced after semantic expansion.",
+              "header": "procedure"
+            }
+          }
+        }
+      }
+    },
+    "tax_uk": {
+      "synonyms": {
+        "vat return deadline": [
+          "submit your vat return",
+          "vat filing deadline",
+          "vat due date",
+          "file your vat return",
+          "submit vat filing",
+          "vat submission deadline"
+        ],
+        "record keeping": [
+          "keep records",
+          "maintain records",
+          "retain invoices",
+          "retain records for six years",
+          "keep VAT records for 6 years",
+          "maintain records for HMRC"
+        ],
+        "hmrc payment": [
+          "pay HMRC",
+          "remit vat",
+          "tax payment"
+        ],
+        "personalised outcome": [
+          "tailored tax outcome",
+          "bespoke tax saving",
+          "guaranteed tax refund",
+          "guaranteed tax rebate",
+          "assured tax saving",
+          "custom tax shelter"
+        ],
+        "threshold": [
+          "registration threshold",
+          "turnover threshold",
+          "VAT registration threshold",
+          "compulsory registration level"
+        ]
+      },
+      "headers": {
+        "vat": [
+          "vat",
+          "value added tax"
+        ],
+        "records": [
+          "records",
+          "record keeping"
+        ],
+        "payments": [
+          "payments",
+          "pay HMRC"
+        ]
+      },
+      "gates": {
+        "vat_threshold": {
+          "require_one_of": {
+            "threshold": {
+              "phrases": [
+                "threshold"
+              ],
+              "severity": "high",
+              "message": "VAT threshold guidance missing after semantic expansion.",
+              "header": "vat"
+            }
+          }
+        },
+        "invoice_legal_requirements": {
+          "require_one_of": {
+            "record keeping": {
+              "phrases": [
+                "record keeping"
+              ],
+              "severity": "high",
+              "message": "VAT record keeping wording missing after semantic expansion.",
+              "header": "records"
+            }
+          }
+        },
+        "tax_deadline_accuracy": {
+          "require_one_of": {
+            "vat return deadline": {
+              "phrases": [
+                "vat return deadline"
+              ],
+              "severity": "critical",
+              "message": "Filing deadline missing after semantic expansion.",
+              "header": "vat"
+            }
+          }
+        },
+        "hmrc_scam_detection": {
+          "fail_if_present": {
+            "personalised outcome": {
+              "severity": "critical",
+              "message": "Document promises personalised or guaranteed tax outcomes flagged by semantic layer."
+            }
+          }
+        }
+      }
+    },
+    "nda_uk": {
+      "synonyms": {
+        "permitted purpose": [
+          "sole purpose",
+          "limited purpose",
+          "evaluation purpose",
+          "exclusive purpose",
+          "defined project purpose"
+        ],
+        "confidential information": [
+          "proprietary information",
+          "sensitive information",
+          "non-public information",
+          "confidential data",
+          "restricted information"
+        ],
+        "confidentiality term": [
+          "confidentiality period",
+          "non-disclosure period",
+          "duration of confidentiality",
+          "confidentiality period of three years",
+          "keep confidential for 36 months"
+        ],
+        "exclusions": [
+          "does not include",
+          "carve out",
+          "excludes",
+          "exceptions include",
+          "excludes information already known"
+        ],
+        "governing law": [
+          "laws of",
+          "governed by",
+          "jurisdiction",
+          "exclusive jurisdiction of",
+          "subject to the laws of"
+        ],
+        "return or destroy": [
+          "return the information",
+          "destroy copies",
+          "return all materials",
+          "destroy all copies",
+          "return or destroy all materials"
+        ],
+        "receiving party": [
+          "recipient",
+          "receiving party",
+          "recipient party"
+        ]
+      },
+      "headers": {
+        "purpose": [
+          "purpose",
+          "scope"
+        ],
+        "confidentiality": [
+          "confidentiality",
+          "confidential information"
+        ],
+        "term": [
+          "term",
+          "duration"
+        ],
+        "law": [
+          "law",
+          "jurisdiction"
+        ],
+        "exclusions": [
+          "exclusions",
+          "exceptions"
+        ]
+      },
+      "gates": {
+        "permitted_purpose": {
+          "require_one_of": {
+            "permitted purpose": {
+              "phrases": [
+                "permitted purpose"
+              ],
+              "severity": "high",
+              "message": "NDA lacks a clear permitted purpose after semantic expansion.",
+              "header": "purpose"
+            }
+          }
+        },
+        "duration_reasonableness": {
+          "require_one_of": {
+            "confidentiality term": {
+              "phrases": [
+                "confidentiality term"
+              ],
+              "severity": "high",
+              "message": "Confidentiality duration missing after semantic expansion.",
+              "header": "term"
+            }
+          }
+        },
+        "public_domain_exclusion": {
+          "require_one_of": {
+            "exclusions": {
+              "phrases": [
+                "exclusions"
+              ],
+              "severity": "high",
+              "message": "NDA missing standard exclusions after semantic expansion.",
+              "header": "exclusions"
+            }
+          }
+        },
+        "prior_knowledge_exclusion": {
+          "require_one_of": {
+            "exclusions": {
+              "phrases": [
+                "exclusions"
+              ],
+              "severity": "high",
+              "message": "NDA missing prior knowledge exclusion after semantic expansion.",
+              "header": "exclusions"
+            }
+          }
+        },
+        "governing_law": {
+          "require_one_of": {
+            "governing law": {
+              "phrases": [
+                "governing law"
+              ],
+              "severity": "medium",
+              "message": "Governing law clause missing after semantic expansion.",
+              "header": "law"
+            }
+          }
+        },
+        "return_destruction": {
+          "require_one_of": {
+            "return or destroy": {
+              "phrases": [
+                "return or destroy"
+              ],
+              "severity": "high",
+              "message": "Return or destruction obligations missing after semantic expansion.",
+              "header": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

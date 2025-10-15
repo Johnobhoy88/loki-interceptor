@@ -10,6 +10,7 @@ from core.universal_detectors import UniversalDetectors
 from analyzers.pii_scanner import scan_pii
 from core.cross_validation import CrossValidator
 from core.gate_registry import gate_registry
+from core.semantic_layer import SemanticLayer
 
 
 class AsyncLOKIEngine:
@@ -27,6 +28,7 @@ class AsyncLOKIEngine:
         self.universal = UniversalDetectors()
         self.cross = CrossValidator()
         self.max_workers = max_workers
+        self.semantic = SemanticLayer()
 
     def load_module(self, module_name):
         """Dynamically import module and register gates"""
@@ -71,7 +73,7 @@ class AsyncLOKIEngine:
                 'message': f'Gate error: {str(e)}'
             })
 
-    def _execute_module_parallel(self, module, text, document_type):
+    def _execute_module_parallel(self, module_name, module, text, document_type):
         """
         Execute all gates in a module in parallel
 
@@ -103,6 +105,10 @@ class AsyncLOKIEngine:
                 gate_name, gate = future_to_gate[future]
                 _, result = future.result()
                 normalized = self._normalize_gate_result(gate_name, gate, result)
+                try:
+                    normalized = self.semantic.post_process(module_name, gate_name, text, normalized)
+                except Exception:
+                    pass
                 results[gate_name] = normalized
 
                 status = normalized.get('status', 'UNKNOWN').upper()
@@ -210,7 +216,7 @@ class AsyncLOKIEngine:
                 try:
                     if module_name in self.modules:
                         module = self.modules[module_name]
-                        gate_results, summary = self._execute_module_parallel(module, text, document_type)
+                        gate_results, summary = self._execute_module_parallel(module_name, module, text, document_type)
                         results['modules'][module_name] = {
                             'name': getattr(module, 'name', module_name.title()),
                             'version': getattr(module, 'version', '1.0.0'),
