@@ -37,6 +37,22 @@ gemini_interceptor = GeminiInterceptor(engine)
 provider_router = ProviderRouter()
 
 
+@app.before_request
+def handle_vercel_challenge():
+    """Short-circuit Vercel bot protection challenge if present on any endpoint."""
+    challenge_token = (
+        request.headers.get('x-vercel-challenge')
+        or request.headers.get('x-vercel-challenge-token')
+    )
+    if not challenge_token:
+        return None
+
+    response = jsonify({'status': 'challenge_ack'})
+    response.headers['x-vercel-challenge'] = challenge_token
+    response.headers['x-vercel-challenge-token'] = challenge_token
+    return response, 200
+
+
 # Error handlers
 @app.errorhandler(413)
 def request_entity_too_large(error):
