@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
+from pathlib import Path
 
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, make_response
 from flask_cors import CORS, cross_origin
 from core.async_engine import AsyncLOKIEngine  # Use async engine for better performance
 from core.interceptor import AnthropicInterceptor, OpenAIInterceptor, GeminiInterceptor
@@ -39,6 +40,115 @@ gemini_interceptor = GeminiInterceptor(engine)
 provider_router = ProviderRouter()
 corrector = DocumentCorrector()  # NEW: Initialize corrector
 
+BASE_DIR = Path(__file__).resolve().parent
+FRONTEND_DIR = BASE_DIR.parent / 'frontend'
+INDEX_FILE = FRONTEND_DIR / 'index.html'
+HANDSHAKE_PATCH = """
+<script>
+(function () {
+  if (window.__lokiHandshakePatch) return;
+  window.__lokiHandshakePatch = true;
+
+  const HANDSHAKE_TTL_MS = 60000;
+  let lastHandshakeAt = 0;
+
+  const setStatus = (online) => {
+    const pill = document.getElementById('backend-status');
+    if (!pill) return;
+    pill.textContent = online ? 'ONLINE' : 'OFFLINE';
+    pill.classList.toggle('offline', !online);
+  };
+
+  const shouldHandshake = (status) => [403, 429, 503].includes(status);
+
+  const performHandshake = async (force = false) => {
+    const now = Date.now();
+    if (!force && now - lastHandshakeAt < HANDSHAKE_TTL_MS) return true;
+    try {
+      const res = await fetch('/', {
+        method: 'GET',
+        cache: 'no-store',
+        credentials: 'same-origin',
+        headers: { 'x-loki-handshake': String(now) }
+      });
+      if (res.ok) {
+        lastHandshakeAt = now;
+        return true;
+      }
+    } catch (err) {
+      console.debug('Handshake fetch failed', err);
+    }
+    return false;
+  };
+
+  const checkBackend = async () => {
+    const origin = window.location.origin;
+    const healthUrl = origin + '/api/health';
+    try {
+      let res = await fetch(healthUrl, {
+        method: 'GET',
+        cache: 'no-store',
+        headers: { 'x-loki-health-check': String(Date.now()) }
+      });
+
+      if (!res.ok && shouldHandshake(res.status)) {
+        const handshook = await performHandshake(true);
+        if (handshook) {
+          res = await fetch(healthUrl, {
+            method: 'GET',
+            cache: 'no-store',
+            headers: { 'x-loki-health-check': String(Date.now()) + '-retry' }
+          });
+        }
+      }
+
+      if (res.ok) {
+        setStatus(true);
+      } else {
+        setStatus(false);
+      }
+    } catch (err) {
+      console.debug('Health check failed', err);
+      const recovered = await performHandshake();
+      if (recovered) {
+        try {
+          const retry = await fetch(healthUrl, {
+            method: 'GET',
+            cache: 'no-store',
+            headers: { 'x-loki-health-check': String(Date.now()) + '-fallback' }
+          });
+          setStatus(retry.ok);
+          return;
+        } catch (innerErr) {
+          console.debug('Fallback health check failed', innerErr);
+        }
+      }
+      setStatus(false);
+    }
+  };
+
+  window.addEventListener('load', () => {
+    const refreshBtn = document.getElementById('refresh-status');
+    if (refreshBtn && !refreshBtn.__lokiPatched) {
+      refreshBtn.__lokiPatched = true;
+      refreshBtn.addEventListener('click', () => {
+        checkBackend();
+      });
+    }
+    checkBackend();
+  });
+})();
+</script>
+"""
+
+
+def inject_handshake(html: str) -> str:
+    if '__lokiHandshakePatch' in html:
+        return html
+    if '</body>' in html:
+        return html.replace('</body>', HANDSHAKE_PATCH + '</body>')
+    return html + HANDSHAKE_PATCH
+
 
 # Error handlers
 @app.errorhandler(413)
@@ -54,7 +164,15 @@ def internal_server_error(error):
 @app.route('/', methods=['GET'])
 def root():
     """Serve the frontend UI"""
-    return send_from_directory('../frontend', 'index.html')
+    try:
+        html = INDEX_FILE.read_text(encoding='utf-8')
+        patched = inject_handshake(html)
+        response = make_response(patched)
+        response.headers['Content-Type'] = 'text/html; charset=utf-8'
+        return response
+    except Exception as exc:
+        print('Failed to serve index with handshake patch:', repr(exc))
+        return send_from_directory('../frontend', 'index.html')
 
 @app.route('/<path:path>', methods=['GET'])
 def serve_static(path):
