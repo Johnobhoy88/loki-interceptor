@@ -1,0 +1,42 @@
+{
+  "fca_fail": {
+    "modules": ["fca_uk"],
+    "must_fail": ["fair_clear_not_misleading"],
+    "must_warn": [],
+    "expected_risk": "CRITICAL",
+    "min_semantic_hits": 1,
+    "min_review_flags": 1
+  },
+  "gdpr_fail": {
+    "modules": ["gdpr_uk"],
+    "must_fail": ["lawful_basis", "purpose", "retention"],
+    "must_warn": [],
+    "expected_risk": "CRITICAL",
+    "min_semantic_hits": 1,
+    "min_review_flags": 1
+  },
+  "hr_contract": {
+    "modules": ["hr_scottish"],
+    "must_fail": [],
+    "must_warn": [],
+    "expected_risk": "LOW",
+    "max_fail": 0,
+    "max_warn": 1,
+    "max_semantic_hits": 1
+  },
+  "tax_scheme": {
+    "modules": ["tax_uk"],
+    "must_fail": ["tax_deadline_accuracy"],
+    "must_warn": [],
+    "expected_risk": "CRITICAL",
+    "min_semantic_hits": 1
+  },
+  "nda_basic": {
+    "modules": ["nda_uk"],
+    "must_fail": [],
+    "must_warn": [],
+    "expected_risk": "LOW",
+    "max_fail": 0,
+    "max_warn": 1
+  }
+}
