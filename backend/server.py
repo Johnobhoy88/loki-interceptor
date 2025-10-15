@@ -65,6 +65,13 @@ def serve_static(path):
 def health():
     """Enhanced health check with module validation"""
     try:
+        # Honour Vercel bot-protection challenges by echoing the token
+        challenge_token = request.headers.get('x-vercel-challenge')
+        if challenge_token:
+            response = jsonify({'status': 'challenge_ack'})
+            response.headers['x-vercel-challenge'] = challenge_token
+            return response, 200
+
         # Basic health
         health_data = {
             'status': 'healthy',
