@@ -9,6 +9,8 @@ from core.security import SecurityManager, RateLimiter, rate_limit, sanitize_err
 from core.audit_log import AuditLogger
 from core.cache import ValidationCache
 from core.gate_registry import gate_registry
+from core.corrector import DocumentCorrector  # NEW: Document correction engine
+
 app = Flask(__name__)
 
 # CORS - allow Cloudflare tunnel access
@@ -35,22 +37,7 @@ anthropic_interceptor = AnthropicInterceptor(engine)
 openai_interceptor = OpenAIInterceptor(engine)
 gemini_interceptor = GeminiInterceptor(engine)
 provider_router = ProviderRouter()
-
-
-@app.before_request
-def handle_vercel_challenge():
-    """Short-circuit Vercel bot protection challenge if present on any endpoint."""
-    challenge_token = (
-        request.headers.get('x-vercel-challenge')
-        or request.headers.get('x-vercel-challenge-token')
-    )
-    if not challenge_token:
-        return None
-
-    response = jsonify({'status': 'challenge_ack'})
-    response.headers['x-vercel-challenge'] = challenge_token
-    response.headers['x-vercel-challenge-token'] = challenge_token
-    return response, 200
+corrector = DocumentCorrector()  # NEW: Initialize corrector
 
 
 # Error handlers
@@ -81,17 +68,6 @@ def serve_static(path):
 def health():
     """Enhanced health check with module validation"""
     try:
-        # Honour Vercel bot-protection challenges by echoing the token
-        challenge_token = (
-            request.headers.get('x-vercel-challenge')
-            or request.headers.get('x-vercel-challenge-token')
-        )
-        if challenge_token:
-            response = jsonify({'status': 'challenge_ack'})
-            response.headers['x-vercel-challenge'] = challenge_token
-            response.headers['x-vercel-challenge-token'] = challenge_token
-            return response, 200
-
         # Basic health
         health_data = {
             'status': 'healthy',
@@ -453,6 +429,35 @@ def list_deprecated_gates():
     except Exception as e:
         return jsonify(sanitize_error(e)), 500
 
+
+# NEW ENDPOINT: Document Correction
+@app.route('/correct-document', methods=['POST'])
+@app.route('/api/correct-document', methods=['POST'])
+@cross_origin(origins="*")
+@rate_limit(rate_limiter)
+def correct_document():
+    """
+    Apply rule-based corrections to document based on validation results.
+    NO AI - pure regex/string replacement corrections.
+    """
+    try:
+        data = request.json or {}
+        text = data.get('text')
+        validation_results = data.get('validation_results')
+
+        if not text:
+            return jsonify(sanitize_error('No text provided')), 400
+
+        if not validation_results:
+            return jsonify(sanitize_error('No validation results provided')), 400
+
+        # Apply corrections
+        correction_result = corrector.correct_document(text, validation_results)
+
+        return jsonify(correction_result), 200
+
+    except Exception as e:
+        return jsonify(sanitize_error(e)), 500
 
 
 if __name__ == '__main__':
