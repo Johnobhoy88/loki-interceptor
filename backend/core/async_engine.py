@@ -90,7 +90,7 @@ class AsyncLOKIEngine:
             return {}
 
         results = {}
-        summary = {'pass': 0, 'fail': 0, 'warning': 0, 'error': 0, 'na': 0}
+        summary = {'pass': 0, 'fail': 0, 'warning': 0, 'error': 0, 'na': 0, 'semantic_hits': 0, 'needs_review': 0}
 
         # Execute gates in parallel
         with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
@@ -109,6 +109,12 @@ class AsyncLOKIEngine:
                     normalized = self.semantic.post_process(module_name, gate_name, text, normalized)
                 except Exception:
                     pass
+
+                hits = normalized.get('semantic_hits') or []
+                summary['semantic_hits'] += len(hits)
+                if normalized.get('needs_human_review'):
+                    summary['needs_review'] += 1
+
                 results[gate_name] = normalized
 
                 status = normalized.get('status', 'UNKNOWN').upper()
@@ -212,6 +218,8 @@ class AsyncLOKIEngine:
             results['universal'] = universal
 
             # Run modules with parallel gate execution
+            semantic_overview = {'total_hits': 0, 'needs_review': 0, 'modules': {}}
+
             for module_name in active_modules or []:
                 try:
                     if module_name in self.modules:
@@ -223,12 +231,20 @@ class AsyncLOKIEngine:
                             'gates': gate_results,
                             'summary': summary
                         }
+                        semantic_overview['total_hits'] += summary.get('semantic_hits', 0)
+                        semantic_overview['needs_review'] += summary.get('needs_review', 0)
+                        semantic_overview['modules'][module_name] = {
+                            'hits': summary.get('semantic_hits', 0),
+                            'needs_review': summary.get('needs_review', 0)
+                        }
                 except Exception as mod_err:
                     results['modules'][module_name] = {
                         'error': 'Module execution failed',
                         'detail': str(mod_err),
                         # NO TRACEBACK - security enhancement
                     }
+
+            results['semantic'] = semantic_overview
 
             # Run analyzers (parallel where beneficial)
             results['analyzers'] = {}
@@ -250,6 +266,8 @@ class AsyncLOKIEngine:
 
             # Calculate risk
             results['overall_risk'] = self._calculate_risk(results)
+            if results['overall_risk'] == 'LOW' and semantic_overview.get('needs_review'):
+                results['overall_risk'] = 'MEDIUM'
 
             # Cross-module validation
             try:

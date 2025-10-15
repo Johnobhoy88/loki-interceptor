@@ -667,6 +667,67 @@ button, select, textarea, input {
   line-height: 1.4;
 }
 
+.module-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.5rem 0 1rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.module-summary__flag {
+  background: rgba(255, 149, 0, 0.12);
+  color: var(--warning);
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.semantic-summary {
+  border: 1px dashed var(--border-accent);
+  background: rgba(74, 124, 255, 0.08);
+}
+
+.gate-note {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+}
+
+.gate-note ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.gate-note--review {
+  background: rgba(255, 149, 0, 0.12);
+  border-color: rgba(255, 149, 0, 0.4);
+  color: #ffcc80;
+  font-weight: 600;
+}
+
+.gate-note--semantic {
+  margin-top: -0.25rem;
+}
+
+.gate-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(74, 124, 255, 0.18);
+  color: #bfd3ff;
+  border-radius: 999px;
+  padding: 0 0.4rem;
+  font-size: 0.65rem;
+  margin-left: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .actions {
   display: flex;
   justify-content: flex-end;

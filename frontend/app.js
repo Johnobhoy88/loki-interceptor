@@ -391,6 +391,7 @@ function displayPromptResult(result) {
 
   body.innerHTML = `
     ${renderResponseText(result)}
+    ${renderSemanticSummary(validation.semantic)}
     ${renderModuleBlocks(validation.modules)}
     ${renderCrossFindings(validation.cross)}
   `;
@@ -417,6 +418,7 @@ function displayDocumentResult(result) {
 
   body.innerHTML = `
     ${correctionBtn}
+    ${renderSemanticSummary(result.semantic)}
     ${renderModuleBlocks(result.validation?.modules)}
     ${renderCrossFindings(result.validation?.cross)}
   `;
@@ -446,14 +448,41 @@ function renderModuleBlocks(modules = {}) {
     const meta = state.modules.find(m => m.id === moduleId);
     const title = meta?.name || moduleId.replace(/_/g, ' ').toUpperCase();
     const gates = payload?.gates || {};
+    const summary = payload?.summary || {};
+    const summaryHtml = Object.keys(summary).length ? `
+      <div class="module-summary">
+        <span>Pass: ${Number(summary.pass || 0).toLocaleString()}</span>
+        <span>Fail: ${Number(summary.fail || 0).toLocaleString()}</span>
+        <span>Warnings: ${Number(summary.warning || 0).toLocaleString()}</span>
+        ${summary.semantic_hits ? `<span>Semantic hits: ${Number(summary.semantic_hits).toLocaleString()}</span>` : ''}
+        ${summary.needs_review ? `<span class="module-summary__flag">Human review flags: ${Number(summary.needs_review).toLocaleString()}</span>` : ''}
+      </div>
+    ` : '';
     const rendered = Object.entries(gates).map(([gateId, gate]) => renderGateResult(gateId, gate)).join('');
     return `
       <section class="section">
         <h3>${escapeHtml(title)}</h3>
+        ${summaryHtml}
         ${rendered || '<p class="empty">No findings for this module.</p>'}
       </section>
     `;
   }).join('');
+}
+
+function renderSemanticSummary(semantic) {
+  if (!semantic) return '';
+  const hits = Number(semantic.total_hits || 0);
+  const needsReview = Number(semantic.needs_review || 0);
+  if (!hits && !needsReview) return '';
+  return `
+    <section class="section semantic-summary">
+      <h3>Semantic Coverage</h3>
+      <div class="module-summary">
+        <span>Total semantic hits: ${hits.toLocaleString()}</span>
+        ${needsReview ? `<span class="module-summary__flag">Human review required for ${needsReview.toLocaleString()} gate${needsReview === 1 ? '' : 's'}</span>` : ''}
+      </div>
+    </section>
+  `;
 }
 
 function renderGateResult(gateId, gate = {}) {
@@ -464,12 +493,38 @@ function renderGateResult(gateId, gate = {}) {
   const suggestion = gate.suggestion ? `<div class="gate-source">Suggested fix: ${escapeHtml(gate.suggestion)}</div>` : '';
   const source = gate.legal_source ? `<div class="gate-source">${escapeHtml(gate.legal_source)}</div>` : '';
   const message = gate.message || (status === 'N/A' ? 'Not applicable' : '');
+  const semanticNotes = Array.isArray(gate.semantic_notes) ? gate.semantic_notes : [];
+  const semanticHits = Array.isArray(gate.semantic_hits) ? gate.semantic_hits : [];
+  const needsReview = Boolean(gate.needs_human_review);
+  const reviewBadge = needsReview ? '<div class="gate-note gate-note--review">Requires human compliance review</div>' : '';
+  const notesBlock = semanticNotes.length ? `
+    <div class="gate-note gate-note--semantic">
+      <strong>Semantic findings:</strong>
+      <ul>${semanticNotes.map(note => `<li>${escapeHtml(note)}</li>`).join('')}</ul>
+    </div>
+  ` : '';
+  const hitsBlock = semanticHits.length ? `
+    <div class="gate-note gate-note--semantic">
+      <strong>Matches:</strong>
+      <ul>
+        ${semanticHits.map(hit => {
+          const core = [hit.canonical, hit.message].filter(Boolean).map(escapeHtml).join(' • ');
+          const typeLabel = hit.type ? `<em>${escapeHtml(hit.type)}</em>` : '';
+          const humanFlag = hit.human_review ? ' <span class="gate-tag">review</span>' : '';
+          return `<li>${core || typeLabel}${humanFlag}</li>`;
+        }).join('')}
+      </ul>
+    </div>
+  ` : '';
   return `
     <div class="gate-result ${css}">
       <strong>${escapeHtml(label)} — ${status}${severity && status !== 'PASS' ? ` (${severity})` : ''}</strong>
       <div>${escapeHtml(message)}</div>
       ${source}
       ${suggestion}
+      ${reviewBadge}
+      ${notesBlock}
+      ${hitsBlock}
     </div>
   `;
 }
