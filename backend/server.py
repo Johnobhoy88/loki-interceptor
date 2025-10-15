@@ -66,10 +66,14 @@ def health():
     """Enhanced health check with module validation"""
     try:
         # Honour Vercel bot-protection challenges by echoing the token
-        challenge_token = request.headers.get('x-vercel-challenge')
+        challenge_token = (
+            request.headers.get('x-vercel-challenge')
+            or request.headers.get('x-vercel-challenge-token')
+        )
         if challenge_token:
             response = jsonify({'status': 'challenge_ack'})
             response.headers['x-vercel-challenge'] = challenge_token
+            response.headers['x-vercel-challenge-token'] = challenge_token
             return response, 200
 
         # Basic health

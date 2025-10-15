@@ -131,7 +131,9 @@ async function hydrateBackendStatus() {
     }
 
     if (probe.status === 429) {
-      const challengeToken = probe.headers.get('x-vercel-challenge-token');
+      const challengeToken =
+        probe.headers.get('x-vercel-challenge') ||
+        probe.headers.get('x-vercel-challenge-token');
       if (challengeToken) {
         const challenge = await fetch(`${API_BASE}/health`, {
           method: 'GET',
