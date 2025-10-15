@@ -16,6 +16,9 @@ const state = {
   lastValidation: { text: null, result: null }  // Store for correction feature
 };
 
+// Toggle experimental auto-correction feature
+const ENABLE_CORRECTIONS = false;
+
 // Professional Toast Notification System
 function showToast(message, type = 'info', title = null) {
   const container = document.getElementById('toast-container');
@@ -325,8 +328,10 @@ async function handleDocumentValidation() {
 
     const payload = await res.json();
 
-    // Store for correction feature
-    state.lastValidation = { text, result: payload };
+    if (ENABLE_CORRECTIONS) {
+      // Store for correction feature only when enabled
+      state.lastValidation = { text, result: payload };
+    }
 
     displayDocumentResult(payload);
     recordMetrics(payload.risk || 'LOW');
@@ -365,9 +370,8 @@ function displayDocumentResult(result) {
   if (risk === 'CRITICAL') wrapper.classList.add('blocked');
   else if (risk === 'HIGH') wrapper.classList.add('warning');
 
-  // Auto-correction UI temporarily hidden for live demo stability
-  const enableCorrections = false;
-  const hasFails = enableCorrections && hasFailures(result.validation);
+  // Auto-correction UI is disabled for this build
+  const hasFails = ENABLE_CORRECTIONS && hasFailures(result.validation);
   const correctionBtn = hasFails ? `
     <div style="margin-bottom: 1rem; text-align: right;">
       <button id="apply-corrections-btn" class="btn btn--primary" style="background: #2563eb;">
@@ -628,6 +632,11 @@ function hasFailures(validation) {
 }
 
 async function handleApplyCorrections() {
+  if (!ENABLE_CORRECTIONS) {
+    showToast('Auto-corrections are disabled on this build.', 'info', 'Not Available');
+    return;
+  }
+
   const btn = document.getElementById('apply-corrections-btn');
   if (!state.lastValidation.text || !state.lastValidation.result) {
     showToast('No validation data available', 'error', 'Correction Failed');
