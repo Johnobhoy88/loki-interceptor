@@ -172,36 +172,67 @@ class MultiModelAggregator:
             )
 
     def _select_best(self, outcomes: List[ProviderOutcome]) -> Tuple[Optional[ProviderOutcome], Dict[str, Any]]:
+        """
+        Universal provider selection: Works with ANY # of providers, ANY names.
+
+        Strategy:
+        1. Filter to non-refusals with meaningful content (>50 chars)
+        2. Score by: refusal status, blocked status, gate failures, content quality
+        3. Pick best available
+        4. If ALL refused/empty, return None with diagnostic metadata
+        """
         if not outcomes:
             return None, {'reason': 'no_providers', 'all_refused': True}
 
-        def sort_key(outcome: ProviderOutcome):
+        # Universal content threshold - works for any type of document
+        MIN_CONTENT_LENGTH = 50
+
+        def universal_score(outcome: ProviderOutcome):
+            """
+            Universal scoring function - works regardless of provider or module.
+            Lower score = better outcome.
+            """
             return (
-                outcome.blocked,
-                outcome.score,
-                -outcome.content_score
+                outcome.is_refusal,         # Refusals always worst
+                outcome.blocked,            # Blocked worse than non-blocked
+                outcome.score,              # Existing score (risk + failures + warnings)
+                -outcome.content_score,     # More content better (negative for ascending sort)
+                -len((outcome.response_text or '').strip())  # Longer responses better
             )
 
+        # Universal filter: ANY non-refusal with sufficient content is viable
         usable = [
             o for o in outcomes
-            if not o.is_refusal and (o.response_text or '').strip()
+            if not o.is_refusal
+            and (o.response_text or '').strip()
+            and len((o.response_text or '').strip()) >= MIN_CONTENT_LENGTH
         ]
 
         if usable:
-            chosen = sorted(usable, key=sort_key)[0]
+            # Universal sort: Best = least refusal, least blocked, least failures, most content
+            chosen = sorted(usable, key=universal_score)[0]
+
+            # Universal metadata - works for any provider configuration
             metadata = {
-                'reason': 'non_refusal_selected',
+                'reason': 'best_viable_selected',
                 'provider': chosen.provider,
                 'used_blocked_provider': chosen.blocked,
-                'fallback_from_refusal': any(out.is_refusal for out in outcomes if out != chosen)
+                'fallback_from_refusal': any(o.is_refusal for o in outcomes),
+                'total_providers': len(outcomes),
+                'viable_providers': len(usable),
+                'refusal_count': sum(1 for o in outcomes if o.is_refusal),
+                'selection_score': universal_score(chosen)
             }
             return chosen, metadata
 
-        # No usable responses (all refusals or empty)
+        # No usable responses - universal fallback
         all_refused = all(o.is_refusal or not (o.response_text or '').strip() for o in outcomes)
         metadata = {
-            'reason': 'all_providers_refused' if all_refused else 'no_content_available',
-            'all_refused': all_refused
+            'reason': 'all_providers_refused' if all_refused else 'insufficient_content',
+            'all_refused': all_refused,
+            'total_providers': len(outcomes),
+            'refusal_reasons': [o.refusal_reason for o in outcomes if o.is_refusal and o.refusal_reason],
+            'content_lengths': [len((o.response_text or '').strip()) for o in outcomes]
         }
         return None, metadata
 
