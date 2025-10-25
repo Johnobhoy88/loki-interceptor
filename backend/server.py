@@ -11,6 +11,7 @@ from core.audit_log import AuditLogger
 from core.cache import ValidationCache
 from core.gate_registry import gate_registry
 from core.corrector import DocumentCorrector  # NEW: Document correction engine
+from core.synthesis import SynthesisEngine
 
 app = Flask(__name__)
 
@@ -39,6 +40,7 @@ openai_interceptor = OpenAIInterceptor(engine)
 gemini_interceptor = GeminiInterceptor(engine)
 provider_router = ProviderRouter()
 corrector = DocumentCorrector()  # NEW: Initialize corrector
+synthesis_engine = SynthesisEngine(engine, audit_logger=audit_log)
 
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR.parent / 'frontend'
@@ -574,6 +576,40 @@ def correct_document():
 
         return jsonify(correction_result), 200
 
+    except Exception as e:
+        return jsonify(sanitize_error(e)), 500
+
+
+@app.route('/synthesize', methods=['POST'])
+@app.route('/api/synthesize', methods=['POST'])
+@cross_origin(origins="*")
+@rate_limit(rate_limiter)
+def synthesize_document():
+    """Generate deterministic compliance draft using the universal synthesis engine."""
+    try:
+        data = request.json or {}
+        base_text = data.get('base_text', '') or ''
+        validation = data.get('validation')
+        context = data.get('context') or {}
+        modules = data.get('modules')
+
+        if not isinstance(validation, dict):
+            return jsonify(sanitize_error('Validation payload is required')), 400
+
+        if modules is not None:
+            if isinstance(modules, list):
+                # Empty list falls back to all loaded modules
+                modules = modules or None
+            else:
+                return jsonify(sanitize_error('Modules must be provided as a list')), 400
+
+        result = synthesis_engine.synthesize(
+            base_text=base_text,
+            validation=validation,
+            context=context,
+            modules=modules,
+        )
+        return jsonify(result), 200
     except Exception as e:
         return jsonify(sanitize_error(e)), 500
 

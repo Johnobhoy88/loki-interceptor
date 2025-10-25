@@ -42,6 +42,41 @@ class ConsentGate:
         issues = []
         spans = []
 
+        special_category_patterns = [
+            r'special\s+category',
+            r'health\s+(?:data|information)',
+            r'biometric',
+            r'genetic',
+            r'lifestyle',
+            r'medical\s+(?:history|data|information)',
+            r'racial',
+            r'ethnic',
+            r'religion',
+            r'sexual\s+orientation'
+        ]
+
+        has_special_category = any(re.search(pattern, content_lower) for pattern in special_category_patterns)
+
+        article9_patterns = [
+            r'article\s+9',
+            r'explicit\s+consent',
+            r'special\s+category\s+consent',
+            r'appropriate\s+safeguards',
+            r'legal\s+basis\s+under\s+article\s+9'
+        ]
+
+        has_article9_basis = any(re.search(pattern, content_lower) for pattern in article9_patterns)
+
+        if has_special_category and not has_article9_basis:
+            return {
+                'status': 'FAIL',
+                'severity': 'critical',
+                'message': 'Special category data processing described without Article 9 lawful basis or safeguards',
+                'legal_source': self.legal_source,
+                'suggestion': 'Explicitly state the Article 9 lawful basis (e.g. explicit consent) and safeguards for special category data (health, biometric, lifestyle).',
+                'penalty': 'GDPR fines up to €20M or 4% global revenue'
+            }
+
         forced_consent_patterns = [
             r'by\s+using.*(?:you\s+)?agree',
             r'by\s+(?:accessing|visiting|browsing).*(?:you\s+)?(?:agree|consent)',

@@ -27,6 +27,33 @@ class ThirdPartyBanksGate:
         text_lower = text.lower()
         spans = []
 
+        negative_indicators = [
+            r'preferred\s+banking\s+partners?\s+\(list\s+(?:kept\s+)?confidential',
+            r'we\s+do\s+not\s+(?:publish|disclose)\s+the\s+list\s+of\s+banks',
+            r'formal\s+cass\s+segregation\s+is\s+unnecessary',
+            r'daily\s+reconciliation\s+(?:is\s+)?(?:optional|not\s+required)',
+            r'client\s+money\s+.*(?:our|firm)\s+(?:master|operations?)\s+account'
+        ]
+
+        for pattern in negative_indicators:
+            match = re.search(pattern, text_lower)
+            if match:
+                spans.append({
+                    'type': 'cass_713_violation',
+                    'start': match.start(),
+                    'end': match.end(),
+                    'text': text[match.start():match.end()],
+                    'severity': 'critical'
+                })
+                return {
+                    'status': 'FAIL',
+                    'severity': 'high',
+                    'message': 'Third-party bank arrangements described without required due diligence or segregation',
+                    'legal_source': self.legal_source,
+                    'suggestion': 'CASS 7.13 requires identifying approved banks, documenting selection criteria, and confirming segregation/monitoring arrangements.',
+                    'spans': spans
+                }
+
         # Check if client money is held at third party banks
         third_party_patterns = [
             r'(?:held|deposited|kept|maintained)\s+(?:with|at|in)\s+(?:a\s+)?(?:third[\s-]party|external|separate)\s+bank',

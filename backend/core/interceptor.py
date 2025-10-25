@@ -1,3 +1,4 @@
+import os
 import requests
 import json as _json
 from datetime import datetime
@@ -91,7 +92,8 @@ class AnthropicInterceptor:
             return {
                 'blocked': True,
                 'error': 'INTERCEPTOR_ERROR',
-                'message': str(e)
+                'message': str(e),
+                'original_response': f"[Anthropic API Error: {str(e)}]"
             }
 
     def intercept_and_validate(self, request_data, api_key, modules=None):
@@ -199,13 +201,16 @@ class OpenAIInterceptor:
             req = urllib.request.Request(url, data=data, method='POST')
             req.add_header('Content-Type', 'application/json')
             req.add_header('Authorization', f'Bearer {api_key}')
+            project_id = request_data.get('project') or os.getenv('OPENAI_PROJECT')
+            if project_id:
+                req.add_header('OpenAI-Project', project_id)
             try:
                 with urllib.request.urlopen(req) as resp:
                     resp_bytes = resp.read()
                     resp_json = json.loads(resp_bytes.decode('utf-8'))
             except urllib.error.HTTPError as e:
                 detail = e.read().decode('utf-8') if hasattr(e, 'read') else str(e)
-                return {'blocked': True, 'error': 'OPENAI_ERROR', 'message': detail}
+                return {'blocked': True, 'error': 'OPENAI_ERROR', 'message': detail, 'original_response': f"[OpenAI API Error: {detail}]"}
 
             # Extract text
             text = ''
@@ -228,7 +233,7 @@ class OpenAIInterceptor:
             resp_json['loki_validation'] = validation
             return resp_json
         except Exception as e:
-            return {'blocked': True, 'error': 'INTERCEPTOR_ERROR', 'message': str(e)}
+            return {'blocked': True, 'error': 'INTERCEPTOR_ERROR', 'message': str(e), 'original_response': f"[OpenAI Interceptor Error: {str(e)}]"}
 
 
 class GeminiInterceptor:
@@ -247,9 +252,10 @@ class GeminiInterceptor:
             if not api_key:
                 raise ValueError('Missing Gemini API key')
 
-            model = request_data.get('model', 'gemini-1.5-flash')
+            model = request_data.get('model', 'gemini-2.5-flash')
             prompt = request_data.get('prompt') or ''
-            url = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={urllib.parse.quote(api_key)}'
+            api_version = 'v1beta' if model.startswith('gemini-1.') else 'v1'
+            url = f'https://generativelanguage.googleapis.com/{api_version}/models/{model}:generateContent?key={urllib.parse.quote(api_key)}'
 
             body = {
                 'contents': [
@@ -267,7 +273,7 @@ class GeminiInterceptor:
                     resp_json = json.loads(resp_bytes.decode('utf-8'))
             except urllib.error.HTTPError as e:
                 detail = e.read().decode('utf-8') if hasattr(e, 'read') else str(e)
-                return {'blocked': True, 'error': 'GEMINI_ERROR', 'message': detail}
+                return {'blocked': True, 'error': 'GEMINI_ERROR', 'message': detail, 'original_response': f"[Gemini API Error: {detail}]"}
 
             # Extract text
             text = ''
@@ -293,4 +299,4 @@ class GeminiInterceptor:
             resp_json['loki_validation'] = validation
             return resp_json
         except Exception as e:
-            return {'blocked': True, 'error': 'INTERCEPTOR_ERROR', 'message': str(e)}
+            return {'blocked': True, 'error': 'INTERCEPTOR_ERROR', 'message': str(e), 'original_response': f"[Gemini Interceptor Error: {str(e)}]"}
