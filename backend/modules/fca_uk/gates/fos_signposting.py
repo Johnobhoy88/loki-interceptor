@@ -25,6 +25,33 @@ class FosSignpostingGate:
         text_lower = text.lower()
         spans = []
 
+        discourage_patterns = [
+            r'do\s+not\s+mention\s+(?:the\s+)?financial\s+ombudsman',
+            r'avoid\s+(?:unnecessary\s+)?escala(?:tion|tions?)',
+            r'prefer\s+to\s+handle\s+(?:complaints\s+)?internally',
+            r'focus\s+on\s+internal\s+resolution',
+            r'discourage\s+contact\s+with\s+(?:the\s+)?ombudsman',
+        ]
+
+        for pattern in discourage_patterns:
+            match = re.search(pattern, text_lower)
+            if match:
+                spans.append({
+                    'type': 'fos_discouraged',
+                    'start': match.start(),
+                    'end': match.end(),
+                    'text': text[match.start():match.end()],
+                    'severity': 'critical'
+                })
+                return {
+                    'status': 'FAIL',
+                    'severity': 'critical',
+                    'message': 'Customers are discouraged from escalating complaints to the Financial Ombudsman Service',
+                    'legal_source': self.legal_source,
+                    'suggestion': 'Complaint communications must clearly signpost the Financial Ombudsman Service and never discourage escalation.',
+                    'spans': spans
+                }
+
         # Check for Financial Ombudsman Service mention
         fos_patterns = [
             r'financial\s+ombudsman\s+service',

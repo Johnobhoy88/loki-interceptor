@@ -52,14 +52,14 @@ class RiskBenefitBalanceGate:
 
         # Count risk mentions
         risk_patterns = [
-            r'\b(?:risk|risks)\b',
-            r'may\s+(?:lose|fall|decline|decrease)',
-            r'(?:value|capital|investment)\s+(?:at\s+)?risk',
-            r'not\s+(?:guaranteed|protected|covered)',
-            r'past\s+performance',
-            r'could\s+(?:lose|fall)',
-            r'(?:loss|losses)\s+of',
-            r'volatile|volatility'
+            r'(?:capital|investment|money)\s+(?:is\s+)?at\s+risk',
+            r'(?:you\s+)?may\s+lose\s+(?:some|all)\s+(?:of\s+your\s+)?(?:capital|money|investment)',
+            r'value\s+(?:can|may|could)\s+(?:go\s+down|fall|decrease)',
+            r'returns?\s+(?:are\s+)?not\s+guaranteed',
+            r'no\s+guarantee\s+of\s+(?:returns?|profits?)',
+            r'past\s+performance\s+.*not\s+(?:a\s+)?(?:guide|indicator|guarantee)',
+            r'risk\s+warning',
+            r'loss\s+of\s+capital'
         ]
 
         risk_count = 0
@@ -134,7 +134,7 @@ class RiskBenefitBalanceGate:
 
         # Determine final status
         if issues:
-            severity = 'high' if len(issues) >= 2 or 'imbalance' in str(issues) else 'high'
+            severity = 'high'
             details = []
             for issue in issues:
                 details.append(issue)

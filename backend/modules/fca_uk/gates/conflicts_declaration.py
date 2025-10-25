@@ -12,7 +12,8 @@ class ConflictsDeclarationGate:
         text_lower = text.lower()
         keywords = [
             'advice', 'recommend', 'arrange', 'facilitate', 'introduce',
-            'conflict', 'interest', 'impartial', 'independent', 'commission'
+            'conflict', 'interest', 'impartial', 'independent', 'commission',
+            'kickback', 'priority allocation', 'alignment'
         ]
         return any(kw in text_lower for kw in keywords)
 
@@ -49,6 +50,14 @@ class ConflictsDeclarationGate:
                         'text': m.group(),
                         'severity': 'medium'
                     })
+
+        # Treat independence or conflict indicators as relevant even if explicit advice language missing
+        preliminary_conflict_flags = any(kw in text_lower for kw in [
+            'independent', 'impartial', 'kickback', 'priority allocation', 'alignment with investors'
+        ])
+
+        if not provides_advice and preliminary_conflict_flags:
+            provides_advice = True
 
         if not provides_advice:
             return {'status': 'N/A'}
@@ -105,6 +114,11 @@ class ConflictsDeclarationGate:
                 r'(?:receive|earn|paid)\s+(?:a\s+)?commission',
                 r'commission-based'
             ],
+            'kickbacks': [
+                r'kickback',
+                r'revenue\s+share',
+                r'referral\s+bonus'
+            ],
             'ownership': [
                 r'(?:own|ownership|owned\s+by|part\s+of)\s+(?:the\s+)?(?:provider|manufacturer|company)',
                 r'(?:sister|parent|group)\s+company',
@@ -158,6 +172,8 @@ class ConflictsDeclarationGate:
         # Determine status
         issues = []
 
+        priority_allocation = re.search(r'priority\s+allocation', text, re.IGNORECASE)
+
         # Critical: Claims independence but has undisclosed conflicts
         if claims_independence and disclosed_conflicts and not has_conflict_disclosure:
             details = []
@@ -173,12 +189,15 @@ class ConflictsDeclarationGate:
             }
 
         # Fail: Advice provided but no conflicts policy
-        if provides_advice and not has_policy_reference and not has_conflict_disclosure:
+        if (provides_advice or preliminary_conflict_flags) and not has_policy_reference and not has_conflict_disclosure:
             issues.append('No conflicts of interest policy or disclosure')
 
         # Warning: Specific conflicts identified but not explicitly disclosed
         if disclosed_conflicts and not has_conflict_disclosure:
             issues.append(f'Potential conflicts detected ({", ".join(disclosed_conflicts.keys())}) but not explicitly disclosed')
+
+        if priority_allocation and not has_conflict_disclosure:
+            issues.append('Priority allocations mentioned without disclosure')
 
         # Failures and warnings
         if len(issues) > 0:
