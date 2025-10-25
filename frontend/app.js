@@ -16,8 +16,14 @@ const state = {
   lastValidation: { text: null, result: null }  // Store for correction feature
 };
 
-// Toggle experimental auto-correction feature
-const ENABLE_CORRECTIONS = false;
+// Toggle deterministic synthesis for document validation
+const ENABLE_CORRECTIONS = true;
+const DEFAULT_SYNTHESIS_CONTEXT = {
+  firm_name: 'Highland AI',
+  contact_details: 'compliance@highland-ai.com',
+  url: 'https://highland-ai.com/privacy',
+  dpo_email: 'dpo@highland-ai.com'
+};
 let lastHandshakeAt = 0;
 const HANDSHAKE_TTL_MS = 60_000;
 
@@ -101,6 +107,7 @@ function bindActions() {
   document.getElementById('save-key-btn')?.addEventListener('click', saveApiKey);
   document.getElementById('provider-select')?.addEventListener('change', onProviderChange);
   document.getElementById('test-btn')?.addEventListener('click', handlePromptValidation);
+  document.getElementById('aggregate-btn')?.addEventListener('click', handleAggregateValidation);
   document.getElementById('validate-btn')?.addEventListener('click', handleDocumentValidation);
   document.getElementById('analytics-window')?.addEventListener('change', evt => {
     state.analyticsWindow = Number(evt.target.value) || 30;
@@ -297,21 +304,18 @@ async function handlePromptValidation() {
     return;
   }
 
+  const provider = state.provider || 'anthropic';
+
+  const summaryEl = document.getElementById('aggregation-summary');
+  if (summaryEl) {
+    summaryEl.style.display = 'none';
+    summaryEl.innerHTML = '';
+  }
+
   if (btn) { btn.disabled = true; btn.textContent = 'Validating…'; }
   try {
     let payload;
-    if (window.electronAPI?.proxyRequest) {
-      payload = await window.electronAPI.proxyRequest(
-        '/v1/messages',
-        {
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 900,
-          messages: [{ role: 'user', content: prompt }],
-          modules
-        },
-        apiKey
-      );
-    } else {
+    if (provider === 'anthropic') {
       const res = await fetch(`${API_BASE}/v1/messages`, {
         method: 'POST',
         headers: {
@@ -326,15 +330,109 @@ async function handlePromptValidation() {
         })
       });
       payload = await res.json();
+    } else {
+      const headers = { 'Content-Type': 'application/json' };
+      if (provider === 'openai') {
+        headers['openai-api-key'] = apiKey;
+        headers['x-api-key'] = apiKey;
+      } else if (provider === 'gemini') {
+        headers['gemini-api-key'] = apiKey;
+      }
+
+      const body = provider === 'openai'
+        ? {
+            provider,
+            modules,
+            model: 'gpt-5-mini',
+            max_tokens: 900,
+            messages: [{ role: 'user', content: prompt }]
+          }
+        : {
+            provider,
+            modules,
+            model: 'gemini-2.5-flash',
+            prompt
+          };
+
+      const res = await fetch(`${API_BASE}/proxy`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body)
+      });
+      payload = await res.json();
     }
+
     displayPromptResult(payload);
-    recordMetrics(payload.loki?.risk || payload.risk || 'LOW');
-    pushActivity(payload.loki?.risk || payload.risk || 'LOW', 'Prompt validation executed');
+    const computedRisk = deriveRisk(payload);
+    recordMetrics(computedRisk);
+    pushActivity(computedRisk, 'Prompt validation executed');
     showToast('Validation completed successfully.', 'success', 'Validation Complete');
   } catch (error) {
     showToast('Validation failed: ' + (error?.message || error), 'error', 'Validation Failed');
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = 'Send & Validate'; }
+  }
+}
+
+async function handleAggregateValidation() {
+  const prompt = document.getElementById('test-prompt')?.value.trim();
+  const btn = document.getElementById('aggregate-btn');
+  if (!prompt) {
+    showToast('Please enter a prompt to validate.', 'warning', 'Missing Prompt');
+    return;
+  }
+
+  const modules = getSelectedModules('mods-interceptor');
+  if (!modules.length) {
+    showToast('Please select at least one FCA validation module.', 'warning', 'No Modules Selected');
+    return;
+  }
+
+  const providerSpecs = ['anthropic', 'openai', 'gemini'].map(name => {
+    const stored = state.apiKeys[name];
+    const inlineKey = name === state.provider ? document.getElementById('api-key-input')?.value.trim() : '';
+    const apiKey = stored || inlineKey || '';
+    if (!apiKey) return null;
+    return {
+      name,
+      api_key: apiKey
+    };
+  }).filter(Boolean);
+
+  if (!providerSpecs.length) {
+    showToast('Please configure at least one provider API key before aggregating.', 'error', 'Missing API Keys');
+    return;
+  }
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Aggregating…'; }
+  try {
+    const res = await fetch(`${API_BASE}/aggregate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt,
+        modules,
+        providers: providerSpecs
+      })
+    });
+    const payload = await res.json();
+    if (!res.ok) {
+      throw new Error(payload?.message || payload?.error || `HTTP ${res.status}`);
+    }
+    displayAggregationResult(payload);
+    const selectedRisk = deriveRisk(payload?.selected);
+    recordMetrics(selectedRisk);
+    pushActivity(selectedRisk, 'Aggregated prompt validation completed');
+    showToast('Aggregated validation completed successfully.', 'success', 'Aggregation Complete');
+
+    // Auto-generate System Draft if there are failures
+    if (selectedRisk === 'CRITICAL' || selectedRisk === 'HIGH') {
+      await generateSystemDraft(payload);
+    }
+  } catch (error) {
+    showToast('Aggregation failed: ' + (error?.message || error), 'error', 'Aggregation Failed');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Aggregate Providers'; }
   }
 }
 
@@ -365,12 +463,13 @@ async function handleDocumentValidation() {
 
     if (ENABLE_CORRECTIONS) {
       // Store for correction feature only when enabled
-      state.lastValidation = { text, result: payload };
+      state.lastValidation = { text, result: payload, modules };
     }
 
     displayDocumentResult(payload);
-    recordMetrics(payload.risk || 'LOW');
-    pushActivity(payload.risk || 'LOW', 'Document validation completed');
+    const docRisk = deriveRisk(payload);
+    recordMetrics(docRisk);
+    pushActivity(docRisk, 'Document validation completed');
     showToast('Document validation completed successfully.', 'success', 'Validation Complete');
   } catch (error) {
     showToast('Validation failed: ' + (error?.message || error), 'error', 'Validation Failed');
@@ -383,8 +482,8 @@ function displayPromptResult(result) {
   const wrapper = document.getElementById('test-result');
   const body = document.getElementById('result-content');
   if (!wrapper || !body) return;
-  const validation = result.loki?.validation || result.validation || {};
-  const risk = (result.loki?.risk || 'LOW').toUpperCase();
+  const validation = result.loki?.validation || result.validation || result.loki_validation || {};
+  const risk = deriveRisk(result);
   wrapper.classList.remove('result--hidden', 'blocked', 'warning');
   if (risk === 'CRITICAL') wrapper.classList.add('blocked');
   else if (risk === 'HIGH') wrapper.classList.add('warning');
@@ -396,16 +495,305 @@ function displayPromptResult(result) {
   `;
 }
 
+function displayAggregationResult(result) {
+  if (!result) return;
+  const selected = result.selected;
+  const selectionMeta = result.selection || {};
+  const allRefused = Boolean(result.all_refused);
+
+  if (selected) {
+    const synthetic = {
+      response: {
+        content: [{ type: 'text', text: selected.response_text }]
+      },
+      loki: {
+        risk: selected.risk,
+        validation: selected.validation || {}
+      }
+    };
+    displayPromptResult(synthetic);
+  } else if (allRefused) {
+    const wrapper = document.getElementById('test-result');
+    const body = document.getElementById('result-content');
+    if (wrapper && body) {
+      wrapper.classList.remove('result--hidden', 'blocked', 'warning');
+      body.innerHTML = `
+        <section class="section">
+          <h3>Provider Responses</h3>
+          <div class="gate-result warning">
+            <strong>All providers refused</strong>
+            <div>The selected models declined to generate this content. Revise the prompt to request compliant marketing material.</div>
+          </div>
+        </section>
+      `;
+    }
+  }
+
+  const summaryEl = document.getElementById('aggregation-summary');
+  if (!summaryEl) return;
+
+  const providers = Array.isArray(result.providers) ? result.providers : [];
+  if (!providers.length) {
+    summaryEl.style.display = 'none';
+    summaryEl.innerHTML = '';
+    return;
+  }
+
+  summaryEl.style.display = 'block';
+  const selectedName = selected?.provider;
+  const rows = providers.map(provider => {
+    const statusLabel = provider.blocked ? 'BLOCKED' : (provider.error ? provider.error : '');
+    const refusalLabel = provider.is_refusal ? 'REFUSAL' : '';
+    const previewSource = provider.response_text || provider.error || '';
+    const preview = previewSource.slice(0, 120);
+    const hasDetails = Boolean(provider.response_text) || Boolean(provider.error);
+    const fullResponse = hasDetails ? `
+      <details class="aggregation-summary__details ${provider.blocked ? 'aggregation-summary__details--blocked' : ''}">
+        <summary>${provider.blocked ? 'View error details' : 'View response'}</summary>
+        <pre>${escapeHtml(provider.response_text || provider.error || 'No response returned')}</pre>
+      </details>
+    ` : '';
+    return `
+      <div class=\"aggregation-summary__provider\">
+        <strong>${escapeHtml(provider.provider || 'unknown')}</strong>
+        <span class=\"aggregation-summary__badge\" data-risk=\"${escapeHtml(provider.risk || 'LOW')}\">
+          ${escapeHtml(provider.risk || 'LOW')}
+        </span>
+        <span>Fail: ${Number(provider.failures || 0)}</span>
+        <span>Warn: ${Number(provider.warnings || 0)}</span>
+        <span class=\"aggregation-summary__status\">${escapeHtml(statusLabel)}</span>
+        ${refusalLabel ? `<span class="aggregation-summary__status aggregation-summary__status--refusal">${escapeHtml(refusalLabel)}</span>` : ''}
+        <span class=\"aggregation-summary__preview\">${escapeHtml(preview)}</span>
+        ${fullResponse}
+      </div>
+    `;
+  }).join('');
+
+  summaryEl.innerHTML = `
+    <div class=\"aggregation-summary__header\">
+      <strong>Provider comparison</strong>
+      <span>Selected: ${selectedName ? selectedName.toUpperCase() : (allRefused ? 'NONE (REFUSED)' : '—')}</span>
+    </div>
+    ${selectionMeta.used_blocked_provider ? `<div class="aggregation-summary__notice">Primary provider refused. Using ${escapeHtml(selectedName || 'alternate')} output with deterministic compliance sanitisation.</div>` : ''}
+    ${allRefused ? '<div class="aggregation-summary__notice aggregation-summary__notice--error">All providers refused to produce content for this prompt.</div>' : ''}
+    ${rows}
+  `;
+}
+
+async function generateSystemDraft(aggregatorResult) {
+  const draftContainer = document.getElementById('system-draft-container');
+  if (!draftContainer) return;
+
+  if (aggregatorResult?.all_refused) {
+    draftContainer.style.display = 'block';
+    draftContainer.innerHTML = `
+      <p class="empty" style="color: #ef4444;">
+        All providers refused to generate content for this prompt. Revise the prompt and try again.
+      </p>
+    `;
+    return;
+  }
+
+  draftContainer.style.display = 'block';
+  draftContainer.innerHTML = '<p class="empty">Generating compliant system draft...</p>';
+
+  try {
+    const res = await fetch(`${API_BASE}/synthesize`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        aggregator_result: aggregatorResult,
+        context: DEFAULT_SYNTHESIS_CONTEXT
+      })
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
+    const synthesisResult = await res.json();
+    synthesisResult.selection = aggregatorResult?.selection || {};
+    synthesisResult.selected_provider = aggregatorResult?.selected?.provider;
+    synthesisResult.selected_blocked = aggregatorResult?.selected?.blocked;
+    displaySystemDraft(synthesisResult);
+    showToast('System draft generated successfully', 'success', 'Draft Generated');
+  } catch (error) {
+    draftContainer.innerHTML = `<p class="empty" style="color: #ef4444;">Failed to generate draft: ${escapeHtml(error.message)}</p>`;
+    showToast('Failed to generate system draft: ' + (error?.message || error), 'error', 'Draft Generation Failed');
+  }
+}
+
+function displaySystemDraft(synthesisResult) {
+  const draftContainer = document.getElementById('system-draft-container');
+  if (!draftContainer) return;
+
+  const success = synthesisResult.success;
+  const finalRisk = synthesisResult.final_validation?.overall_risk || 'UNKNOWN';
+  const snippetsApplied = synthesisResult.snippets_applied || [];
+  const synthesizedText = synthesisResult.synthesized_text || '';
+  const originalText = synthesisResult.original_text || '';
+  const iterations = synthesisResult.iterations || 0;
+  const selection = synthesisResult.selection || {};
+  const selectedProvider = synthesisResult.selected_provider || 'unknown';
+  const usedBlockedProvider = Boolean(synthesisResult.selected_blocked);
+  const sanitization = synthesisResult.sanitization || {};
+  const sanitizationActions = Array.isArray(sanitization.actions) ? sanitization.actions : [];
+
+  const statusBadge = success
+    ? '<span style="color: #10b981; font-weight: 600;">✓ ALL GATES PASSED</span>'
+    : '<span style="color: #ef4444; font-weight: 600;">⚠ SOME FAILURES REMAIN</span>';
+
+  const providerNotice = selection?.reason === 'non_refusal_selected' && (selection.fallback_from_refusal || usedBlockedProvider)
+    ? `
+        <div class="validation-synthesis__notice">
+          <strong>Notice:</strong> Primary provider response was unavailable. Using ${escapeHtml(selectedProvider.toUpperCase())}'s draft with deterministic compliance sanitisation.
+        </div>
+      `
+    : '';
+
+  const failingGates = [];
+  const modules = synthesisResult.final_validation?.modules || {};
+  Object.entries(modules).forEach(([moduleId, modulePayload]) => {
+    const gates = modulePayload?.gates || {};
+    Object.entries(gates).forEach(([gateId, gate]) => {
+      if ((gate?.status || '').toUpperCase() === 'FAIL') {
+        failingGates.push({
+          module: moduleId,
+          gate: gateId,
+          message: gate?.message || '',
+          severity: (gate?.severity || '').toUpperCase()
+        });
+      }
+    });
+  });
+
+  const needsReviewBlock = !success && failingGates.length ? `
+    <div class="validation-synthesis__needs-review">
+      <h4>Manual Review Required</h4>
+      <p>The following gates still require attention:</p>
+      <ul>
+        ${failingGates.slice(0, 10).map(gate => `
+          <li>
+            <strong>${escapeHtml(gate.module)}:${escapeHtml(gate.gate)}</strong>
+            <span class="needs-review__severity needs-review__severity--${escapeHtml(gate.severity || 'medium').toLowerCase()}">${escapeHtml(gate.severity || 'MEDIUM')}</span>
+            <div>${escapeHtml(gate.message || 'Issue detected')}</div>
+          </li>
+        `).join('')}
+      </ul>
+      ${failingGates.length > 10 ? '<p class="needs-review__more">Additional failures not shown. See full validation report.</p>' : ''}
+    </div>
+  ` : '';
+
+  const comparisonBlock = `
+    <div class="system-draft__comparison">
+      ${
+        originalText
+          ? `
+            <details class="system-draft__details">
+              <summary>View Original Text</summary>
+              <pre>${escapeHtml(originalText)}</pre>
+            </details>
+          `
+          : ''
+      }
+      <details class="system-draft__details" open>
+        <summary>View Synthesized Text</summary>
+        <pre>${escapeHtml(synthesizedText)}</pre>
+      </details>
+      <div class="system-draft__actions">
+        <button id="copy-draft-btn" class="btn btn--secondary">Copy Synthesized Draft</button>
+      </div>
+    </div>
+  `;
+
+  const snippetsHtml = snippetsApplied.length > 0
+    ? `
+      <div style="margin-top: 1rem;">
+        <h4 style="margin-bottom: 0.5rem; color: #475569;">Compliance Snippets Applied:</h4>
+        <div class="system-draft__snippet-list">
+          ${snippetsApplied.map((snippet, idx) => `
+            <details class="system-draft__snippet"${snippetsApplied.length === 1 ? ' open' : ''}>
+              <summary>
+                <div class="system-draft__snippet-head">
+                  <div>
+                    <strong>${escapeHtml(snippet.module_id)}:${escapeHtml(snippet.gate_id)}</strong>
+                    <span class="system-draft__severity">${escapeHtml(snippet.severity)}</span>
+                  </div>
+                  <div class="system-draft__snippet-meta">
+                    <span>Iteration ${snippet.iteration || 1}</span>
+                    <span>#${snippet.order || idx + 1}</span>
+                  </div>
+                </div>
+                <div class="system-draft__snippet-sub">
+                  Insertion: ${escapeHtml(snippet.insertion_point)}${snippet.section_header ? ` · ${escapeHtml(snippet.section_header)}` : ''}
+                </div>
+              </summary>
+              ${
+                snippet.text_added
+                  ? `<pre class="system-draft__snippet-text">${escapeHtml(snippet.text_added)}</pre>`
+                  : '<p class="system-draft__snippet-text system-draft__snippet-text--empty">Snippet applied without text payload.</p>'
+              }
+            </details>
+          `).join('')}
+        </div>
+      </div>
+    `
+    : '<p style="color: #64748b; margin-top: 1rem;">No compliance snippets were needed.</p>';
+
+  draftContainer.innerHTML = `
+    <div style="background: white; border: 2px solid ${success ? '#10b981' : '#f59e0b'}; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="margin: 0; color: #1e293b;">System Draft (Deterministic Synthesis)</h3>
+        ${statusBadge}
+      </div>
+      <div style="color: #64748b; font-size: 0.875rem; margin-bottom: 1rem;">
+        Final Risk: <strong style="color: ${finalRisk === 'LOW' ? '#10b981' : finalRisk === 'HIGH' ? '#f59e0b' : '#ef4444'};">${escapeHtml(finalRisk)}</strong>
+        • Iterations: ${iterations}
+        • Snippets: ${snippetsApplied.length}
+      </div>
+      ${providerNotice}
+      ${comparisonBlock}
+
+      ${snippetsHtml}
+
+      ${sanitizationActions.length ? `
+        <div class="validation-synthesis__notice">
+          <strong>Sanitisation applied:</strong>
+          <ul>
+            ${sanitizationActions.slice(0, 5).map(action => `
+              <li>${escapeHtml(action.replacement || 'Updated text')} <span class="needs-review__severity needs-review__severity--medium">${escapeHtml(String(action.count || 1))}×</span></li>
+            `).join('')}
+          </ul>
+          ${sanitizationActions.length > 5 ? '<p class="needs-review__more">Additional sanitisation actions applied.</p>' : ''}
+        </div>
+      ` : ''}
+
+      ${needsReviewBlock}
+
+      <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; font-size: 0.875rem; color: #64748b; font-style: italic;">
+        Note: This draft was generated using deterministic compliance snippets. No AI was used in the synthesis process.
+        ${success ? 'All compliance gates have been satisfied.' : 'Manual review is recommended for remaining issues.'}
+      </div>
+    </div>
+  `;
+
+  // Bind copy button
+  document.getElementById('copy-draft-btn')?.addEventListener('click', () => {
+    navigator.clipboard.writeText(synthesizedText);
+    showToast('Draft copied to clipboard', 'success', 'Copied');
+  });
+}
+
 function displayDocumentResult(result) {
   const wrapper = document.getElementById('validation-result');
   const body = document.getElementById('validation-content');
   if (!wrapper || !body) return;
-  const risk = (result.risk || 'LOW').toUpperCase();
+  const risk = deriveRisk(result);
   wrapper.classList.remove('result--hidden', 'blocked', 'warning');
   if (risk === 'CRITICAL') wrapper.classList.add('blocked');
   else if (risk === 'HIGH') wrapper.classList.add('warning');
 
-  // Auto-correction UI is disabled for this build
+  // Deterministic corrections available when failures detected
   const hasFails = ENABLE_CORRECTIONS && hasFailures(result.validation);
   const correctionBtn = hasFails ? `
     <div style="margin-bottom: 1rem; text-align: right;">
@@ -496,7 +884,20 @@ function extractResponseText(result) {
     if (Array.isArray(blocks)) {
       return blocks.filter(b => b?.type === 'text').map(b => b.text || '').join('\n\n');
     }
-    return result.response?.text || '';
+    if (typeof result.response?.text === 'string') {
+      return result.response.text;
+    }
+    if (Array.isArray(result.choices)) {
+      const combined = result.choices
+        .map(choice => choice?.message?.content || '')
+        .filter(Boolean)
+        .join('\n\n');
+      if (combined) return combined;
+    }
+    if (typeof result.output_text === 'string') {
+      return result.output_text;
+    }
+    return '';
   } catch {
     return '';
   }
@@ -505,6 +906,17 @@ function extractResponseText(result) {
 function getSelectedModules(storageKey) {
   const stored = storage.get(storageKey, []);
   return stored.length ? stored : state.modules.map(m => m.id);
+}
+
+function deriveRisk(result) {
+  if (!result) return 'LOW';
+  const direct = result.loki?.risk || result.risk;
+  if (direct) return String(direct).toUpperCase();
+  const validation = result.loki?.validation || result.validation || result.loki_validation;
+  if (validation && typeof validation === 'object' && validation.overall_risk) {
+    return String(validation.overall_risk).toUpperCase();
+  }
+  return 'LOW';
 }
 
 function recordMetrics(risk) {
@@ -714,12 +1126,14 @@ async function handleApplyCorrections() {
   if (btn) { btn.disabled = true; btn.textContent = 'Applying Corrections…'; }
 
   try {
-    const res = await fetch(`${API_BASE}/correct-document`, {
+    const res = await fetch(`${API_BASE}/synthesize`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        text: state.lastValidation.text,
-        validation_results: state.lastValidation.result.validation
+        base_text: state.lastValidation.text,
+        validation: state.lastValidation.result.validation,
+        context: DEFAULT_SYNTHESIS_CONTEXT,
+        modules: state.lastValidation.modules
       })
     });
 
@@ -727,10 +1141,10 @@ async function handleApplyCorrections() {
       throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     }
 
-    const correctionResult = await res.json();
-    console.log('Correction result:', correctionResult);
-    displayCorrectionComparison(correctionResult);
-    showToast('Corrections applied successfully', 'success', 'Corrections Complete');
+    const synthesisResult = await res.json();
+    state.lastValidation.synthesis = synthesisResult;
+    displayValidationSynthesis(synthesisResult);
+    showToast('Deterministic draft generated', 'success', 'Corrections Complete');
   } catch (error) {
     console.error('Correction error:', error);
     showToast('Correction failed: ' + (error?.message || error), 'error', 'Correction Failed');
@@ -739,76 +1153,96 @@ async function handleApplyCorrections() {
   }
 }
 
-function displayCorrectionComparison(correctionResult) {
+function displayValidationSynthesis(synthesisResult) {
   const body = document.getElementById('validation-content');
   if (!body) return;
 
   const original = state.lastValidation.text || '';
-  const corrected = correctionResult.corrected_text || original;
-  const changes = correctionResult.changes || [];
-  const changeCount = correctionResult.changes_made || changes.length;
+  const synthesized = synthesisResult.synthesized_text || '';
+  const success = synthesisResult.success;
+  const finalRisk = synthesisResult.final_validation?.overall_risk || 'UNKNOWN';
+  const snippets = synthesisResult.snippets_applied || [];
+  const iterations = synthesisResult.iterations || 0;
 
   body.innerHTML = `
-    <div style="margin-bottom: 1.5rem;">
-      <h3 style="margin-bottom: 0.5rem;">Document Comparison</h3>
-      <p style="color: #64748b; font-size: 0.875rem;">${changeCount} correction${changeCount !== 1 ? 's' : ''} applied</p>
-    </div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
-      <div>
-        <h4 style="margin-bottom: 0.75rem; color: #ef4444;">Original Document</h4>
-        <div style="background: #ffffff; border: 2px solid #ef4444; border-radius: 0.5rem; padding: 1rem; max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; color: #1e293b;">${escapeHtml(original)}</div>
+    <div class="validation-synthesis">
+      <div class="validation-synthesis__header">
+        <h3>Deterministic Compliance Draft</h3>
+        <div class="validation-synthesis__status">
+          <span class="validation-synthesis__risk">Final Risk: ${escapeHtml(finalRisk)}</span>
+          <span>Iterations: ${iterations}</span>
+          <span>Snippets: ${snippets.length}</span>
+          <span class="${success ? 'validation-synthesis__badge--pass' : 'validation-synthesis__badge--warn'}">
+            ${success ? '✓ All gates passed' : '⚠ Further review required'}
+          </span>
+        </div>
       </div>
-      <div>
-        <h4 style="margin-bottom: 0.75rem; color: #10b981;">Corrected Document</h4>
-        <div style="background: #ffffff; border: 2px solid #10b981; border-radius: 0.5rem; padding: 1rem; max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; color: #1e293b;">${highlightChanges(corrected, changes)}</div>
-        <button id="copy-corrected-btn" class="btn btn--secondary" style="margin-top: 0.75rem;">Copy Corrected Text</button>
+
+      <div class="validation-synthesis__columns">
+        <div>
+          <h4 class="validation-synthesis__title validation-synthesis__title--original">Original Document</h4>
+          <div class="validation-synthesis__text validation-synthesis__text--original">
+            ${escapeHtml(original)}
+          </div>
+        </div>
+        <div>
+          <h4 class="validation-synthesis__title validation-synthesis__title--synth">Synthesized Draft</h4>
+          <div class="validation-synthesis__text validation-synthesis__text--synth">
+            ${escapeHtml(synthesized)}
+          </div>
+          <div class="validation-synthesis__actions">
+            <button id="copy-corrected-btn" class="btn btn--secondary">Copy Synthesized Draft</button>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div style="margin-bottom: 1.5rem;">
-      <h4 style="margin-bottom: 0.75rem;">Changes Applied</h4>
-      ${renderChanges(changes)}
-    </div>
+      <div class="validation-synthesis__snippets">
+        <h4>Compliance Snippets Applied</h4>
+        ${snippets.length ? `
+          <div class="system-draft__snippet-list">
+            ${snippets.map((snippet, idx) => `
+              <details class="system-draft__snippet"${snippets.length === 1 ? ' open' : ''}>
+                <summary>
+                  <div class="system-draft__snippet-head">
+                    <div>
+                      <strong>${escapeHtml(snippet.module_id)}:${escapeHtml(snippet.gate_id)}</strong>
+                      <span class="system-draft__severity">${escapeHtml(snippet.severity)}</span>
+                    </div>
+                    <div class="system-draft__snippet-meta">
+                      <span>Iteration ${snippet.iteration || 1}</span>
+                      <span>#${snippet.order || idx + 1}</span>
+                    </div>
+                  </div>
+                  <div class="system-draft__snippet-sub">
+                    Insertion: ${escapeHtml(snippet.insertion_point)}${snippet.section_header ? ` · ${escapeHtml(snippet.section_header)}` : ''}
+                  </div>
+                </summary>
+                ${
+                  snippet.text_added
+                    ? `<pre class="system-draft__snippet-text">${escapeHtml(snippet.text_added)}</pre>`
+                    : '<p class="system-draft__snippet-text system-draft__snippet-text--empty">Snippet applied without text payload.</p>'
+                }
+              </details>
+            `).join('')}
+          </div>
+        ` : '<p class="validation-synthesis__empty">No snippets were required for this draft.</p>'}
+      </div>
 
-    <div style="text-align: center; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
-      <button id="back-to-validation-btn" class="btn btn--secondary">Back to Validation Results</button>
+      <div class="validation-synthesis__footer">
+        <button id="back-to-validation-btn" class="btn btn--secondary">Back to Validation Results</button>
+      </div>
     </div>
   `;
 
   // Bind buttons
   document.getElementById('copy-corrected-btn')?.addEventListener('click', () => {
-    navigator.clipboard.writeText(corrected);
-    showToast('Corrected text copied to clipboard', 'success', 'Copied');
+    navigator.clipboard.writeText(synthesized);
+    showToast('Synthesized draft copied to clipboard', 'success', 'Copied');
   });
 
   document.getElementById('back-to-validation-btn')?.addEventListener('click', () => {
     displayDocumentResult(state.lastValidation.result);
   });
-}
-
-function highlightChanges(text, changes) {
-  // No inline highlighting - just show corrected text cleanly
-  return escapeHtml(text);
-}
-
-function renderChanges(changes) {
-  if (!changes || !changes.length) {
-    return '<p class="empty">No specific changes tracked</p>';
-  }
-
-  return `
-    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;">
-      ${changes.map((change, idx) => `
-        <div style="margin-bottom: ${idx < changes.length - 1 ? '1rem' : '0'}; padding-bottom: ${idx < changes.length - 1 ? '1rem' : '0'}; border-bottom: ${idx < changes.length - 1 ? '1px solid #e2e8f0' : 'none'};">
-          <div style="font-weight: 600; margin-bottom: 0.25rem; color: #1e293b;">${escapeHtml(change.type || 'Correction')}</div>
-          ${change.before ? `<div style="color: #ef4444; font-size: 0.875rem;"><strong>Before:</strong> ${escapeHtml(change.before)}</div>` : ''}
-          ${change.after ? `<div style="color: #10b981; font-size: 0.875rem;"><strong>After:</strong> ${escapeHtml(change.after)}</div>` : ''}
-          ${change.reason ? `<div style="color: #64748b; font-size: 0.875rem; margin-top: 0.25rem;"><em>${escapeHtml(change.reason)}</em></div>` : ''}
-        </div>
-      `).join('')}
-    </div>
-  `;
 }
 
 window.addEventListener('DOMContentLoaded', init);

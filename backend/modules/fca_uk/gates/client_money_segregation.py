@@ -27,6 +27,35 @@ class ClientMoneySegregationGate:
         text_lower = text.lower()
         spans = []
 
+        negative_indicators = [
+            r'(?:no|not|without)\s+(?:properly\s+)?segregat(?:e|ed|ing|ion)',
+            r'do\s+not\s+segregate',
+            r'segregat(?:e|ion)\s+(?:is\s+)?(?:optional|not\s+required)',
+            r'held\s+alongside\s+(?:firm|company|our)\s+(?:money|funds|capital)',
+            r'(?:into\s+)?our\s+(?:operations?|operational)\s+account',
+            r'reconciliation\s+(?:is\s+)?(?:optional|not\s+required|only\s+run\s+when)',
+            r'(?:we\s+)?do\s+not\s+follow\s+cass',
+        ]
+
+        for pattern in negative_indicators:
+            match = re.search(pattern, text_lower)
+            if match:
+                spans.append({
+                    'type': 'cass_violation',
+                    'start': match.start(),
+                    'end': match.end(),
+                    'text': text[match.start():match.end()],
+                    'severity': 'critical'
+                })
+                return {
+                    'status': 'FAIL',
+                    'severity': 'critical',
+                    'message': 'Statement indicates client money is not segregated',
+                    'legal_source': self.legal_source,
+                    'suggestion': 'CASS 7 requires client money to be held in segregated client bank accounts separate from firm money with daily reconciliation.',
+                    'spans': spans
+                }
+
         # Check if firm holds client money
         holding_patterns = [
             r'(?:hold|holding|receive|accept)\s+(?:client|customer)\s+(?:money|fund)',

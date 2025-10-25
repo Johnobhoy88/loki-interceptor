@@ -10,12 +10,21 @@ class NoImplicitAdviceGate:
     def _is_relevant(self, text):
         """Check if document contains recommendations or suggestions"""
         text_lower = text.lower()
+        universal_patterns = [
+            r'suits?\s+everyone',
+            r'everyone\s+qualif(?:y|ies)',
+            r'no\s+suitability\s+(?:check|hurdle|requirement)',
+            r'all\s+(?:investors|profiles|clients)',
+            r'every\s+(?:investor|customer)',
+            r'move\s+existing\s+clients'
+        ]
+
         keywords = [
             'recommend', 'suggest', 'should', 'could', 'consider',
             'suitable', 'appropriate', 'right for you', 'best',
-            'invest', 'buy', 'apply', 'choose'
+            'invest', 'buy', 'apply', 'choose', 'everyone qualifies'
         ]
-        return any(kw in text_lower for kw in keywords)
+        return any(kw in text_lower for kw in keywords) or any(re.search(p, text_lower) for p in universal_patterns)
 
     def check(self, text, document_type):
         if not self._is_relevant(text):
@@ -62,6 +71,25 @@ class NoImplicitAdviceGate:
 
         if not gives_advice:
             return {'status': 'N/A'}
+
+        universal_claims_patterns = [
+            r'suits?\s+everyone',
+            r'everyone\s+(?:qualifies|approved)',
+            r'no\s+suitability\s+(?:checks?|hurdles?|requirements?)',
+            r'all\s+(?:investors|clients)',
+            r'every\s+(?:investor|customer)',
+            r'move\s+existing\s+clients',
+            r'act\s+now',
+            r'before\s+\w+\s+end',
+            r'lock\s+in',
+            r'urgent',
+            r'window\s+(?:closes|closing)'
+        ]
+
+        has_universal_claims = any(re.search(pattern, text_lower) for pattern in universal_claims_patterns)
+
+        if not gives_advice and has_universal_claims:
+            gives_advice = True
 
         # Check for KYC/suitability assessment indicators
         kyc_patterns = [
@@ -159,6 +187,26 @@ class NoImplicitAdviceGate:
                     })
 
         # Determine status
+        has_urgency = any(re.search(pattern, text_lower) for pattern in [
+            r'act\s+now',
+            r'before\s+\w+\s+end',
+            r'move\s+existing\s+clients',
+            r'lock\s+in',
+            r'urgent',
+            r'window\s+(?:closes|closing)'
+        ])
+
+        # Critical: Universal suitability with urgency and no safeguards
+        if has_universal_claims and has_urgency and not has_disclaimer and not has_kyc and not is_authorized:
+            return {
+                'status': 'FAIL',
+                'severity': 'critical',
+                'message': 'Urgent universal suitability claims without suitability assessment or disclaimers',
+                'legal_source': self.legal_source,
+                'suggestion': 'Remove blanket suitability claims or provide suitability assessments and clear “not advice” disclaimers before urging clients to act.',
+                'spans': spans
+            }
+
         # Critical: Gives advice without KYC AND without disclaimer
         if gives_advice and not has_kyc and not has_disclaimer and not is_authorized:
             return {

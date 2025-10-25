@@ -34,6 +34,33 @@ class PromotionsApprovalGate:
         text_lower = text.lower()
         spans = []
 
+        bypass_patterns = [
+            r'compliance\s+is\s+bypass',
+            r'bypass\s+compliance',
+            r'compliance\s+can\s+look\s+post-?launch',
+            r'post-?launch\s+approval',
+            r'approval\s+(?:will\s+)?be\s+(?:obtained|sought)\s+after\s+launch'
+        ]
+
+        for pattern in bypass_patterns:
+            match = re.search(pattern, text_lower)
+            if match:
+                spans.append({
+                    'type': 'approval_bypass',
+                    'start': match.start(),
+                    'end': match.end(),
+                    'text': text[match.start():match.end()],
+                    'severity': 'critical'
+                })
+                return {
+                    'status': 'FAIL',
+                    'severity': 'critical',
+                    'message': 'Promotion states compliance approval is bypassed or deferred',
+                    'legal_source': self.legal_source,
+                    'suggestion': 'Financial promotions must be approved by an FCA-authorised person before communication. Remove any suggestion of bypassing approval and name the approving firm/FRN.',
+                    'spans': spans
+                }
+
         # Check for strong promotional content
         promotional_patterns = [
             r'(?:apply|invest|buy|sign\s+up|join|register)\s+(?:now|today)',

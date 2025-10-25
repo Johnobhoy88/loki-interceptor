@@ -111,7 +111,10 @@ class DistributionControlsGate:
             r'no\s+(?:control|oversight|monitoring)',
             r'(?:not|un)regulated',
             r'(?:independent|outside)\s+(?:our\s+)?control',
-            r'no\s+responsibility\s+for'
+            r'no\s+responsibility\s+for',
+            r'no\s+(?:knowledge|suitability)\s+(?:checks|hurdles|requirements)',
+            r'automatically\s+accept',
+            r'everyone\s+(?:qualifies|approved)'
         ]
 
         has_negative_indicators = False
@@ -135,7 +138,7 @@ class DistributionControlsGate:
         if has_negative_indicators:
             return {
                 'status': 'FAIL',
-                'severity': 'medium',
+                'severity': 'high',
                 'message': 'Distribution via intermediaries without adequate controls',
                 'legal_source': self.legal_source,
                 'suggestion': 'PROD 4 requires manufacturers to establish distribution arrangements. Cannot disclaim responsibility for distribution outcomes.',

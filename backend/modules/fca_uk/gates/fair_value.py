@@ -105,6 +105,16 @@ class FairValueGate:
                 'spans': spans
             }
 
+        if has_pricing and not has_value_justification and re.search(r'guaranteed|no\s+risk', text_lower):
+            return {
+                'status': 'FAIL',
+                'severity': 'high',
+                'message': 'Guaranteed outcomes promoted without fair value justification for fees',
+                'legal_source': self.legal_source,
+                'suggestion': 'Where guaranteed returns are claimed, explain how fees remain fair value (breakdown, costs vs. benefits, Consumer Duty assessment).',
+                'spans': spans
+            }
+
         # Warning if pricing without clear benefits
         if has_pricing and not has_benefits:
             return {
