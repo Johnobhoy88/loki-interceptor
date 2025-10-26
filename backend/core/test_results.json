@@ -1,0 +1,52 @@
+{
+  "pattern_coverage": {
+    "passed": true,
+    "regex": 26,
+    "templates": 80,
+    "structural": 1,
+    "total": 107
+  },
+  "determinism": {
+    "passed": true,
+    "runs": 3,
+    "hashes": [
+      "672749e1f0436d5ceff929f86941c711c122f9577ec740f225d282b50b8819f1",
+      "672749e1f0436d5ceff929f86941c711c122f9577ec740f225d282b50b8819f1",
+      "672749e1f0436d5ceff929f86941c711c122f9577ec740f225d282b50b8819f1"
+    ],
+    "identical": true
+  },
+  "performance": {
+    "passed": true,
+    "results": {
+      "small": {
+        "elapsed": 0.00038170814514160156,
+        "chars": 290,
+        "corrections": 3,
+        "chars_per_sec": 759742.7607745159
+      },
+      "medium": {
+        "elapsed": 0.00045561790466308594,
+        "chars": 2900,
+        "corrections": 3,
+        "chars_per_sec": 6364982.5222396655
+      },
+      "large": {
+        "elapsed": 0.003484964370727539,
+        "chars": 29000,
+        "corrections": 3,
+        "chars_per_sec": 8321462.406786619
+      }
+    }
+  },
+  "specific_patterns": {
+    "passed": true,
+    "total": 7,
+    "passed_count": 7
+  },
+  "integration": {
+    "passed": true,
+    "corrections": 1,
+    "valid": true
+  }
+}
