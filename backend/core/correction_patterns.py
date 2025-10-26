@@ -319,8 +319,8 @@ class CorrectionPatternRegistry:
         # Consent corrections - remove forced consent
         self.regex_patterns['consent'] = [
             {
-                'pattern': r'by\s+using\s+(?:this|our)\s+(?:website|service|app),?\s+you\s+(?:automatically\s+)?(?:agree|consent)\s+to',
-                'replacement': 'We request your explicit consent to',
+                'pattern': r'by\s+using\s+(?:this|our)\s+(?:website|service|app),?\s+you\s+(?:automatically\s+)?(?:agree|consent)(?:\s+to)?',
+                'replacement': 'We request your explicit consent',
                 'reason': 'GDPR Article 7 - Remove forced consent',
                 'flags': re.IGNORECASE
             },
