@@ -105,6 +105,202 @@ class CorrectionPatternRegistry:
             }
         ]
 
+        # Client Money Segregation (CASS 7)
+        self.templates['client_money_segregation'] = [
+            {
+                'template': 'CLIENT MONEY PROTECTION: Your funds are held in segregated client bank accounts separate from our firm money, in accordance with FCA CASS 7 rules. Daily reconciliation is performed to ensure your money is protected.',
+                'position': 'after_header',
+                'condition': r'(?:client money|client funds|segregat|account)'
+            }
+        ]
+
+        # Complaint Route Clock (8-week rule)
+        self.templates['complaint_route_clock'] = [
+            {
+                'template': 'COMPLAINT RESPONSE TIMELINE: We will send you a final response within 8 weeks of receiving your complaint, as required by FCA DISP rules.',
+                'position': 'before_signature',
+                'condition': r'(?:complaint|grievance|dispute)'
+            }
+        ]
+
+        # Cross-Cutting Rules (Consumer Duty - Act in Good Faith)
+        self.regex_patterns['cross_cutting'] = [
+            {
+                'pattern': r'(?:mandatory|compulsory|you must|required to).*(?:purchase|buy|accept)',
+                'replacement': 'you may choose to',
+                'reason': 'Consumer Duty - Remove coercive language',
+                'flags': re.IGNORECASE
+            },
+            {
+                'pattern': r'(?:automatically|by default).*(?:enrolled|signed up|subscribed)',
+                'replacement': 'you can choose to enroll',
+                'reason': 'Consumer Duty - Avoid foreseeable harm',
+                'flags': re.IGNORECASE
+            }
+        ]
+
+        # No Implicit Advice
+        self.templates['no_implicit_advice'] = [
+            {
+                'template': '''IMPORTANT: This is not financial advice. This information is provided for general purposes only and does not constitute a personal recommendation. You should seek independent financial advice before making any investment decisions.''',
+                'position': 'start',
+                'condition': r'(?:invest|purchase|buy|recommend|suitable|should)'
+            }
+        ]
+
+        self.regex_patterns['no_implicit_advice'] = [
+            {
+                'pattern': r'(?:you should|we recommend you|this is suitable for you)',
+                'replacement': '[REMOVED - requires suitability assessment for personal recommendations]',
+                'reason': 'FCA COBS 9 - Personal recommendations require suitability assessment',
+                'flags': re.IGNORECASE
+            }
+        ]
+
+        # Conflicts of Interest Declaration (SYSC 10)
+        self.templates['conflicts_declaration'] = [
+            {
+                'template': '''CONFLICTS OF INTEREST: We maintain a conflicts of interest policy. [Specify: commission arrangements, ownership relationships, panel restrictions, or other conflicts]. We are committed to managing conflicts in your best interests.''',
+                'position': 'before_signature',
+                'condition': r'(?:financial|advice|recommend|product|service)'
+            }
+        ]
+
+        # Fair Value Assessment (Consumer Duty)
+        self.templates['fair_value'] = [
+            {
+                'template': '''FAIR VALUE ASSESSMENT: Under the Consumer Duty, we assess that this product represents fair value. Our fees are reasonable relative to the benefits provided, taking into account [specify: services, features, market comparison, costs].''',
+                'position': 'after_header',
+                'condition': r'(?:fee|charge|cost|price|payment)'
+            }
+        ]
+
+        # Inducements and Referrals Disclosure (COBS 2.3)
+        self.templates['inducements_referrals'] = [
+            {
+                'template': '''INDUCEMENTS DISCLOSURE: We receive [fee/commission] from [provider name] for this product. The amount is [specify amount or calculation method]. This does not increase the cost you pay.''',
+                'position': 'before_signature',
+                'condition': r'(?:commission|fee|referral|introducer)'
+            }
+        ]
+
+        # Support Journey (Consumer Duty - No Barriers)
+        self.templates['support_journey'] = [
+            {
+                'template': '''CUSTOMER SUPPORT: You can contact us via [phone/email/post/online]. Cancellation and complaints are as easy as sign-up. We do not create unnecessary barriers to customer service.''',
+                'position': 'before_signature',
+                'condition': r'(?:contact|support|help|cancel|complaint)'
+            }
+        ]
+
+        # Target Audience (Product Governance)
+        self.templates['target_audience'] = [
+            {
+                'template': '''TARGET AUDIENCE: This product is designed for customers with [specify: knowledge level, experience, risk tolerance, financial situation, objectives]. This product is NOT suitable for [specify exclusions].''',
+                'position': 'after_header',
+                'condition': r'(?:product|service|investment|suitable)'
+            }
+        ]
+
+        # Third Party Banks (CASS 7.13)
+        self.templates['third_party_banks'] = [
+            {
+                'template': '''APPROVED BANKS: Client money is held with FCA/PRA authorised banks selected under our due diligence criteria. Banks are subject to ongoing monitoring and review to ensure compliance with CASS 7 requirements.''',
+                'position': 'end',
+                'condition': r'(?:bank|client money|segregat)'
+            }
+        ]
+
+        # Vulnerability Identification (Consumer Duty)
+        self.templates['vulnerability_identification'] = [
+            {
+                'template': '''VULNERABLE CUSTOMERS: We recognize that customers may be in vulnerable circumstances. If you require additional support or reasonable adjustments, please contact us.''',
+                'position': 'end',
+                'condition': r'(?:customer|client|support|help)'
+            }
+        ]
+
+        # Distribution Controls (Product Governance)
+        self.templates['distribution_controls'] = [
+            {
+                'template': '''DISTRIBUTION: This product is distributed through [channels]. Our distribution strategy ensures it reaches the intended target market and is sold with appropriate advice/information.''',
+                'position': 'end',
+                'condition': r'(?:distribut|channel|platform|adviser)'
+            }
+        ]
+
+        # Comprehension Aids (Consumer Duty)
+        self.templates['comprehension_aids'] = [
+            {
+                'template': '''PLAIN LANGUAGE: This document uses clear, accessible language to ensure you can understand the information. [Key terms are explained / Glossary available / Summary provided].''',
+                'position': 'after_header',
+                'condition': r'(?:terms|glossary|definition|jargon)'
+            }
+        ]
+
+        # Defined Roles (SMCR - Senior Managers & Certification Regime)
+        self.templates['defined_roles'] = [
+            {
+                'template': '''REGULATORY RESPONSIBILITIES: This [function/service] is overseen by [Senior Manager/Certified Person name and title], who holds regulatory responsibility under the Senior Managers & Certification Regime.''',
+                'position': 'end',
+                'condition': r'(?:responsible|oversight|manager|director)'
+            }
+        ]
+
+        # Finfluencer Controls
+        self.regex_patterns['finfluencer'] = [
+            {
+                'pattern': r'#ad|#sponsored|paid partnership',
+                'replacement': '[AD] This is a paid promotion - ',
+                'reason': 'FCA finfluencer rules - Clear advertising disclosure',
+                'flags': re.IGNORECASE
+            }
+        ]
+
+        self.templates['finfluencer_controls'] = [
+            {
+                'template': '''ADVERTISEMENT: This is a financial promotion. It has been approved by [FCA authorised firm name, FRN: XXXXXX]. Not independent advice.''',
+                'position': 'start',
+                'condition': r'(?:#ad|#spon|influenc|social media|instagram|tiktok|youtube)'
+            }
+        ]
+
+        # Outcomes Coverage (Consumer Duty Outcomes)
+        self.templates['outcomes_coverage'] = [
+            {
+                'template': '''CONSUMER DUTY OUTCOMES: We monitor four key outcomes: (1) Products and services, (2) Price and value, (3) Consumer understanding, (4) Consumer support. We act to deliver good outcomes for customers.''',
+                'position': 'end',
+                'condition': r'(?:consumer duty|outcome|monitoring)'
+            }
+        ]
+
+        # Personal Dealing (Market Abuse Prevention)
+        self.templates['personal_dealing'] = [
+            {
+                'template': '''PERSONAL DEALING: Our staff are subject to personal account dealing rules. Employees must obtain approval before trading and are restricted from trading during closed periods.''',
+                'position': 'end',
+                'condition': r'(?:employee|staff|personal account|dealing)'
+            }
+        ]
+
+        # Record Keeping (Regulatory Requirements)
+        self.templates['record_keeping'] = [
+            {
+                'template': '''RECORD KEEPING: We maintain records of [transactions/advice/communications] for [specify period - typically 5-7 years] in accordance with FCA requirements.''',
+                'position': 'end',
+                'condition': r'(?:record|document|retain|archive)'
+            }
+        ]
+
+        # Reasonable Adjustments (Equality Act 2010)
+        self.templates['reasonable_adjustments'] = [
+            {
+                'template': '''REASONABLE ADJUSTMENTS: If you have a disability or require reasonable adjustments to access our services, please contact us. We are committed to making our services accessible.''',
+                'position': 'end',
+                'condition': r'(?:disabilit|access|adjustment|equality)'
+            }
+        ]
+
         # Structural rule: Move risk warnings to be more prominent
         self.structural_rules['risk_benefit_balance'] = [
             {
@@ -215,6 +411,60 @@ To exercise these rights, contact us at [contact details].''',
             }
         ]
 
+        # Accuracy of data
+        self.templates['accuracy'] = [
+            {
+                'template': 'DATA ACCURACY: We take reasonable steps to ensure personal data is accurate and up to date. You can request corrections to inaccurate data at any time.',
+                'position': 'end',
+                'condition': r'(?:personal data|accuracy|correct|update)'
+            }
+        ]
+
+        # Accountability
+        self.templates['accountability'] = [
+            {
+                'template': 'ACCOUNTABILITY: We maintain records of our processing activities and can demonstrate GDPR compliance. Our Data Protection Officer can be contacted at [contact details].',
+                'position': 'end',
+                'condition': r'(?:gdpr|data protection|compliance)'
+            }
+        ]
+
+        # Automated Decision Making
+        self.templates['automated_decisions'] = [
+            {
+                'template': 'AUTOMATED DECISIONS: [We do not use automated decision-making including profiling / We use automated decision-making for [specify purpose]. You have the right to request human intervention and contest the decision].',
+                'position': 'end',
+                'condition': r'(?:automated|profiling|algorithm|decision)'
+            }
+        ]
+
+        # Breach Notification
+        self.templates['breach_notification'] = [
+            {
+                'template': 'DATA BREACHES: In the event of a personal data breach likely to result in high risk to your rights, we will notify you without undue delay as required by GDPR Article 34.',
+                'position': 'end',
+                'condition': r'(?:breach|security incident|notification)'
+            }
+        ]
+
+        # Processors (third party data processors)
+        self.templates['processors'] = [
+            {
+                'template': 'THIRD PARTY PROCESSORS: We engage third party processors to process personal data on our behalf. All processors are subject to GDPR-compliant contracts ensuring appropriate safeguards.',
+                'position': 'end',
+                'condition': r'(?:processor|third party|subprocessor|service provider)'
+            }
+        ]
+
+        # Third party sharing
+        self.templates['third_party_sharing'] = [
+            {
+                'template': 'DATA SHARING: We share your personal data with [specify categories of recipients]. We only share data where necessary and ensure recipients have appropriate safeguards in place.',
+                'position': 'end',
+                'condition': r'(?:share|sharing|third party|recipient)'
+            }
+        ]
+
     # ===========================================
     # Tax UK - HMRC Compliance
     # ===========================================
@@ -241,6 +491,111 @@ To exercise these rights, contact us at [contact details].''',
                 'replacement': 'VAT registration threshold is £90,000',
                 'reason': 'Current VAT threshold as of April 2024',
                 'flags': re.IGNORECASE
+            }
+        ]
+
+        # CIS Compliance (Construction Industry Scheme)
+        self.templates['cis_compliance'] = [
+            {
+                'template': 'CIS DEDUCTIONS: Contractors must verify subcontractors with HMRC and make appropriate deductions (20% for registered subcontractors, 30% for unregistered). Monthly returns required.',
+                'position': 'end',
+                'condition': r'(?:construction|subcontractor|cis|contractor)'
+            }
+        ]
+
+        # Corporation Tax basics
+        self.templates['corporation_tax'] = [
+            {
+                'template': 'CORPORATION TAX: UK companies must file Corporation Tax returns (CT600) within 12 months of accounting period end and pay tax within 9 months. Rate is [19%/25% depending on profits].',
+                'position': 'end',
+                'condition': r'(?:corporation tax|company tax|ct600)'
+            }
+        ]
+
+        # Dividend Tax clarification
+        self.templates['dividend_tax'] = [
+            {
+                'template': 'DIVIDEND TAX: Dividends are subject to Income Tax at 8.75% (basic rate), 33.75% (higher rate), or 39.35% (additional rate) after the £500 dividend allowance.',
+                'position': 'end',
+                'condition': r'(?:dividend|shareholder distribution)'
+            }
+        ]
+
+        # Expense Rules
+        self.templates['expense_rules'] = [
+            {
+                'template': 'ALLOWABLE EXPENSES: Business expenses must be wholly and exclusively for business purposes. Dual-purpose expenses require apportionment between business and private use.',
+                'position': 'end',
+                'condition': r'(?:expense|deduction|allowable|claim)'
+            }
+        ]
+
+        # Flat Rate VAT Scheme
+        self.templates['flat_rate_vat'] = [
+            {
+                'template': 'FLAT RATE VAT: Available to businesses with turnover under £150,000. You charge normal VAT but pay HMRC a fixed percentage based on your trade sector (ranges from 4% to 14.5%).',
+                'position': 'end',
+                'condition': r'(?:flat rate|frs|vat scheme)'
+            }
+        ]
+
+        # Import VAT clarification
+        self.templates['import_vat'] = [
+            {
+                'template': 'IMPORT VAT: VAT is charged on goods imported into the UK. Use postponed VAT accounting to declare and recover import VAT on the same VAT return (no upfront payment).',
+                'position': 'end',
+                'condition': r'(?:import|customs|duty|border)'
+            }
+        ]
+
+        # Invoice Requirements
+        self.templates['invoice_legal_requirements'] = [
+            {
+                'template': '''INVOICE REQUIREMENTS: UK invoices must include:
+• Unique invoice number
+• Business name and address
+• Customer name and address
+• Date of supply
+• Description of goods/services
+• Amounts excluding and including VAT
+• VAT number (if VAT registered)
+• Payment terms''',
+                'position': 'end',
+                'condition': r'(?:invoice|bill|statement)'
+            }
+        ]
+
+        # Company Name Display
+        self.regex_patterns['legal_entity_name'] = [
+            {
+                'pattern': r'\bLtd\b(?!\.|imited)',
+                'replacement': 'Limited',
+                'reason': 'Must display full "Limited" on business documents',
+                'flags': 0
+            },
+            {
+                'pattern': r'\bLLC\b',
+                'replacement': 'Limited',
+                'reason': 'UK uses "Limited" or "Ltd" not "LLC"',
+                'flags': 0
+            }
+        ]
+
+        # PAYE basics
+        self.templates['paye_basics'] = [
+            {
+                'template': 'PAYE: Employers must operate PAYE if paying employees £123+ per week. Register with HMRC, deduct tax and National Insurance, submit RTI returns on or before each payday.',
+                'position': 'end',
+                'condition': r'(?:paye|payroll|employee|salary|wage)'
+            }
+        ]
+
+        # Self-Assessment deadlines
+        self.templates['self_assessment'] = [
+            {
+                'template': 'SELF-ASSESSMENT: Paper tax returns due 31 October, online returns due 31 January following the tax year (6 April to 5 April). Payment deadline is 31 January. Second payment on account due 31 July.',
+                'position': 'end',
+                'condition': r'(?:self assessment|self-assessment|tax return|sa100)'
             }
         ]
 
@@ -354,12 +709,89 @@ To exercise these rights, contact us at [contact details].''',
             }
         ]
 
+        # Consideration clause
+        self.templates['consideration'] = [
+            {
+                'template': 'CONSIDERATION: In consideration of £1 and other valuable consideration (the receipt and sufficiency of which is hereby acknowledged), the parties agree as follows:',
+                'position': 'start',
+                'condition': r'(?:nda|agreement|contract|confidential)'
+            }
+        ]
+
+        # Definition Specificity
+        self.templates['definition_specificity'] = [
+            {
+                'template': '''CONFIDENTIAL INFORMATION: "Confidential Information" means information in any form relating to [specify categories: trade secrets, financial data, customer lists, technical specifications, business plans, etc.] disclosed by one party to the other.
+
+EXCLUSIONS: Confidential Information does NOT include information that:
+(a) is or becomes publicly available through no breach of this Agreement;
+(b) was lawfully known to the recipient prior to disclosure;
+(c) is independently developed by the recipient without use of the Confidential Information;
+(d) is lawfully obtained from a third party without breach of confidentiality; or
+(e) must be disclosed by law or regulatory requirement.''',
+                'position': 'after_header',
+                'condition': r'(?:confidential|nda|non-disclosure)'
+            }
+        ]
+
+        # Parties Identification
+        self.templates['parties_identified'] = [
+            {
+                'template': '''PARTIES:
+
+(1) [Full Legal Name] (company number: [XXXXXX]) whose registered office is at [Full Registered Address] ("Disclosing Party"); and
+
+(2) [Full Legal Name] (company number: [XXXXXX]) whose registered office is at [Full Registered Address] ("Receiving Party").''',
+                'position': 'start',
+                'condition': r'(?:agreement|nda|contract)'
+            }
+        ]
+
+        # Permitted Disclosures
+        self.templates['permitted_disclosures'] = [
+            {
+                'template': '''PERMITTED DISCLOSURES: The Receiving Party may disclose Confidential Information to:
+(a) employees, officers, and professional advisers who have a legitimate need to know;
+(b) as required by law, regulation, or court order (with advance notice to Disclosing Party where legally permitted); and
+(c) to the extent protected under the Public Interest Disclosure Act 1998 (whistleblowing).''',
+                'position': 'end',
+                'condition': r'(?:disclosure|disclose|nda)'
+            }
+        ]
+
+        # Permitted Purpose
+        self.templates['permitted_purpose'] = [
+            {
+                'template': 'PERMITTED PURPOSE: The Receiving Party shall use Confidential Information solely for [specify purpose: evaluating business opportunity / performing services under contract / etc.].',
+                'position': 'after_header',
+                'condition': r'(?:purpose|use of information|confidential)'
+            }
+        ]
+
+        # Prior Knowledge Exclusion
+        self.templates['prior_knowledge_exclusion'] = [
+            {
+                'template': 'PRIOR KNOWLEDGE: Information already known to the Receiving Party prior to disclosure (as evidenced by written records) is excluded from confidentiality obligations.',
+                'position': 'end',
+                'condition': r'(?:exclusion|confidential information|nda)'
+            }
+        ]
+
         # Public domain exclusion
         self.templates['public_domain'] = [
             {
-                'template': 'EXCLUSIONS: Confidential Information does not include information that: (a) is or becomes publicly available through no breach of this Agreement; (b) was lawfully known prior to disclosure; (c) is independently developed; or (d) is lawfully obtained from a third party.',
+                'template': 'PUBLIC DOMAIN EXCLUSION: Confidential Information does not include information that: (a) is or becomes publicly available through no breach of this Agreement; (b) was lawfully known prior to disclosure; (c) is independently developed; or (d) is lawfully obtained from a third party.',
                 'position': 'after_header',
                 'condition': r'(?:confidential information|nda)'
+            }
+        ]
+
+        # Return/Destruction of Information
+        self.templates['return_destruction'] = [
+            {
+                'template': 'RETURN OR DESTRUCTION: Upon termination or at the Disclosing Party\'s request, the Receiving Party shall return or destroy all Confidential Information and certify such destruction in writing.',
+                'position': 'end',
+                'condition': r'(?:termination|return|destroy|confidential)'
             }
         ]
 
@@ -447,6 +879,142 @@ To exercise these rights, contact us at [contact details].''',
                 'replacement': 'suspended on full pay (not a disciplinary sanction) pending investigation',
                 'reason': 'Clarify suspension is neutral act, not punishment',
                 'flags': re.IGNORECASE
+            }
+        ]
+
+        # Allegations clarity
+        self.templates['allegations'] = [
+            {
+                'template': 'ALLEGATIONS: You are invited to a [disciplinary/grievance] meeting to discuss the following allegations: [specify clear, specific allegations]. You will have the opportunity to respond to these allegations at the meeting.',
+                'position': 'start',
+                'condition': r'(?:disciplinary|allegation|misconduct|grievance)'
+            }
+        ]
+
+        # Consistency in decisions
+        self.templates['consistency'] = [
+            {
+                'template': 'CONSISTENCY: We apply our disciplinary procedures consistently across all employees. Similar cases are treated similarly, taking into account individual circumstances and mitigating factors.',
+                'position': 'end',
+                'condition': r'(?:disciplinary|sanction|decision)'
+            }
+        ]
+
+        # Disclosure of evidence
+        self.templates['disclosure'] = [
+            {
+                'template': 'EVIDENCE DISCLOSURE: You will receive copies of all evidence to be relied upon at least [48 hours / 2 working days] before the meeting.',
+                'position': 'after_header',
+                'condition': r'(?:evidence|investigation|disciplinary|meeting)'
+            }
+        ]
+
+        # Informal resolution
+        self.regex_patterns['informal_threats'] = [
+            {
+                'pattern': r'(?:this is your|informal|final)\s+(?:last\s+)?(?:warning|chance)',
+                'replacement': 'we would like to discuss this matter with you',
+                'reason': 'Informal warnings must not threaten formal consequences',
+                'flags': re.IGNORECASE
+            }
+        ]
+
+        # Investigation process
+        self.templates['investigation'] = [
+            {
+                'template': 'INVESTIGATION: An investigation will be conducted by [name/position]. You may be asked to attend an investigatory meeting. This is fact-finding and not disciplinary. You do not have the right to be accompanied at investigatory meetings, though we may allow it in complex cases.',
+                'position': 'after_header',
+                'condition': r'(?:investigation|investigat|allegation)'
+            }
+        ]
+
+        # Meeting notes
+        self.templates['meeting_notes'] = [
+            {
+                'template': 'MEETING NOTES: We will take notes of the meeting. You will receive a copy and may submit corrections or comments within [5] working days.',
+                'position': 'end',
+                'condition': r'(?:meeting|hearing|disciplinary|grievance)'
+            }
+        ]
+
+        # Meeting postponement
+        self.templates['postponement'] = [
+            {
+                'template': 'POSTPONEMENT: If you cannot attend, contact us immediately. We may postpone once if you provide good reason. Your companion must be available within 5 working days of the original date.',
+                'position': 'end',
+                'condition': r'(?:meeting|hearing|attend)'
+            }
+        ]
+
+        # Mitigating circumstances
+        self.templates['mitigating_circumstances'] = [
+            {
+                'template': 'MITIGATING CIRCUMSTANCES: You may present any mitigating circumstances that should be taken into account when determining the outcome (e.g., length of service, previous record, personal circumstances).',
+                'position': 'end',
+                'condition': r'(?:disciplinary|sanction|outcome|decision)'
+            }
+        ]
+
+        # Outcome reasons
+        self.templates['outcome_reasons'] = [
+            {
+                'template': 'OUTCOME: Our decision is [specify outcome]. The reasons for this decision are: [specify reasons]. This decision was reached after considering all evidence and your response.',
+                'position': 'after_header',
+                'condition': r'(?:outcome|decision|finding)'
+            }
+        ]
+
+        # Previous warnings
+        self.templates['previous_warnings'] = [
+            {
+                'template': 'PREVIOUS RECORD: Your previous disciplinary record [has been considered / shows no previous warnings]. [Expired warnings have been disregarded].',
+                'position': 'end',
+                'condition': r'(?:previous|record|warning|history)'
+            }
+        ]
+
+        # Representation choice
+        self.templates['representation_choice'] = [
+            {
+                'template': 'YOUR CHOICE OF COMPANION: You may be accompanied by a work colleague or trade union representative of your choice. Your companion may address the hearing, confer with you, and ask questions, but may not answer questions on your behalf.',
+                'position': 'after_header',
+                'condition': r'(?:companion|accompanied|representative)'
+            }
+        ]
+
+        # Sanction graduation
+        self.templates['sanction_graduation'] = [
+            {
+                'template': 'DISCIPLINARY SANCTIONS: Sanctions are normally applied progressively: (1) Verbal warning, (2) First written warning, (3) Final written warning, (4) Dismissal. Gross misconduct may result in summary dismissal without prior warnings.',
+                'position': 'end',
+                'condition': r'(?:sanction|warning|dismissal|progressive)'
+            }
+        ]
+
+        # Timeframes
+        self.templates['timeframes'] = [
+            {
+                'template': 'TIMEFRAMES: Meetings will be held within [specify reasonable timeframe]. Decisions will be communicated within [specify period]. Appeal outcomes will be provided within [specify period].',
+                'position': 'end',
+                'condition': r'(?:timeline|timeframe|deadline|period)'
+            }
+        ]
+
+        # Witness statements
+        self.templates['witness_statements'] = [
+            {
+                'template': 'WITNESSES: You may call relevant witnesses. Provide names in advance. Witnesses will only attend for their evidence. We will also call our witnesses.',
+                'position': 'end',
+                'condition': r'(?:witness|evidence|testimony)'
+            }
+        ]
+
+        # Dismissal procedures
+        self.templates['dismissal'] = [
+            {
+                'template': 'DISMISSAL: Dismissal will only occur after a fair procedure including investigation, meeting with right to be accompanied, consideration of your response, and right of appeal. Gross misconduct may result in summary dismissal (without notice).',
+                'position': 'end',
+                'condition': r'(?:dismiss|termination|gross misconduct|summary)'
             }
         ]
 
