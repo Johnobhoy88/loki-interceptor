@@ -1,0 +1,10 @@
+Professional Services Invoice
+
+Annual revenue: £60,000
+Service charge: £1,200
+VAT @ 20%: £240
+Total: £1,440
+
+VAT Registration: GB987654321
+
+We are VAT registered and charge VAT on all services.

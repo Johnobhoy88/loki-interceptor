@@ -1,0 +1,7 @@
+Account Access
+
+Your password has been reset to: Password123
+
+Please log in using this temporary password. You may change it later if desired.
+
+If you didn't request this, please contact support.

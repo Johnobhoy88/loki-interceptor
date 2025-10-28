@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest:*)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(python3:*)",
+      "Bash(env)",
+      "Bash(curl:*)",
+      "Bash(export ANTHROPIC_API_KEY=\"YOUR_KEY_HERE"
+      "Bash(export:*)",
+      "Bash(export GEMINI_API_KEY=\"YOUR_KEY_HERE"
+      "Bash(tee:*)",
+      "Read(//tmp/**)",
+      "Bash(cat:*)",
+      "Bash(awk:*)",
+      "Bash(xargs:*)",
+      "Bash(git add:*)",
+      "Bash(git reset:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd universal provider selection logic to aggregator\n\nImplements future-proof provider selection that works with ANY number of\nproviders (3, 10, 100+) and ANY provider names without code changes.\n\nKey improvements:\n- Universal scoring: Prioritizes non-refusals > non-blocked > low failures > high content\n- MIN_CONTENT_LENGTH threshold (50 chars) filters out empty/short responses\n- Enhanced metadata: total_providers, viable_providers, refusal_count, selection_score\n- Diagnostic fallback: Returns detailed metadata when all providers refuse\n\nThis works seamlessly with:\n- Current providers (Anthropic, OpenAI, Gemini)\n- Future providers (Cohere, Mistral, Claude Opus, etc.)\n- ANY module (FCA, GDPR, HR, NDA, Tax, HIPAA, SOX, PCI-DSS, etc.)\n\nAddresses feedback from Codex review:\n- Engine no longer picks refusals over actual content\n- Falls back to \"least-bad\" non-refusal provider even if blocked\n- Provides rich diagnostic data for debugging selection decisions\n\n🤖 Generated with Claude Code\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

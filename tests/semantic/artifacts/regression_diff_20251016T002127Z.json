@@ -1,0 +1,110 @@
+{
+  "issues": [
+    "fca_fail: semantic hits 0 below minimum 1",
+    "fca_fail: review flags 0 below minimum 1",
+    "gdpr_fail: expected FAIL gate 'lawful_basis' not found (actual ['consent', 'dpo_contact', 'purpose', 'retention', 'rights', 'third_party_sharing'])",
+    "gdpr_fail: semantic hits 0 below minimum 1",
+    "gdpr_fail: review flags 0 below minimum 1",
+    "hr_contract: expected risk LOW, got HIGH",
+    "hr_contract: fail count 2 exceeds max_fail 0",
+    "hr_contract: warning count 5 exceeds max_warn 1",
+    "tax_scheme: expected risk CRITICAL, got HIGH",
+    "tax_scheme: expected FAIL gate 'tax_deadline_accuracy' not found (actual ['invoice_legal_requirements', 'vat_invoice_integrity'])",
+    "tax_scheme: semantic hits 0 below minimum 1",
+    "nda_basic: expected risk LOW, got CRITICAL",
+    "nda_basic: fail count 3 exceeds max_fail 0",
+    "nda_basic: warning count 4 exceeds max_warn 1"
+  ],
+  "results": {
+    "fca_fail": {
+      "failures": [
+        "fca_uk:conflicts_declaration",
+        "fca_uk:fair_clear_not_misleading",
+        "fca_uk:promotions_approval",
+        "fca_uk:target_market_definition"
+      ],
+      "modules": [
+        "fca_uk"
+      ],
+      "needs_review": 0,
+      "overall_risk": "CRITICAL",
+      "semantic_hits": 0,
+      "warnings": [
+        "fca_uk:risk_benefit_balance",
+        "fca_uk:support_journey"
+      ]
+    },
+    "gdpr_fail": {
+      "failures": [
+        "gdpr_uk:consent",
+        "gdpr_uk:dpo_contact",
+        "gdpr_uk:purpose",
+        "gdpr_uk:retention",
+        "gdpr_uk:rights",
+        "gdpr_uk:third_party_sharing"
+      ],
+      "modules": [
+        "gdpr_uk"
+      ],
+      "needs_review": 0,
+      "overall_risk": "CRITICAL",
+      "semantic_hits": 0,
+      "warnings": [
+        "gdpr_uk:breach_notification",
+        "gdpr_uk:data_minimisation"
+      ]
+    },
+    "hr_contract": {
+      "failures": [
+        "hr_scottish:informal_threats",
+        "hr_scottish:outcome_reasons"
+      ],
+      "modules": [
+        "hr_scottish"
+      ],
+      "needs_review": 0,
+      "overall_risk": "HIGH",
+      "semantic_hits": 0,
+      "warnings": [
+        "hr_scottish:accompaniment",
+        "hr_scottish:allegations",
+        "hr_scottish:consistency",
+        "hr_scottish:meeting_notes",
+        "hr_scottish:witness_statements"
+      ]
+    },
+    "nda_basic": {
+      "failures": [
+        "nda_uk:definition_specificity",
+        "nda_uk:parties_identified",
+        "nda_uk:public_domain_exclusion"
+      ],
+      "modules": [
+        "nda_uk"
+      ],
+      "needs_review": 0,
+      "overall_risk": "CRITICAL",
+      "semantic_hits": 0,
+      "warnings": [
+        "nda_uk:duration_reasonableness",
+        "nda_uk:permitted_purpose",
+        "nda_uk:protected_crime_reporting",
+        "nda_uk:protected_whistleblowing"
+      ]
+    },
+    "tax_scheme": {
+      "failures": [
+        "tax_uk:invoice_legal_requirements",
+        "tax_uk:vat_invoice_integrity"
+      ],
+      "modules": [
+        "tax_uk"
+      ],
+      "needs_review": 0,
+      "overall_risk": "HIGH",
+      "semantic_hits": 0,
+      "warnings": []
+    }
+  },
+  "timestamp": "20251016T002127Z"
+}

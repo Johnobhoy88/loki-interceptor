@@ -1,0 +1,7 @@
+Structured Product: FTSE 100 Participation Note
+
+Capital at risk. Participation rate 150%. Barrier 50%. Autocall quarterly at 105%. Counterparty exposure to Global Bank.
+
+Memory feature included. Underlying index FTSE 100 (UKX). Payoff formula: max(0, 100% + 1.5 × return) if barrier not breached.
+
+Minimum £20,000. ISIN: GB00XYZ12345.

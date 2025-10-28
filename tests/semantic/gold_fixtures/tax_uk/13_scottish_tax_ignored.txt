@@ -1,0 +1,14 @@
+Income Tax Calculation - Scottish Client
+
+Income: £60,000
+Personal Allowance: £12,570
+Taxable: £47,430
+
+Tax calculation:
+£12,570 @ 0% = £0
+£37,700 @ 20% = £7,540
+£9,730 @ 40% = £3,892
+
+Total tax: £11,432
+
+Standard UK income tax rates applied.

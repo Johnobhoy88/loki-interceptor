@@ -1,0 +1,10 @@
+TAX INVOICE
+
+From: ABC Services Ltd
+VAT Reg: 123456789
+
+Services rendered: £10,000
+VAT @ 20%: £2,000
+Total: £12,000
+
+Payment details: Bank transfer to Sort Code 12-34-56, Account 12345678

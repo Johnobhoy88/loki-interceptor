@@ -1,0 +1,8 @@
+INVOICE
+
+Consulting Services: £3,000
+VAT @ 20%: £600
+Total: £3,600
+
+Contact: info@example.com
+VAT No: GB123456789

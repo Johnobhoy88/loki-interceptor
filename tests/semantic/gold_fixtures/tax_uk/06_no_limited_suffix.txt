@@ -1,0 +1,11 @@
+Invoice from XYZ Company
+
+XYZ Company
+123 Business Road
+London E1 6AN
+
+To: Client Name
+Service: Business Advisory
+Amount: £2,500 + VAT
+
+Company Reg: 12345678

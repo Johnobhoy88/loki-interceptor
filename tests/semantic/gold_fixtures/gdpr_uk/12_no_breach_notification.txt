@@ -1,0 +1,7 @@
+System Maintenance Notice
+
+We recently upgraded our database systems. Some customer records were temporarily unavailable during the migration.
+
+All systems are now operational. No action required from customers.
+
+Thank you for your patience.

@@ -1,0 +1,10 @@
+Company Information
+
+Example Investment Services Ltd
+123 Finance Street
+London EC1A 1BB
+
+Email: info@example.com
+Phone: 0800 123 4567
+
+Registered in England No. 1234567

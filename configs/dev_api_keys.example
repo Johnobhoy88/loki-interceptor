@@ -1,0 +1,19 @@
+# LOKI Interceptor – Developer API Key Placeholder
+#
+# Paste provider credentials directly underneath the relevant heading while
+# testing locally. **Do not commit your real keys.**
+#
+# Example usage:
+#   export ANTHROPIC_API_KEY="$(sed -n 's/^ANTHROPIC=//p' configs/dev_api_keys.example)"
+#
+# Replace the `YOUR_*` text with your actual key material after checkout.
+# Leave the heading names exactly as-is so helper scripts can load them.
+
+ANTHROPIC="YOUR_KEY_HERE"
+OPENAI="YOUR_KEY_HERE"
+GEMINI="YOUR_KEY_HERE"
+
+# Optional: uncomment if you want to store additional providers
+# COHERE=YOUR_COHERE_KEY
+# MISTRAL=YOUR_MISTRAL_KEY
+

@@ -1,0 +1,73 @@
+Add universal synthesis system with domain-based snippet mapping
+
+Implements a future-proof synthesis engine that works with any number of modules and gates without code changes. Eliminates hardcoding via six core compliance domains and a comprehensive gate taxonomy.
+
+## Architecture
+
+Domain Templates (6 domains):
+- risk_warning: Financial risks, client asset and tax warnings, data processing risks
+- disclosure: Regulatory contacts, approvals, conflicts, data controllers
+- procedure: Complaints, investigations, appeals, breach notification, record-keeping
+- definition: Target markets, retention periods, lawful basis summaries, scope
+- consent: GDPR consent, withdrawal, cookies, child consent
+- limitation: Eligibility, usage scope, NDA exceptions, purpose limitations
+
+Module Taxonomy (~85+ gates across 5 modules):
+- fca_uk: ~25 gates (Consumer Duty, promotions, complaints, CASS)
+- gdpr_uk: ~15 gates (lawful basis, consent, rights, security, DPO)
+- hr_scottish: ~15 gates (ACAS compliance, disciplinary, appeals)
+- nda_uk: ~14 gates (whistleblowing, confidentiality, duration, parties)
+- tax_uk: ~16 gates (VAT, invoicing, HMRC deadlines, MTD)
+
+Each gate is mapped to domain+variant with severity, legal citation, insertion point, and rich context strings.
+
+Special Snippets (high-quality overrides for critical gates):
+- fca_uk:fair_clear_not_misleading (FCA risk warning)
+- fca_uk:fos_signposting (Financial Ombudsman Service)
+- fca_uk:promotions_approval (Financial promotion approval)
+- gdpr_uk:lawful_basis (UK GDPR lawful basis)
+
+## Key Changes
+
+backend/core/synthesis/domain_templates.py (NEW, ~1.5k lines):
+- DOMAIN_TEMPLATES: six domains with multiple variants, templates, and default_context
+- MODULE_TAXONOMY: ~85 gate configurations using gate_config() helper with legal citations
+- PRIORITY_MAP plus insertion point defaults per domain
+- Self-documenting structure; explicit severity, legal_citation, insertion_point, context
+
+backend/core/synthesis/snippets.py (MODIFIED):
+- Import DOMAIN_TEMPLATES and MODULE_TAXONOMY; remove dynamic loaders
+- _load_domain_templates/_load_module_catalog return imported structures
+- build_snippet() rewritten for variant-based template resolution and context merge
+- Remove domain inference in favor of explicit taxonomy mappings
+- Preserve SPECIAL_SNIPPETS and legacy API compatibility via .snippets cache and format_snippet()
+
+backend/core/synthesis/engine.py (MODIFIED):
+- Fix initial validation flow for empty/unchanged text (use original validation for iteration 1)
+- Respect insertion_point (start/end/section) when assembling text
+- Maintain iterative synthesis with applied snippet tracking and audit logging
+
+backend/core/synthesis/snippet_mapper.py (MODIFIED):
+- Import DOMAIN_TEMPLATES and MODULE_TAXONOMY; build explicit gate taxonomy
+- Prioritize SPECIAL_SNIPPETS over template-generated snippets
+- Map gates via taxonomy (domain/variant/context) with inference fallback only when unmapped
+
+## Testing
+
+- 29/29 synthesis tests PASS ✓
+- 4/4 universal synthesis tests PASS ✓
+- Coverage: 85/85 gates across 5 modules validated
+- Manual validation with FCA promotional material, GDPR privacy notices, NDA agreements
+
+## Future Compatibility
+
+This architecture supports seamless addition of:
+- Healthcare: HIPAA (US), GDPR Article 9 (special category data)
+- Finance: SOX (Sarbanes-Oxley), PCI-DSS (payment cards), MiFID II
+- Employment: FLSA (US labor law), WARN Act (redundancies)
+- Contracts: Commercial agreements, SLAs, licensing
+
+No code changes required: add gates to MODULE_TAXONOMY with domain/variant mappings. New domains can be introduced in DOMAIN_TEMPLATES for emerging or jurisdiction-specific requirements.
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+Co-Authored-By: Codex <noreply@anthropic.com>

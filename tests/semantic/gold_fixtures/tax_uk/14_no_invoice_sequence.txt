@@ -1,0 +1,11 @@
+INVOICE
+
+Date: 15/03/2024
+Client: ABC Ltd
+Service: Consulting
+Amount: £5,000 + VAT
+
+Payment within 30 days please.
+
+Next invoice: 22/03/2024 - Invoice
+Previous invoice: 01/03/2024 - Invoice
