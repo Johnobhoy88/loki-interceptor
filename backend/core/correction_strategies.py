@@ -61,8 +61,11 @@ class RegexReplacementStrategy(CorrectionStrategy):
 
     def can_apply(self, text: str, gate_id: str, gate_result: Dict) -> bool:
         """Check if any registered patterns match this gate"""
+        gate_id_lower = gate_id.lower()
         for gate_pattern in self.patterns.keys():
-            if gate_pattern in gate_id.lower() or gate_pattern in str(gate_result.get('message', '')).lower():
+            # Check bidirectional matching: pattern in gate_id OR gate_id in pattern
+            if (gate_pattern in gate_id_lower or gate_id_lower in gate_pattern or
+                gate_pattern in str(gate_result.get('message', '')).lower()):
                 return True
         return False
 
@@ -74,8 +77,11 @@ class RegexReplacementStrategy(CorrectionStrategy):
         reasons = []
         locations = []
 
+        gate_id_lower = gate_id.lower()
         for gate_pattern, patterns in self.patterns.items():
-            if gate_pattern not in gate_id.lower() and gate_pattern not in str(gate_result.get('message', '')).lower():
+            # Check bidirectional matching: pattern in gate_id OR gate_id in pattern
+            if not (gate_pattern in gate_id_lower or gate_id_lower in gate_pattern or
+                   gate_pattern in str(gate_result.get('message', '')).lower()):
                 continue
 
             for pattern_config in patterns:
@@ -138,8 +144,10 @@ class TemplateInsertionStrategy(CorrectionStrategy):
 
     def can_apply(self, text: str, gate_id: str, gate_result: Dict) -> bool:
         """Check if we have a template for this gate"""
+        gate_id_lower = gate_id.lower()
         for gate_pattern in self.templates.keys():
-            if gate_pattern in gate_id.lower():
+            # Check bidirectional matching: pattern in gate_id OR gate_id in pattern
+            if gate_pattern in gate_id_lower or gate_id_lower in gate_pattern:
                 return True
         return False
 
@@ -170,8 +178,10 @@ class TemplateInsertionStrategy(CorrectionStrategy):
         corrected_text = text
         insertions = []
 
+        gate_id_lower = gate_id.lower()
         for gate_pattern, template_configs in self.templates.items():
-            if gate_pattern not in gate_id.lower():
+            # Check bidirectional matching: pattern in gate_id OR gate_id in pattern
+            if not (gate_pattern in gate_id_lower or gate_id_lower in gate_pattern):
                 continue
 
             for template_config in template_configs:
