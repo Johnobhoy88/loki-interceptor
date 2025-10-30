@@ -1,0 +1,21 @@
+# IBM Granite Models Integration Requirements
+# Install with: pip install -r requirements-granite.txt
+
+# Granite-Docling for document preprocessing
+docling>=1.0.0
+docling-core>=1.0.0
+
+# PDF and image processing dependencies
+pypdf2>=3.0.0
+pdf2image>=1.16.0
+pillow>=10.0.0
+python-magic>=0.4.27
+
+# Optional: For Granite Guardian integration (Phase 2)
+# transformers>=4.35.0
+# torch>=2.0.0
+# accelerate>=0.24.0
+
+# Optional: For Granite model hosting (Phase 3)
+# vllm>=0.2.0
+# nvidia-ml-py>=12.0.0
