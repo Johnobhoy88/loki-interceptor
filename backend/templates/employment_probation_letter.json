@@ -1,0 +1,69 @@
+{
+  "template_id": "EMP004",
+  "template_name": "Probation Period Letter",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Employment Rights Act 1996", "ACAS Code of Practice"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS", "review_frequency": "annual"},
+  "content": {
+    "title": "PROBATION PERIOD REVIEW LETTER",
+    "letter_type": "[OUTCOME: SUCCESSFUL/EXTENSION/UNSUCCESSFUL]",
+    "sections": [
+      {
+        "section_id": "header",
+        "text": "[EMPLOYER_NAME]\n[EMPLOYER_ADDRESS]\n\n[DATE]\n\n[EMPLOYEE_NAME]\n[EMPLOYEE_ADDRESS]\n\nDear [EMPLOYEE_NAME],",
+        "compliance_notes": "Standard business letter format"
+      },
+      {
+        "section_id": "subject",
+        "text": "Re: Probation Period Review - [JOB_TITLE]",
+        "compliance_notes": "Clear subject line"
+      },
+      {
+        "section_id": "body_successful",
+        "text": "I am writing to confirm the outcome of your probation period which commenced on [START_DATE] and was due to end on [PROBATION_END_DATE].\n\nPerformance Summary:\n[PERFORMANCE_SUMMARY]\n\nI am pleased to confirm that you have successfully completed your probationary period. With effect from [CONFIRMATION_DATE], you are confirmed as a permanent employee and your full contractual benefits and notice period will apply.\n\n[OPTIONAL: Your next performance review is scheduled for [NEXT_REVIEW_DATE].]\n\nCongratulations on your successful probation. We look forward to your continued contribution to the team.",
+        "compliance_notes": "Use for successful probation completion",
+        "condition": "OUTCOME = SUCCESSFUL"
+      },
+      {
+        "section_id": "body_extension",
+        "text": "I am writing regarding your probation period which commenced on [START_DATE] and was due to end on [PROBATION_END_DATE].\n\nPerformance Summary:\n[PERFORMANCE_SUMMARY]\n\nAreas Requiring Improvement:\n[IMPROVEMENT_AREAS]\n\nFollowing our review meeting on [REVIEW_MEETING_DATE], we have decided to extend your probationary period by [EXTENSION_PERIOD] until [NEW_END_DATE].\n\nDuring this extension period, we expect you to:\n[OBJECTIVE_1]\n[OBJECTIVE_2]\n[OBJECTIVE_3]\n\nYou will receive support from [SUPPORT_PERSON] and we will conduct a further review on [FURTHER_REVIEW_DATE].\n\nThe terms of your probationary period, including the reduced notice period of [NOTICE_PERIOD], will continue during the extension.",
+        "compliance_notes": "Use for probation extension; must set clear objectives and support plan",
+        "condition": "OUTCOME = EXTENSION"
+      },
+      {
+        "section_id": "body_unsuccessful",
+        "text": "I am writing to inform you of the outcome of your probation period which commenced on [START_DATE].\n\nFollowing our review meeting on [REVIEW_MEETING_DATE], I regret to inform you that your employment will terminate on [TERMINATION_DATE] as you have not met the required standards during your probationary period.\n\nReasons for Decision:\n[TERMINATION_REASONS]\n\nYour notice period is [NOTICE_PERIOD] as set out in your contract. You will receive payment for all work performed up to [TERMINATION_DATE], including any accrued but untaken holiday.\n\nPlease return all Company property by [TERMINATION_DATE], including:\n- [PROPERTY_ITEM_1]\n- [PROPERTY_ITEM_2]\n- [PROPERTY_ITEM_3]\n\nYour final payment will be processed on [FINAL_PAYMENT_DATE].\n\nIf you wish to appeal this decision, please submit your appeal in writing to [APPEAL_CONTACT] within [APPEAL_DAYS] days of receiving this letter.",
+        "compliance_notes": "Use for unsuccessful probation; must follow fair procedure and allow appeal. Note: employees with less than 2 years' service cannot claim ordinary unfair dismissal (except for automatically unfair reasons)",
+        "condition": "OUTCOME = UNSUCCESSFUL"
+      },
+      {
+        "section_id": "closing",
+        "text": "If you have any questions, please contact [CONTACT_PERSON].\n\nYours sincerely,\n\n[SIGNATORY_NAME]\n[SIGNATORY_TITLE]",
+        "compliance_notes": "Professional closing"
+      }
+    ]
+  },
+  "placeholders": [
+    "EMPLOYER_NAME", "EMPLOYER_ADDRESS", "DATE", "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS",
+    "JOB_TITLE", "START_DATE", "PROBATION_END_DATE", "CONFIRMATION_DATE",
+    "NEXT_REVIEW_DATE", "PERFORMANCE_SUMMARY", "REVIEW_MEETING_DATE",
+    "IMPROVEMENT_AREAS", "EXTENSION_PERIOD", "NEW_END_DATE", "OBJECTIVE_1",
+    "OBJECTIVE_2", "OBJECTIVE_3", "SUPPORT_PERSON", "FURTHER_REVIEW_DATE",
+    "NOTICE_PERIOD", "TERMINATION_DATE", "TERMINATION_REASONS", "PROPERTY_ITEM_1",
+    "PROPERTY_ITEM_2", "PROPERTY_ITEM_3", "FINAL_PAYMENT_DATE", "APPEAL_CONTACT",
+    "APPEAL_DAYS", "CONTACT_PERSON", "SIGNATORY_NAME", "SIGNATORY_TITLE", "OUTCOME"
+  ],
+  "compliance_checklist": [
+    "Fair review process conducted",
+    "Clear performance feedback provided",
+    "Extension objectives specific and measurable (if applicable)",
+    "Support arrangements identified (if extension)",
+    "Fair reasons for termination (if unsuccessful)",
+    "Appeal rights stated (if unsuccessful)",
+    "Notice period complies with contract and statute",
+    "Property return arrangements clear"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "template_id": "EMP008",
+  "template_name": "Disciplinary Procedure Policy",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Employment Rights Act 1996", "ACAS Code of Practice on Disciplinary and Grievance Procedures"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS", "special_notes": "Failure to follow ACAS Code can increase tribunal awards by up to 25%"},
+  "content": {
+    "title": "DISCIPLINARY PROCEDURE",
+    "sections": [
+      {
+        "heading": "1. PURPOSE AND SCOPE",
+        "text": "1.1 This procedure applies to all employees of [EMPLOYER_NAME].\n\n1.2 The purpose is to ensure fair and consistent treatment when addressing misconduct or performance issues.\n\n1.3 This procedure complies with the ACAS Code of Practice on Disciplinary and Grievance Procedures.\n\n1.4 Minor conduct or performance issues should be dealt with informally. This formal procedure is for more serious matters."
+      },
+      {
+        "heading": "2. PRINCIPLES",
+        "text": "2.1 No disciplinary action will be taken until the matter has been fully investigated.\n\n2.2 You will be informed in writing of the allegations and given the opportunity to respond before any decision is made.\n\n2.3 You will be invited to a disciplinary meeting and have the right to be accompanied by a work colleague or trade union representative.\n\n2.4 You will not be dismissed for a first act of misconduct unless it is gross misconduct.\n\n2.5 You have the right to appeal against any disciplinary decision.\n\n2.6 The procedure will be conducted without unreasonable delay.\n\n2.7 All proceedings will be confidential."
+      },
+      {
+        "heading": "3. EXAMPLES OF MISCONDUCT",
+        "text": "3.1 Misconduct includes (not exhaustive):\n- Persistent lateness or unauthorized absence\n- Minor breaches of health and safety rules\n- Failure to follow reasonable instructions\n- Poor timekeeping\n- Inappropriate use of social media\n- Minor damage to Company property\n- Failure to follow Company policies"
+      },
+      {
+        "heading": "4. EXAMPLES OF GROSS MISCONDUCT",
+        "text": "4.1 Gross misconduct is misconduct serious enough to destroy the employment relationship and justify summary dismissal without notice. Examples include (not exhaustive):\n\n- Theft, fraud, or dishonesty\n- Physical violence or threatening behavior\n- Deliberate damage to Company property\n- Serious breach of health and safety rules\n- Serious breach of confidentiality\n- Discrimination, harassment, or bullying\n- Being under the influence of alcohol or drugs at work\n- Gross insubordination\n- Serious breach of trust and confidence\n- Criminal offenses affecting employment\n- Serious data protection breaches\n\n4.2 This list is not exhaustive. Other acts may constitute gross misconduct depending on circumstances."
+      },
+      {
+        "heading": "5. INVESTIGATION",
+        "text": "5.1 Allegations of misconduct will be investigated promptly and thoroughly before any disciplinary meeting.\n\n5.2 An investigating officer will be appointed who is independent of the matter.\n\n5.3 The investigation may involve:\n- Interviewing witnesses\n- Gathering documentary evidence\n- Reviewing CCTV or electronic records\n- Taking statements\n\n5.4 You may be suspended on full pay during the investigation if necessary (e.g., to protect evidence, prevent interference with witnesses, or pending a criminal investigation). Suspension is not disciplinary action.\n\n5.5 An investigation report will be prepared."
+      },
+      {
+        "heading": "6. DISCIPLINARY MEETING",
+        "text": "6.1 If, following investigation, there is a case to answer, you will be invited in writing to a disciplinary meeting.\n\n6.2 The invitation will include:\n- The allegations against you\n- The possible consequences\n- Copies of evidence (e.g., witness statements, investigation report)\n- Date, time, and location of meeting\n- Your right to be accompanied\n- At least [NOTICE_DAYS] working days' notice (usually 5)\n\n6.3 The meeting will be conducted by a manager who has not been involved in the investigation.\n\n6.4 You may be accompanied by a work colleague or trade union representative. The companion may address the meeting, confer with you, and ask questions, but may not answer questions on your behalf.\n\n6.5 At the meeting:\n- The allegations will be explained\n- Evidence will be presented\n- You will have the opportunity to respond, ask questions, and present evidence\n- Witnesses may be called\n\n6.6 The meeting may be adjourned to allow further investigation.\n\n6.7 After the meeting, we will decide whether disciplinary action is justified."
+      },
+      {
+        "heading": "7. DISCIPLINARY SANCTIONS",
+        "text": "7.1 Possible outcomes:\n\na) No action - if the allegations are unfounded\n\nb) Informal action - coaching, counseling, or training for minor issues\n\nc) First written warning - for misconduct. Active for [WARNING_PERIOD_1] months. You will be warned that further misconduct may result in a final written warning or dismissal.\n\nd) Final written warning - for:\n   - Further misconduct during the active period of a first warning\n   - Serious misconduct not amounting to gross misconduct\n   Active for [WARNING_PERIOD_2] months. You will be warned that further misconduct may result in dismissal.\n\ne) Dismissal with notice - for:\n   - Further misconduct during the active period of a final warning\n   - Serious misconduct\n   You will receive your contractual or statutory notice period (whichever is greater).\n\nf) Summary dismissal (dismissal without notice) - for gross misconduct only. No notice or payment in lieu will be given.\n\ng) Alternative sanction - e.g., demotion, transfer, suspension without pay (where contractually permitted).\n\n7.2 The outcome will be confirmed in writing within [OUTCOME_DAYS] working days, including:\n- The misconduct found\n- The sanction imposed\n- The duration of any warning\n- The consequences of further misconduct\n- The right of appeal and deadline"
+      },
+      {
+        "heading": "8. APPEALS",
+        "text": "8.1 You may appeal against any disciplinary sanction.\n\n8.2 Appeals must be submitted in writing to [APPEAL_CONTACT] within [APPEAL_DEADLINE] working days of receiving the disciplinary outcome, stating grounds for appeal.\n\n8.3 Grounds for appeal may include:\n- The sanction was too severe\n- New evidence has become available\n- The procedure was not followed correctly\n- The decision was unreasonable\n\n8.4 You will be invited to an appeal meeting, normally within [APPEAL_MEETING_DAYS] working days.\n\n8.5 The appeal will be heard by a more senior manager who has not been previously involved.\n\n8.6 You may be accompanied by a work colleague or trade union representative.\n\n8.7 The appeal decision is final. Possible outcomes:\n- Uphold the original decision\n- Reduce the sanction\n- Overturn the decision\n\n8.8 The outcome will be confirmed in writing within [APPEAL_OUTCOME_DAYS] working days."
+      },
+      {
+        "heading": "9. CRIMINAL CHARGES",
+        "text": "9.1 If you are charged with a criminal offense, this will not automatically result in disciplinary action.\n\n9.2 We will investigate the facts and consider:\n- Whether the offense affects your suitability for the role\n- The Company's reputation\n- Whether trust and confidence can be maintained\n\n9.3 We will not usually wait for the outcome of criminal proceedings before taking action if there is sufficient evidence independently."
+      },
+      {
+        "heading": "10. RECORDS",
+        "text": "10.1 Written records will be kept of:\n- The misconduct\n- The employee's response\n- Action taken and reasons\n- Appeal outcomes\n\n10.2 Records will be kept confidentially on your personnel file.\n\n10.3 Spent warnings will be disregarded for disciplinary purposes but retained for reference in discrimination claims."
+      }
+    ]
+  },
+  "placeholders": ["EMPLOYER_NAME", "NOTICE_DAYS", "WARNING_PERIOD_1", "WARNING_PERIOD_2", "OUTCOME_DAYS", "APPEAL_CONTACT", "APPEAL_DEADLINE", "APPEAL_MEETING_DAYS", "APPEAL_OUTCOME_DAYS"],
+  "compliance_checklist": [
+    "Complies with ACAS Code of Practice",
+    "Right to be accompanied at formal meetings",
+    "No dismissal for first offense (except gross misconduct)",
+    "Full investigation before disciplinary meeting",
+    "Written allegations and evidence provided",
+    "Reasonable notice of meeting given",
+    "Right of appeal provided",
+    "Warnings time-limited",
+    "Examples of gross misconduct listed",
+    "Criminal charges handled appropriately"
+  ]
+}

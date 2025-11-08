@@ -1,0 +1,17 @@
+{
+  "template_id": "COM010",
+  "template_name": "Supplier Contract",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Sale of Goods Act 1979", "Late Payment of Commercial Debts (Interest) Act 1998", "Modern Slavery Act 2015"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "SUPPLIER CONTRACT",
+    "key_sections": ["1. SUPPLY: Supplier supplies [GOODS/SERVICES] per Specification (Schedule 1).", "2. PRICE: £[AMOUNT] per [UNIT]. Prices fixed for [PERIOD]. Increases require [NOTICE] notice.", "3. ORDERS: Customer issues POs. Supplier confirms within [DAYS] days.", "4. DELIVERY: [DELIVERY_TERMS - FOB/CIF/DDP]. Delivered to [LOCATION] by [TIME]. Late delivery: Customer may terminate and claim damages.", "5. INSPECTION: Customer may inspect/test. Rejection within [DAYS] days of delivery.", "6. TITLE AND RISK: Risk passes on delivery. Title passes on payment (retention of title).", "7. WARRANTY: Goods free from defects, fit for purpose, comply with spec. Services with reasonable skill and care. Warranty period: [PERIOD].", "8. REMEDIES: Breach of warranty: repair, replacement, or refund at Customer's option. Supplier bears costs.", "9. RECALL: If goods defective/unsafe, Supplier recalls at own cost.", "10. LIABILITY: Supplier indemnifies Customer for third-party claims (IP, defects). Liability limited to [£X or insurance limit]. No limit for death/injury, fraud, or IP infringement.", "11. INSURANCE: Supplier maintains [product liability insurance £X / professional indemnity £X]. Evidence on request.", "12. COMPLIANCE: Supplier complies with all laws including Health & Safety, Environmental, Data Protection, Modern Slavery Act, Bribery Act.", "13. AUDIT: Customer may audit compliance [annually].", "14. TERMINATION: [NOTICE] notice or immediate for breach/insolvency.", "15. MODERN SLAVERY: Supplier warrants compliance with Modern Slavery Act 2015. Annual statement if turnover >£36m.", "16. SUSTAINABILITY: [If applicable: Supplier meets sustainability standards in Schedule 2.]", "17. GOVERNING LAW: English law."],
+    "compliance_notes": "Modern Slavery Act 2015: Suppliers with turnover £36m+ must publish annual slavery and human trafficking statement."
+  },
+  "placeholders": ["GOODS", "SERVICES", "AMOUNT", "UNIT", "PERIOD", "NOTICE", "DAYS", "DELIVERY_TERMS", "LOCATION", "TIME"],
+  "compliance_checklist": ["Quality standards clear", "Delivery terms defined", "Warranty period stated", "Recall process", "Insurance requirements", "Modern Slavery Act compliance", "Bribery Act compliance", "Audit rights", "Retention of title", "Liability and indemnity appropriate"]
+}

@@ -1,0 +1,46 @@
+{
+  "template_id": "DP010",
+  "template_name": "Employee Privacy Notice",
+  "category": "Data Protection",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["UK GDPR Article 13", "Data Protection Act 2018", "Employment Rights Act 1996"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ICO"},
+  "content": {
+    "title": "EMPLOYEE PRIVACY NOTICE",
+    "sections": [
+      {"heading": "1. INTRODUCTION", "text": "[COMPANY_NAME] is committed to protecting your personal data. This notice explains how we collect and use your personal data during and after your employment."},
+      {"heading": "2. WHO WE ARE", "text": "Data controller: [COMPANY_NAME]\nAddress: [ADDRESS]\nEmail: [DATA_PROTECTION_EMAIL]\nICO registration: [ICO_NUMBER]\nData Protection Officer: [DPO_NAME] (if applicable) - [DPO_EMAIL]"},
+      {"heading": "3. WHAT DATA WE COLLECT", "text": "We collect and process the following categories:\n\n**Personal details:** Name, date of birth, gender, contact details, emergency contacts, photo\n\n**Recruitment:** Application form, CV, references, interview notes, qualifications, right to work documents\n\n**Contract and pay:** Job title, start date, employment contract, salary, bank details, tax code, NI number, pension details, benefits\n\n**Performance:** Appraisals, training records, performance reviews, objectives\n\n**Absence:** Sickness records, fit notes, holiday records, other leave\n\n**Conduct:** Disciplinary and grievance records, investigation notes\n\n**Technical:** Email usage, internet usage, CCTV footage (if applicable), access logs, IT system data\n\n**Equality monitoring:** [IF COLLECTED: Diversity data (ethnicity, disability, religion) - collected separately and anonymized]\n\n**Special category data:**\n- Health data (sickness, occupational health referrals, reasonable adjustments)\n- [IF COLLECTED: Trade union membership, criminal convictions (DBS checks)]"},
+      {"heading": "4. HOW WE COLLECT DATA", "text": "We collect data from:\n- You (application forms, contracts, timesheets)\n- Your manager (performance reviews, absence records)\n- IT systems (email, internet, access logs)\n- Third parties (references, DBS checks, occupational health)\n- Publicly available sources (LinkedIn, Companies House)"},
+      {"heading": "5. WHY WE USE YOUR DATA", "text": "| Purpose | Lawful Basis (Article 6) | Special Category Basis (Article 9) |\n|---------|--------------------------|-------------------------------------|\n| To perform the employment contract | Contract (6(1)(b)) | - |\n| To pay you and administer benefits | Contract (6(1)(b)) | - |\n| To comply with employment law | Legal obligation (6(1)(c)) | Legal claims (9(2)(f)), Employment law (9(2)(b)) |\n| Tax and NI obligations | Legal obligation (6(1)(c)) | - |\n| Recruitment and selection | Legitimate interests (6(1)(f)) | - |\n| Performance management | Legitimate interests (6(1)(f)) | - |\n| Disciplinary and grievance | Legitimate interests (6(1)(f)) | Legal claims (9(2)(f)) |\n| Sickness absence management | Legitimate interests (6(1)(f)) | Health/social care (9(2)(h)), Legal claims (9(2)(f)) |\n| Occupational health | Legitimate interests (6(1)(f)) | Health/social care (9(2)(h)), Explicit consent (9(2)(a)) |\n| IT security and monitoring | Legitimate interests (6(1)(f)) | - |\n| Equality monitoring | Legitimate interests (6(1)(f)) | Explicit consent (9(2)(a)) |\n| Legal claims | Legitimate interests (6(1)(f)) | Legal claims (9(2)(f)) |\n\nLegitimate interests: We have a legitimate business interest in managing employment effectively, ensuring workplace security, and protecting our business. We have balanced this against your rights."},
+      {"heading": "6. WHO WE SHARE DATA WITH", "text": "We share your personal data with:\n\n**Internal:**\n- HR department\n- Your line manager and department\n- IT department\n- Payroll department\n\n**External:**\n- HMRC (tax and NI)\n- Pension provider ([PROVIDER])\n- Payroll provider ([PROVIDER])\n- Occupational health provider\n- Insurance companies (benefits)\n- Legal and professional advisers\n- Recruiters (references)\n- Regulatory bodies (ICO, HSE, etc.)\n- Law enforcement (if required)\n\nWe require all third parties to maintain confidentiality and comply with data protection law."},
+      {"heading": "7. INTERNATIONAL TRANSFERS", "text": "[IF NO TRANSFERS: We do not transfer your personal data outside the UK.]\n\n[IF TRANSFERS: We transfer data to [COUNTRIES/SERVICES - e.g., cloud services in USA].\nSafeguards: [Standard Contractual Clauses / UK adequacy decision / IDTA]\nYou can request a copy of the safeguards: [EMAIL]]"},
+      {"heading": "8. HOW LONG WE KEEP DATA", "text": "We retain your data for:\n\n- Recruitment records (unsuccessful): 6 months\n- Personnel file: 6 years after employment ends\n- Payroll/tax records: 6 years from tax year end\n- Sickness records: 3 years after employment ends\n- Disciplinary/grievance: 6 years after conclusion\n- Pension records: Permanent (transferred to scheme)\n\nSee our Data Retention Policy for full details: [LINK]"},
+      {"heading": "9. YOUR RIGHTS", "text": "You have the right to:\n\n1. **Access:** Request a copy of your personal data (free)\n2. **Rectification:** Correct inaccurate data\n3. **Erasure:** Request deletion (in limited circumstances)\n4. **Restriction:** Limit how we use your data\n5. **Portability:** Receive your data in a structured format (where processing is automated and based on consent/contract)\n6. **Object:** Object to processing based on legitimate interests (including profiling)\n7. **Automated decisions:** Not be subject to solely automated decisions with significant effects (we do not currently use automated decision-making)\n\nTo exercise your rights, contact: [DATA_PROTECTION_EMAIL]\n\nResponse time: 1 month (extendable to 3 months if complex)\n\n**Right to object to monitoring:**\nYou can object to monitoring of emails/internet. However, we may still monitor if necessary for security, legal compliance, or investigating misconduct.\n\n**Limitations:**\nSome rights do not apply in certain circumstances (e.g., we cannot delete data required for legal compliance or legal claims)."},
+      {"heading": "10. MONITORING", "text": "We may monitor:\n- Email and internet usage (to ensure security, prevent misuse, and comply with legal obligations)\n- CCTV (for security - see separate CCTV notice)\n- Access to buildings and systems (security)\n- Phone calls (quality and training - with notification)\n\nMonitoring is proportionate and complies with the Telecommunications (Lawful Business Practice) (Interception of Communications) Regulations 2000.\n\nYou should have no expectation of privacy for Company email/systems used for personal purposes."},
+      {"heading": "11. AUTOMATED DECISIONS", "text": "[IF NO ADM: We do not use automated decision-making or profiling.]\n\n[IF ADM: We use automated decision-making for [PURPOSE - e.g., initial CV screening]. You have the right to request human review.]"},
+      {"heading": "12. DATA SECURITY", "text": "We protect your data using:\n- Encryption\n- Access controls (role-based)\n- Secure IT systems\n- Staff training\n- Confidentiality agreements\n- Regular security audits\n\nYou must also protect data by:\n- Using strong passwords\n- Not sharing login credentials\n- Reporting security incidents immediately"},
+      {"heading": "13. CHANGES TO THIS NOTICE", "text": "We may update this notice. The current version is always available: [URL]\n\nLast updated: [DATE]"},
+      {"heading": "14. COMPLAINTS", "text": "If you have concerns about our use of your data:\n\n1. Contact us: [DATA_PROTECTION_EMAIL]\n2. Contact our DPO: [DPO_EMAIL]\n3. Complain to the ICO:\n   - Website: ico.org.uk\n   - Helpline: 0303 123 1113\n   - Address: Wycliffe House, Water Lane, Wilmslow, SK9 5AF"}
+    ]
+  },
+  "placeholders": ["COMPANY_NAME", "ADDRESS", "DATA_PROTECTION_EMAIL", "ICO_NUMBER", "DPO_NAME", "DPO_EMAIL", "PROVIDER", "LINK", "URL", "DATE"],
+  "compliance_checklist": [
+    "Article 13 UK GDPR requirements met",
+    "All categories of employee data listed",
+    "Lawful bases clearly stated (Article 6)",
+    "Special category bases stated (Article 9) where applicable",
+    "Recipients of data identified",
+    "Retention periods specified",
+    "Employee rights explained clearly",
+    "Right to object to monitoring stated",
+    "Monitoring explained and justified",
+    "Security measures described",
+    "International transfers addressed",
+    "Right to complain to ICO stated",
+    "Provided before or at point of data collection",
+    "Accessible and in clear language"
+  ]
+}

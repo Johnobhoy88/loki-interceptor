@@ -1,0 +1,16 @@
+{
+  "template_id": "EMP014",
+  "template_name": "Garden Leave Letter",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Common law - contract principles"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "GARDEN LEAVE LETTER",
+    "body": "[EMPLOYER_NAME]\n[EMPLOYER_ADDRESS]\n\n[DATE]\n\n[EMPLOYEE_NAME]\n[EMPLOYEE_ADDRESS]\n\nDear [EMPLOYEE_NAME],\n\nRe: Garden Leave\n\nFurther to [your resignation on [RESIGNATION_DATE] / notice of termination given on [TERMINATION_DATE]], I am writing to confirm that you are placed on garden leave with immediate effect until your employment ends on [LEAVE_END_DATE].\n\nDuring garden leave:\n\n1. You must not attend the workplace unless specifically requested in writing.\n\n2. You will continue to receive your full salary and contractual benefits.\n\n3. Your contract of employment remains in force and you must:\n   - Remain available to work if required\n   - Comply with all contractual obligations including confidentiality and restrictive covenants\n   - Not contact clients, customers, or suppliers\n   - Not contact employees (except personal friends for social purposes)\n   - Not solicit business from the Company\n\n4. You must return all Company property immediately:\n   - [PROPERTY_LIST]\n   - All documents and data (in any format)\n   - All passwords and access codes\n\n5. Your Company email will be [deactivated/monitored] and calls will be redirected.\n\n6. You must be contactable at [CONTACT_DETAILS] during normal business hours.\n\n7. Annual leave continues to accrue and you [may/may not] take holiday during garden leave with prior approval.\n\n8. Any breach of these terms may result in disciplinary action and/or legal proceedings.\n\nPlease confirm receipt of this letter and your understanding of these terms by signing and returning the attached copy.\n\nYours sincerely,\n\n[SIGNATORY_NAME]\n[SIGNATORY_TITLE]"
+  },
+  "placeholders": ["EMPLOYER_NAME", "EMPLOYER_ADDRESS", "DATE", "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS", "RESIGNATION_DATE", "TERMINATION_DATE", "LEAVE_END_DATE", "PROPERTY_LIST", "CONTACT_DETAILS", "SIGNATORY_NAME", "SIGNATORY_TITLE"],
+  "compliance_checklist": ["Express contractual garden leave clause exists", "Full pay and benefits continue", "Obligations during garden leave clearly stated", "Property return required immediately", "Contact restrictions specified", "Consequences of breach stated"]
+}

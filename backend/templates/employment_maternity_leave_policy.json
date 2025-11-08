@@ -1,0 +1,23 @@
+{
+  "template_id": "EMP011",
+  "template_name": "Maternity Leave Policy",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Employment Rights Act 1996 s71-75", "Maternity and Parental Leave Regulations 1999", "Social Security Contributions and Benefits Act 1992"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS"},
+  "content": {
+    "title": "MATERNITY LEAVE POLICY",
+    "sections": [
+      {"heading": "1. ENTITLEMENT", "text": "1.1 All employees are entitled to 52 weeks' maternity leave regardless of length of service:\n- Ordinary Maternity Leave (OML): 26 weeks\n- Additional Maternity Leave (AML): 26 weeks\n\n1.2 You can start maternity leave any time from 11 weeks before your expected week of childbirth (EWC)."},
+      {"heading": "2. NOTIFICATION", "text": "2.1 By the end of the 15th week before EWC (or as soon as reasonably practicable), notify your manager in writing of:\n- Your pregnancy\n- Your EWC (provide MATB1 certificate)\n- Your intended start date for maternity leave\n\n2.2 We will write to you within 28 days confirming your expected return date."},
+      {"heading": "3. STATUTORY MATERNITY PAY (SMP)", "text": "3.1 Eligibility: Employed for at least 26 weeks by the 15th week before EWC and earning above LEL (£123/week in 2025).\n\n3.2 SMP is paid for 39 weeks:\n- Weeks 1-6: 90% of average weekly earnings\n- Weeks 7-39: £184.03/week or 90% of earnings (whichever is lower) [2025 rate]\n\n3.3 [OPTIONAL: Enhanced maternity pay - [DETAILS]]"},
+      {"heading": "4. RIGHTS DURING LEAVE", "text": "4.1 During OML (first 26 weeks), all contractual terms continue except pay.\n\n4.2 During AML (weeks 27-52), you are entitled to benefit from implied terms of trust and confidence and any terms relating to notice, redundancy compensation, and disciplinary/grievance procedures.\n\n4.3 Holiday continues to accrue during the full 52 weeks.\n\n4.4 Pension contributions: [DETAILS]"},
+      {"heading": "5. KEEPING IN TOUCH (KIT) DAYS", "text": "5.1 You may work up to 10 KIT days during maternity leave without losing SMP or ending your leave.\n\n5.2 KIT days are optional and must be agreed in advance.\n\n5.3 You will be paid [KIT_PAY_RATE] for KIT days."},
+      {"heading": "6. RETURN TO WORK", "text": "6.1 If returning after OML, you are entitled to return to the same job.\n\n6.2 If returning after AML, you are entitled to return to the same job or, if not reasonably practicable, a suitable alternative on no less favourable terms.\n\n6.3 To return early, give 8 weeks' notice.\n\n6.4 If you do not return, you are deemed to have resigned from your return date."}
+    ]
+  },
+  "placeholders": ["EMPLOYER_NAME", "KIT_PAY_RATE"],
+  "compliance_checklist": ["52 weeks' leave entitlement stated", "SMP eligibility and rates correct (2025)", "15-week notification deadline stated", "MATB1 certificate required", "Holiday accrual during full leave confirmed", "KIT days provisions (max 10)", "Return to work rights clear", "Protection from detriment/dismissal mentioned"]
+}

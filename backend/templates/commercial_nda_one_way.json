@@ -1,0 +1,27 @@
+{
+  "template_id": "COM001",
+  "template_name": "NDA (One-Way)",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Common law - contract and confidence", "UK GDPR (if personal data)"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "NON-DISCLOSURE AGREEMENT (ONE-WAY)",
+    "parties": "(1) [DISCLOSER_NAME] of [DISCLOSER_ADDRESS] ('Discloser'); (2) [RECIPIENT_NAME] of [RECIPIENT_ADDRESS] ('Recipient')",
+    "recitals": "The Discloser wishes to disclose Confidential Information to the Recipient for the Purpose. The Recipient agrees to keep such information confidential on the terms below.",
+    "key_clauses": {
+      "definition": "1. DEFINITIONS\n'Confidential Information' means all information disclosed by the Discloser including technical data, trade secrets, know-how, business plans, customer lists, and financial information.\n'Purpose' means [PURPOSE - e.g., evaluating a potential business relationship].",
+      "obligations": "2. OBLIGATIONS\n2.1 The Recipient shall keep Confidential Information secret and not disclose it to third parties.\n2.2 The Recipient shall use Confidential Information solely for the Purpose.\n2.3 The Recipient may disclose to employees/advisers on a need-to-know basis under equivalent confidentiality.\n2.4 The Recipient shall protect Confidential Information with the same care as its own confidential information (minimum: reasonable care).",
+      "exclusions": "3. EXCLUSIONS\nObligations do not apply to information that:\n(a) Is publicly available (other than by Recipient's breach)\n(b) Was lawfully in Recipient's possession before disclosure\n(c) Is independently developed by Recipient\n(d) Is lawfully received from a third party without restriction\n(e) Must be disclosed by law/court order (with prior notice to Discloser if permitted)",
+      "term": "4. TERM\nThis Agreement continues for [TERM - e.g., 2 years] from the date of disclosure. Confidentiality obligations survive for [SURVIVAL - e.g., 5 years] after termination.",
+      "return": "5. RETURN OF INFORMATION\nOn request or termination, Recipient shall return/destroy all Confidential Information and certify compliance.",
+      "no_rights": "6. NO RIGHTS GRANTED\nThis Agreement does not grant any intellectual property rights or create any partnership/employment relationship.",
+      "remedies": "7. REMEDIES\nBreach may cause irreparable harm. Discloser may seek injunctive relief in addition to damages.",
+      "governing_law": "8. GOVERNING LAW\nEnglish law. Courts of England and Wales have exclusive jurisdiction."
+    }
+  },
+  "placeholders": ["DISCLOSER_NAME", "DISCLOSER_ADDRESS", "RECIPIENT_NAME", "RECIPIENT_ADDRESS", "PURPOSE", "TERM", "SURVIVAL"],
+  "compliance_checklist": ["Confidential information clearly defined", "Purpose specified", "Exclusions included", "Term and survival period stated", "Return obligations clear", "Remedies appropriate", "No unreasonable restrictions"]
+}

@@ -1,0 +1,40 @@
+{
+  "template_id": "DP005",
+  "template_name": "Cookie Policy",
+  "category": "Data Protection",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Privacy and Electronic Communications Regulations 2003 (PECR)", "UK GDPR", "Data Protection Act 2018"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ICO"},
+  "content": {
+    "title": "COOKIE POLICY",
+    "sections": [
+      {"heading": "1. INTRODUCTION", "text": "This Cookie Policy explains how [COMPANY_NAME] ('we', 'us', 'our') uses cookies and similar technologies on our website [WEBSITE_URL].\n\nBy using our website, you consent to our use of cookies in accordance with this policy. You can control and/or delete cookies as you wish - see section 6 below."},
+      {"heading": "2. WHAT ARE COOKIES?", "text": "Cookies are small text files that are placed on your device (computer, smartphone, or other electronic device) when you visit a website. They are widely used to make websites work more efficiently and provide information to website owners.\n\nCookies can be:\n- **Session cookies**: Temporary cookies that expire when you close your browser\n- **Persistent cookies**: Cookies that remain on your device for a set period or until you delete them\n\n- **First-party cookies**: Set by the website you are visiting\n- **Third-party cookies**: Set by a domain other than the website you are visiting (e.g., analytics or advertising services)"},
+      {"heading": "3. WHW WE USE COOKIES", "text": "We use cookies for the following purposes:\n\n**3.1 Strictly Necessary Cookies (No consent required)**\n\nThese cookies are essential for the website to function properly. They enable core functionality such as security, network management, and accessibility.\n\n| Cookie Name | Purpose | Duration |\n|-------------|---------|----------|\n| [COOKIE_1 - e.g., session_id] | [Maintains user session] | [Session] |\n| [COOKIE_2 - e.g., security_token] | [Security and authentication] | [24 hours] |\n| [COOKIE_3 - e.g., cookie_consent] | [Stores cookie preferences] | [1 year] |\n\nLegal basis: Strictly necessary for service provision (PECR Reg 6(4), no consent required)\n\n**3.2 Performance/Analytics Cookies (Consent required)**\n\nThese cookies collect information about how visitors use our website, such as which pages are visited most often. This helps us improve the website.\n\n| Cookie Name | Provider | Purpose | Duration |\n|-------------|----------|---------|----------|\n| [COOKIE_4 - e.g., _ga] | [Google Analytics] | [Tracks website usage] | [2 years] |\n| [COOKIE_5 - e.g., _gid] | [Google Analytics] | [Distinguishes users] | [24 hours] |\n| [COOKIE_6] | [Provider] | [Purpose] | [Duration] |\n\nLegal basis: Consent (PECR Reg 6)\n\n**3.3 Functionality Cookies (Consent required)**\n\nThese cookies allow the website to remember choices you make (such as language or region) and provide enhanced features.\n\n| Cookie Name | Purpose | Duration |\n|-------------|---------|----------|\n| [COOKIE_7 - e.g., lang_pref] | [Remembers language preference] | [1 year] |\n| [COOKIE_8 - e.g., region] | [Remembers region selection] | [6 months] |\n\nLegal basis: Consent (PECR Reg 6)\n\n**3.4 Targeting/Advertising Cookies (Consent required)**\n\nThese cookies are used to deliver advertisements more relevant to you and your interests. They may also be used to limit the number of times you see an advertisement and help measure the effectiveness of advertising campaigns.\n\n| Cookie Name | Provider | Purpose | Duration |\n|-------------|----------|---------|----------|\n| [COOKIE_9 - e.g., _fbp] | [Facebook] | [Advertising and retargeting] | [3 months] |\n| [COOKIE_10 - e.g., IDE] | [Google] | [Advertising targeting] | [1 year] |\n| [COOKIE_11] | [Provider] | [Purpose] | [Duration] |\n\nLegal basis: Consent (PECR Reg 6)"},
+      {"heading": "4. THIRD-PARTY COOKIES", "text": "Some cookies are placed by third-party services that appear on our pages:\n\n- **Google Analytics**: We use Google Analytics to analyze website usage. Google's privacy policy: https://policies.google.com/privacy\n- [THIRD_PARTY_1]: [Description and privacy policy link]\n- [THIRD_PARTY_2]: [Description and privacy policy link]\n\nWe do not control these third-party cookies. Please check the third-party websites for more information."},
+      {"heading": "5. CONSENT", "text": "When you first visit our website, we will ask for your consent to use non-essential cookies via a cookie banner.\n\nYou can:\n- Accept all cookies\n- Reject non-essential cookies (only strictly necessary cookies will be used)\n- Customize your cookie preferences\n\nYou can change your preferences at any time by clicking [COOKIE_SETTINGS_LINK] or [cookie settings icon in footer]."},
+      {"heading": "6. HOW TO CONTROL COOKIES", "text": "**6.1 Cookie Settings on Our Website**\n\nYou can manage your cookie preferences at any time by visiting [COOKIE_SETTINGS_URL] or clicking the cookie settings icon [ICON_LOCATION].\n\n**6.2 Browser Settings**\n\nMost browsers allow you to refuse or delete cookies. The methods for doing so vary from browser to browser. Please consult your browser's help menu for instructions:\n\n- **Chrome**: https://support.google.com/chrome/answer/95647\n- **Firefox**: https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox\n- **Safari**: https://support.apple.com/en-gb/guide/safari/sfri11471/mac\n- **Edge**: https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09\n- **Internet Explorer**: https://support.microsoft.com/en-gb/help/17442/windows-internet-explorer-delete-manage-cookies\n\nPlease note that if you block or delete cookies, some features of our website may not work properly.\n\n**6.3 Opt-Out Tools**\n\n- **Google Analytics opt-out**: https://tools.google.com/dlpage/gaoptout\n- **Network Advertising Initiative opt-out**: http://optout.networkadvertising.org/\n- **Your Online Choices (EDAA)**: http://www.youronlinechoices.com/"},
+      {"heading": "7. OTHER TRACKING TECHNOLOGIES", "text": "In addition to cookies, we may use:\n\n- **Web beacons/pixels**: Small graphic images used to track page views and user behavior\n- **Local storage**: HTML5 local storage for storing user preferences\n- **Fingerprinting**: [IF USED: We [do/do not] use device fingerprinting]\n\nThese technologies are subject to the same consent requirements as cookies."},
+      {"heading": "8. CHANGES TO THIS POLICY", "text": "We may update this Cookie Policy from time to time. The latest version will always be available at [POLICY_URL].\n\nLast updated: [DATE]"},
+      {"heading": "9. CONTACT US", "text": "If you have questions about our use of cookies, please contact:\n\n- Email: [CONTACT_EMAIL]\n- Address: [CONTACT_ADDRESS]\n- Data Protection Officer: [DPO_EMAIL] (if applicable)"}
+    ]
+  },
+  "placeholders": ["COMPANY_NAME", "WEBSITE_URL", "COOKIE_1", "COOKIE_2", "COOKIE_3", "COOKIE_4", "COOKIE_5", "COOKIE_6", "COOKIE_7", "COOKIE_8", "COOKIE_9", "COOKIE_10", "COOKIE_11", "THIRD_PARTY_1", "THIRD_PARTY_2", "COOKIE_SETTINGS_LINK", "COOKIE_SETTINGS_URL", "ICON_LOCATION", "POLICY_URL", "DATE", "CONTACT_EMAIL", "CONTACT_ADDRESS", "DPO_EMAIL"],
+  "compliance_checklist": [
+    "Clear distinction between essential and non-essential cookies",
+    "Strictly necessary cookies clearly identified (no consent needed)",
+    "Consent obtained for non-essential cookies before placement (PECR Reg 6)",
+    "Cookie banner implemented with accept/reject/customize options",
+    "Granular consent options available (not just 'accept all')",
+    "Easy withdrawal of consent (cookie settings accessible)",
+    "Cookie table includes: name, purpose, duration, provider",
+    "Third-party cookies disclosed with privacy policy links",
+    "Instructions for browser-level cookie control",
+    "No pre-ticked boxes (consent must be freely given)",
+    "No cookie walls (access not conditional on consent for non-essential)",
+    "Consent records maintained",
+    "Regular cookie audit conducted"
+  ]
+}

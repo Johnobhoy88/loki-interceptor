@@ -1,0 +1,23 @@
+{
+  "template_id": "EMP006",
+  "template_name": "Redundancy Consultation Letter",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Employment Rights Act 1996", "TULR(C)A 1992", "ACAS Code on Redundancy"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS"},
+  "content": {
+    "title": "REDUNDANCY CONSULTATION LETTER",
+    "body": "[EMPLOYER_NAME]\n[EMPLOYER_ADDRESS]\n\n[DATE]\n\nPrivate and Confidential\n\n[EMPLOYEE_NAME]\n[EMPLOYEE_ADDRESS]\n\nDear [EMPLOYEE_NAME],\n\nRe: Proposed Redundancy - Consultation\n\nI am writing to inform you that your role of [JOB_TITLE] is at risk of redundancy.\n\nBusiness Situation:\n[BUSINESS_CONTEXT]\n\nProposed Changes:\n[PROPOSED_CHANGES]\n\nYour Role:\nYour position is at risk because [REASON_FOR_RISK].\n\nConsultation Process:\nThis is the start of a consultation process. We are committed to meaningful consultation and no final decisions have been made. The consultation will involve:\n\n- Individual consultation meeting(s) with you\n- Opportunity to make representations and suggest alternatives  \n- Consideration of alternative employment\n- [IF 20+ REDUNDANCIES: Collective consultation with employee representatives]\n\nConsultation Meeting:\nI would like to invite you to a consultation meeting on [MEETING_DATE] at [MEETING_TIME] at [MEETING_LOCATION]. The purpose is to:\n\n- Explain the business situation in detail\n- Discuss the selection process and criteria\n- Explore alternatives to redundancy\n- Discuss possible alternative roles\n- Answer your questions\n\nYou have the right to be accompanied by a work colleague or trade union representative.\n\nPlease confirm your attendance by [CONFIRM_DATE]. If you cannot attend, please let me know and we will arrange an alternative time.\n\nIn the meantime, if you have any questions, please contact [CONTACT_PERSON].\n\nYours sincerely,\n\n[SIGNATORY_NAME]\n[SIGNATORY_TITLE]"
+  },
+  "placeholders": ["EMPLOYER_NAME", "EMPLOYER_ADDRESS", "DATE", "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS", "JOB_TITLE", "BUSINESS_CONTEXT", "PROPOSED_CHANGES", "REASON_FOR_RISK", "MEETING_DATE", "MEETING_TIME", "MEETING_LOCATION", "CONFIRM_DATE", "CONTACT_PERSON", "SIGNATORY_NAME", "SIGNATORY_TITLE"],
+  "compliance_checklist": [
+    "Sent before redundancy decision finalized",
+    "Clear that role is 'at risk' not confirmed redundant",
+    "Meaningful consultation period (minimum 30 days for 20-99, 45 days for 100+)",
+    "Right to be accompanied stated",
+    "Collective consultation if 20+ redundancies",
+    "HR1 form submitted to DECC if 20+ redundancies"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "template_id": "FIN003",
+  "template_name": "Financial Promotion (FCA Compliant)",
+  "category": "Financial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Financial Services and Markets Act 2000 s21", "FCA Conduct of Business Sourcebook (COBS)", "Financial Promotion Order 2005"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "FCA", "special_notes": "Must be approved by FCA authorized firm if communicating to UK"},
+  "content": {
+    "title": "FINANCIAL PROMOTION TEMPLATE",
+    "mandatory_elements": {
+      "approval": "Approved and issued by [FIRM_NAME], which is authorized and regulated by the Financial Conduct Authority (FCA number: [FCA_NUMBER]).",
+      "risk_warning": "⚠️ WARNING: [PRODUCT] is a high-risk investment. You may lose some or all of your money. [IF DERIVATIVES: 70-80% of retail investors lose money trading CFDs with this provider.]",
+      "capital_at_risk": "Capital at risk. The value of investments can go down as well as up.",
+      "past_performance": "Past performance is not a reliable indicator of future results.",
+      "tax": "Tax treatment depends on individual circumstances and may change.",
+      "not_advice": "[This is not personal advice. If unsure, seek independent advice.]",
+      "target_market": "[This product is intended for: Retail/Professional/Eligible Counterparty clients with [RISK_TOLERANCE].]"
+    },
+    "sections": ["1. PRODUCT: [DESCRIPTION]", "2. BENEFITS: [KEY BENEFITS]", "3. RISKS:\n- You may lose money\n- [SPECIFIC RISKS]\n- Not suitable for everyone", "4. COSTS: [CHARGES_SUMMARY]. Full details in Key Information Document (KID)/Key Investor Information Document (KIID).", "5. HOW TO INVEST: [PROCESS]", "6. INFORMATION: Key Information Document available at [URL]. [IF FUND: KIID available at [URL]]", "7. COMPLAINTS: [COMPLAINTS_PROCESS]. Financial Ombudsman Service: www.financial-ombudsman.org.uk", "8. COMPENSATION: FSCS protection up to £85,000. Details: www.fscs.org.uk"],
+    "prohibited_language": "DO NOT USE:\n- 'Guaranteed returns' (unless genuinely guaranteed)\n- 'Risk-free'\n- 'Get rich quick'\n- Exaggerated claims\n- Misleading comparisons\n- Pressure to invest quickly",
+    "fair_clear_not_misleading": "Promotion must be:\n- Fair: Balanced, not emphasizing benefits over risks\n- Clear: Plain language, key info prominent\n- Not misleading: Accurate, not omitting material facts"
+  },
+  "placeholders": ["FIRM_NAME", "FCA_NUMBER", "PRODUCT", "RISK_TOLERANCE", "DESCRIPTION", "KEY BENEFITS", "SPECIFIC_RISKS", "CHARGES_SUMMARY", "PROCESS", "URL", "COMPLAINTS_PROCESS"],
+  "compliance_checklist": ["Approved by FCA authorized firm (s21 FSMA)", "FCA number stated", "Risk warnings prominent", "Capital at risk warning", "Past performance warning (if showing performance)", "Not advice disclaimer (if applicable)", "Target market identified", "Fair, clear, not misleading", "Charges disclosed", "KID/KIID referenced", "Complaints and FSCS info", "No prohibited language", "Cooling-off rights (if applicable)", "Date of promotion", "Appropriate medium for audience"]
+}

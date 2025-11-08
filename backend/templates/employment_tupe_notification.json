@@ -1,0 +1,25 @@
+{
+  "template_id": "EMP007",
+  "template_name": "TUPE Transfer Notification",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Transfer of Undertakings (Protection of Employment) Regulations 2006 (as amended)"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS"},
+  "content": {
+    "title": "TUPE TRANSFER NOTIFICATION",
+    "body": "[EMPLOYER_NAME] (Transferor)\n[EMPLOYER_ADDRESS]\n\n[DATE]\n\n[EMPLOYEE_NAME]\n[EMPLOYEE_ADDRESS]\n\nDear [EMPLOYEE_NAME],\n\nRe: Transfer of Employment under TUPE Regulations 2006\n\nI am writing to inform you of a proposed transfer of your employment which will be governed by the Transfer of Undertakings (Protection of Employment) Regulations 2006 (TUPE).\n\nTransfer Details:\n- Transfer date: [TRANSFER_DATE]\n- Transferee (new employer): [TRANSFEREE_NAME], [TRANSFEREE_ADDRESS]\n- Reason for transfer: [REASON - e.g., business sale, service provision change]\n\nWhat TUPE Means for You:\n\nUnder TUPE, your employment will automatically transfer to [TRANSFEREE_NAME] on [TRANSFER_DATE]. Your terms and conditions of employment will transfer and be protected, including:\n\n- Continuity of employment (your service date remains [SERVICE_START_DATE])\n- Salary, benefits, and contractual terms\n- Accrued holiday entitlement\n- Pension rights (subject to specific pension provisions)\n\nMeasures:\n[TRANSFEROR_MEASURES - e.g., None planned by current employer]\n[TRANSFEREE_MEASURES - e.g., The new employer plans to [DESCRIBE CHANGES]]\n\nImplications:\n[IMPLICATIONS_DESCRIPTION]\n\nInformation Provided:\n\nThe following information about the transfer has been provided:\n- Fact and proposed date of transfer: [TRANSFER_DATE]\n- Reasons for transfer: [REASONS]\n- Legal, economic, and social implications: [IMPLICATIONS]\n- Measures planned by transferor: [TRANSFEROR_MEASURES]\n- Measures planned by transferee: [TRANSFEREE_MEASURES]\n\nEmployee Liability Information (ELI):\n\nWe have provided [TRANSFEREE_NAME] with employee liability information including your age, identity, employment details, and terms of employment at least 28 days before transfer (or as soon as reasonably practicable).\n\nConsultation:\n\n[IF MEASURES PLANNED: We will consult with you about the proposed measures. A consultation meeting is scheduled for [CONSULTATION_DATE].]\n\n[IF NO MEASURES: No measures are planned that will affect you, so no formal consultation is required. However, you may discuss any concerns with [CONTACT_PERSON].]\n\nRight to Object:\n\nYou have the right to object to the transfer of your employment. If you object:\n- Your employment will terminate on [TRANSFER_DATE]\n- You will NOT transfer to the new employer  \n- You will NOT be entitled to a redundancy payment\n- You will receive payment for work up to [TRANSFER_DATE] and accrued holiday\n\nIf you wish to object, you must notify [CONTACT_PERSON] in writing by [OBJECTION_DEADLINE].\n\nPensions:\n\n[PENSION_INFORMATION - Note: Occupational pension rights do not transfer under TUPE but the transferee must provide minimum pension provision]\n\nQuestions:\n\nA Q&A document is enclosed. If you have further questions, please contact [CONTACT_PERSON] or attend the information session on [INFO_SESSION_DATE].\n\nYours sincerely,\n\n[SIGNATORY_NAME]\n[SIGNATORY_TITLE]"
+  },
+  "placeholders": ["EMPLOYER_NAME", "EMPLOYER_ADDRESS", "DATE", "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS", "TRANSFER_DATE", "TRANSFEREE_NAME", "TRANSFEREE_ADDRESS", "REASON", "SERVICE_START_DATE", "TRANSFEROR_MEASURES", "TRANSFEREE_MEASURES", "IMPLICATIONS_DESCRIPTION", "REASONS", "IMPLICATIONS", "CONSULTATION_DATE", "CONTACT_PERSON", "OBJECTION_DEADLINE", "PENSION_INFORMATION", "INFO_SESSION_DATE", "SIGNATORY_NAME", "SIGNATORY_TITLE"],
+  "compliance_checklist": [
+    "Notification given in reasonable time before transfer",
+    "All required information provided (fact, date, reasons, implications, measures)",
+    "ELI provided to transferee at least 28 days before transfer",
+    "Consultation undertaken if measures planned",
+    "Employee representatives informed if applicable",
+    "Right to object clearly explained",
+    "Pension position clarified",
+    "Continuity of employment preserved"
+  ]
+}

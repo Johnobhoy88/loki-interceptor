@@ -1,0 +1,17 @@
+{
+  "template_id": "FIN001",
+  "template_name": "Client Money Acknowledgement (FCA)",
+  "category": "Financial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["FCA Client Assets Sourcebook (CASS)", "Financial Services and Markets Act 2000"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "FCA"},
+  "content": {
+    "title": "CLIENT MONEY ACKNOWLEDGEMENT LETTER",
+    "sections": ["1. PURPOSE: This letter confirms arrangements for holding your money under FCA Client Assets Sourcebook (CASS).", "2. SEGREGATION: Your money is held in segregated client money bank account(s) separate from our own funds. Bank: [BANK_NAME]. Account Name: [ACCOUNT_NAME] Client Account.", "3. CASS RULES: We hold your money under CASS 7 (Client Money Rules). Your money is protected in event of our insolvency.", "4. ACKNOWLEDGEMENT: The bank has acknowledged this is a client money account and has waived any right of set-off or counterclaim.", "5. INTEREST: [Interest earned is paid to you / Interest is retained by us as disclosed in Terms of Business].", "6. RECONCILIATION: We perform daily client money reconciliations to ensure your money is protected.", "7. USE: Your money may only be used for: [PERMITTED_USES - e.g., settlement of transactions, payment of fees with your authority].", "8. FSCS: If bank fails, you may be protected by Financial Services Compensation Scheme (FSCS) up to £85,000 per person per institution.", "9. WITHDRAWAL: You may withdraw your money on [NOTICE_PERIOD] notice unless required for pending transactions.", "10. REPORTING: We send you statements [FREQUENCY] showing balance held.", "11. QUERIES: Contact [CONTACT_DETAILS]."],
+    "fca_compliance_notes": "CASS 7 requirements:\n- Client money held in separate account\n- Bank acknowledgement letter obtained\n- Daily reconciliations\n- Client money and asset return (CMAR) submitted to FCA\n- Adequate records\n- Client disclosure"
+  },
+  "placeholders": ["BANK_NAME", "ACCOUNT_NAME", "PERMITTED_USES", "NOTICE_PERIOD", "FREQUENCY", "CONTACT_DETAILS"],
+  "compliance_checklist": ["CASS 7 compliant segregation", "Bank acknowledgement obtained", "Daily reconciliation process", "Interest treatment disclosed", "FSCS protection explained", "Withdrawal terms clear", "Regular statements provided", "FCA authorization verified"]
+}

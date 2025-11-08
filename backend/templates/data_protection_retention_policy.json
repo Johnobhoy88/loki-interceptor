@@ -1,0 +1,44 @@
+{
+  "template_id": "DP009",
+  "template_name": "Data Retention Policy",
+  "category": "Data Protection",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["UK GDPR Article 5(1)(e)", "Data Protection Act 2018"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ICO"},
+  "content": {
+    "title": "DATA RETENTION POLICY",
+    "sections": [
+      {"heading": "1. PURPOSE", "text": "This policy sets out [COMPANY_NAME]'s approach to retaining and deleting personal data in compliance with UK GDPR storage limitation principles (Article 5(1)(e))."},
+      {"heading": "2. SCOPE", "text": "This policy applies to all personal data processed by [COMPANY_NAME], whether in electronic or hard copy format."},
+      {"heading": "3. PRINCIPLES", "text": "Personal data shall be:\n- Kept for no longer than necessary for the purposes for which it is processed\n- Reviewed regularly and deleted when no longer required\n- Retained to comply with legal, regulatory, or contractual obligations\n- Retained to establish, exercise, or defend legal claims"},
+      {"heading": "4. RETENTION SCHEDULE", "text": "**4.1 Employee Data**\n\n| Data Category | Retention Period | Reason | Deletion Method |\n|---------------|------------------|--------|------------------|\n| Recruitment records (unsuccessful) | 6 months | Discrimination claims (6 months) | Secure deletion |\n| Personnel files | 6 years from termination | Contract and statutory claims | Secure deletion |\n| Payroll and tax records | 6 years from tax year end | HMRC requirements | Secure deletion |\n| Pension records | Permanent (or until scheme closure) | Pensions Act 1995 | Transfer to scheme |\n| Accident records | 3 years (12 years for serious injury) | Limitation Act 1980 | Secure deletion |\n| Disciplinary/grievance | 6 years from conclusion | Employment tribunal claims | Secure deletion |\n| Sickness records | 3 years from end of employment | SSP Regulations | Secure deletion |\n| Working time records | 2 years | Working Time Regulations | Secure deletion |\n\n**4.2 Customer/Client Data**\n\n| Data Category | Retention Period | Reason | Deletion Method |\n|---------------|------------------|--------|------------------|\n| Customer accounts (active) | Duration of relationship + 6 years | Contract claims (6 years) | Secure deletion |\n| Customer accounts (inactive) | 6 years from last transaction | Contract and tax | Secure deletion |\n| Sales/purchase records | 6 years from end of tax year | Tax law | Secure deletion |\n| Contracts | 6 years from expiry | Limitation Act 1980 | Secure deletion |\n| Credit card data | Immediately after authorization (unless legitimate reason) | PCI DSS | Secure overwrite |\n| Customer communications | [DEFINE - e.g., 3 years] | [Business need] | Secure deletion |\n| Marketing consent | Until withdrawn or 2 years inactive | PECR | Deletion |\n\n**4.3 Financial Records**\n\n| Data Category | Retention Period | Reason | Deletion Method |\n|---------------|------------------|--------|------------------|\n| Accounts and tax records | 6 years from end of tax year | Corporation Tax Act 2010 | Secure deletion |\n| VAT records | 6 years | VATA 1994 | Secure deletion |\n| Invoices and receipts | 6 years | Tax law | Secure deletion |\n| Bank statements | 6 years | Tax and audit | Secure deletion |\n| Payroll records | 6 years | Tax law | Secure deletion |\n\n**4.4 Website/Marketing Data**\n\n| Data Category | Retention Period | Reason | Deletion Method |\n|---------------|------------------|--------|------------------|\n| Analytics data | [DEFINE - e.g., 26 months] | Business insights | Anonymization |\n| Cookie data | [DEFINE - per cookie policy] | Functionality/analytics | Auto-expiry |\n| Email marketing lists | Until consent withdrawn or 2 years inactive | Consent validity | Deletion |\n| Website forms | [DEFINE - e.g., 90 days unless converted] | Processing purpose | Deletion |\n\n**4.5 CCTV Footage**\n\n| Data Category | Retention Period | Reason | Deletion Method |\n|---------------|------------------|--------|------------------|\n| CCTV footage | 30 days (unless incident) | Security purposes | Auto-overwrite |\n| Incident footage | Until incident resolved + 6 months | Legal claims | Deletion |\n\n**4.6 Special Category Data**\n\n| Data Category | Retention Period | Reason | Deletion Method |\n|---------------|------------------|--------|------------------|\n| Health data (OH referrals) | 6 years from termination | Legal claims | Secure destruction |\n| DBS checks | 6 months (record of check kept) | Recruitment | Secure destruction |\n| Diversity monitoring | Anonymized after 6 months | Equality monitoring | Anonymization |\n\n**4.7 Litigation/Legal Claims**\n\n| Data Category | Retention Period | Reason | Deletion Method |\n|---------------|------------------|--------|------------------|\n| Litigation files | Until claim resolved + 6 years | Limitation Act | Secure deletion |\n| Subject access requests | 6 years | Potential claims | Secure deletion |"},
+      {"heading": "5. LEGAL HOLDS", "text": "If data is subject to a legal hold (e.g., litigation, investigation, or regulatory requirement), it must be retained beyond normal retention periods until the hold is lifted.\n\nLegal holds are managed by [LEGAL_DEPARTMENT/DPO]."},
+      {"heading": "6. ARCHIVING", "text": "Where data must be retained beyond active use:\n- Archive in secure, access-controlled systems\n- Clearly label with retention expiry date\n- Restrict access to authorized personnel only\n- Review archived data annually"},
+      {"heading": "7. DELETION PROCEDURES", "text": "**7.1 Electronic Data**\n- Secure deletion using approved software (e.g., multiple overwrites)\n- Destruction of storage media when decommissioned\n- Deletion logs maintained\n\n**7.2 Physical Records**\n- Shredding using cross-cut shredders or confidential waste service\n- Destruction certificates obtained for bulk destruction\n- Witnessed destruction for highly sensitive data\n\n**7.3 Backup Data**\n- Deletion from backups within [PERIOD - e.g., 90 days]\n- Backup retention policy: [DETAILS]"},
+      {"heading": "8. ANONYMIZATION", "text": "Where data is anonymized (truly irreversibly), it is no longer personal data and retention limits do not apply.\n\nAnonymization must be:\n- Irreversible (cannot be re-identified)\n- Documented and tested\n- Approved by DPO"},
+      {"heading": "9. REVIEW AND MONITORING", "text": "- Annual review of retention schedule\n- Quarterly deletion sweeps for expired data\n- Audit trail of deletions maintained\n- Responsible persons: [ROLES]"},
+      {"heading": "10. SUBJECT ACCESS REQUESTS", "text": "If a subject access request is received, data must be retained (even if deletion due) until the request is fulfilled."},
+      {"heading": "11. RESPONSIBILITIES", "text": "- **Data Protection Officer:** Maintain and review this policy\n- **IT Department:** Implement technical deletion procedures\n- **Department Heads:** Ensure compliance within their teams\n- **All Staff:** Follow retention requirements and report expired data"},
+      {"heading": "12. TRAINING", "text": "All staff handling personal data must receive training on this policy."},
+      {"heading": "13. POLICY REVIEW", "text": "This policy will be reviewed annually or when:\n- Legal/regulatory requirements change\n- Business processes change\n- Data protection incidents occur\n\nLast reviewed: [DATE]\nNext review: [NEXT_REVIEW_DATE]"}
+    ]
+  },
+  "placeholders": ["COMPANY_NAME", "LEGAL_DEPARTMENT", "PERIOD", "ROLES", "DATE", "NEXT_REVIEW_DATE"],
+  "compliance_checklist": [
+    "Retention periods justified and documented",
+    "Legal, regulatory, and contractual obligations considered",
+    "Deletion procedures defined",
+    "Secure deletion methods specified",
+    "Regular review and deletion sweeps scheduled",
+    "Legal holds process in place",
+    "Anonymization approach defined",
+    "Backup retention addressed",
+    "Staff training provided",
+    "Policy reviewed annually",
+    "Audit trail of deletions maintained",
+    "Special category data retention minimized",
+    "Storage limitation principle (Article 5(1)(e)) met"
+  ]
+}

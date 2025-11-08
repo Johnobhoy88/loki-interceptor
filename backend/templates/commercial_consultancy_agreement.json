@@ -1,0 +1,17 @@
+{
+  "template_id": "COM008",
+  "template_name": "Consultancy Agreement",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Supply of Goods and Services Act 1982", "IR35 (off-payroll working rules)"],
+  "metadata": {"version": "1.0", "language": "en-GB", "special_notes": "IR35 compliance critical"},
+  "content": {
+    "title": "CONSULTANCY AGREEMENT",
+    "key_sections": ["1. SERVICES: [DESCRIPTION]. Consultant provides services with reasonable skill and care.", "2. STATUS: Consultant is self-employed independent contractor, not employee. Responsible for own tax and NI. IR35: [INSIDE/OUTSIDE - must determine].", "3. FEES: [£RATE per day/hour] or [£FIXED_FEE]. Expenses: [reimbursed if pre-approved / not reimbursed]. Payment [DAYS] days from invoice.", "4. TERM: [START] to [END] or [NOTICE] notice.", "5. TIME: [DAYS/HOURS per week/month]. Flexible working arrangements. Consultant controls how/when work performed (IR35 consideration).", "6. SUBSTITUTION: Consultant [may/may not] provide substitute (IR35 factor).", "7. EQUIPMENT: Consultant provides own equipment and tools (IR35 factor).", "8. IR35 DETERMINATION: [If inside IR35: Client will operate PAYE. If outside: Consultant invoices as self-employed. SDS (Status Determination Statement) attached.]", "9. IP: [Pre-existing IP retained. Work product: [CLIENT/CONSULTANT] owns. Assignment of rights upon payment.]", "10. CONFIDENTIALITY: Mutual obligations during and after agreement.", "11. NON-SOLICITATION: [If appropriate: Consultant will not solicit Client's employees/clients for [PERIOD].]", "12. LIABILITY: Limited to [fees paid / insurance limit]. No limit for fraud or death/injury.", "13. TERMINATION: [NOTICE] notice or immediate for breach/insolvency.", "14. GOVERNING LAW: English law."],
+    "ir35_checklist": "IR35 factors (outside IR35 requires):\n✓ Substitution right (genuine)\n✓ Control (consultant controls when/how work done)\n✓ Mutuality of obligation (no obligation to offer/accept work beyond current engagement)\n✓ Equipment provided by consultant\n✓ Financial risk (fixed fee, not daily rate like employee)\n✓ Part and parcel (not integrated into organization)\n✓ Intention (commercial relationship, not disguised employment)\n\nIf inside IR35 (employment-like), client must deduct tax/NI."
+  },
+  "placeholders": ["DESCRIPTION", "RATE", "FIXED_FEE", "DAYS", "START", "END", "NOTICE", "PERIOD"],
+  "compliance_checklist": ["IR35 status determined (SDS if medium/large client)", "Independent contractor status clear", "Control, substitution, equipment provisions support status", "Tax responsibility stated", "IP ownership clear", "Confidentiality appropriate", "Payment terms clear", "No disguised employment"]
+}

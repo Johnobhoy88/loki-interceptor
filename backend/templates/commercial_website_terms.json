@@ -1,0 +1,17 @@
+{
+  "template_id": "COM006",
+  "template_name": "Website Terms and Conditions",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Electronic Commerce (EC Directive) Regulations 2002", "Defamation Act 2013", "Computer Misuse Act 1990"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "WEBSITE TERMS AND CONDITIONS",
+    "key_sections": ["1. ACCEPTANCE: By using [WEBSITE], you accept these Terms.", "2. ABOUT US: [COMPANY_NAME], company number [NUMBER], registered address [ADDRESS]. Contact: [EMAIL]. VAT: [VAT_NUMBER].", "3. USE: You may use for lawful purposes only. No unauthorized access, malware, scraping, or disruptive activity.", "4. ACCOUNTS: You may need to register. Secure your login. Accurate information required. We may suspend/terminate accounts.", "5. CONTENT: We own website content (copyright, trademarks). You may view/print for personal use only. No reproduction without permission.", "6. USER CONTENT: You retain ownership but grant us license to display/use. You warrant you have rights to post. No illegal, defamatory, or offensive content. We may remove content.", "7. LINKS: We link to third-party sites. No responsibility for their content. Linking to our site: [no deep linking without permission / permitted].", "8. DISCLAIMER: Information for general guidance only. No professional advice. Use at your own risk. No warranties (except statutory).", "9. LIABILITY: No liability for indirect/consequential loss. Liability limited to [£100 / reasonable amount]. No limit for death/injury, fraud, or misrepresentation.", "10. AVAILABILITY: We aim for 24/7 but don't guarantee. May suspend for maintenance. No liability for downtime (except B2C statutory rights).", "11. CHANGES: We may update Terms. Check regularly. Continued use = acceptance.", "12. PRIVACY: See Privacy Policy: [PRIVACY_LINK]. Cookie Policy: [COOKIE_LINK].", "13. GOVERNING LAW: English law. Courts of England and Wales (B2B) / consumer's country (B2C)."],
+    "e_commerce_requirements": "Under E-Commerce Regulations 2002, must provide: company name, registration number, registered address, email contact, VAT number (if applicable)"
+  },
+  "placeholders": ["WEBSITE", "COMPANY_NAME", "NUMBER", "ADDRESS", "EMAIL", "VAT_NUMBER", "PRIVACY_LINK", "COOKIE_LINK"],
+  "compliance_checklist": ["E-Commerce Regulations 2002 info provided", "Acceptable use policy", "IP rights stated", "User content license", "Privacy and Cookie Policy links", "Liability limitations reasonable", "Governing law clear", "No unfair B2C terms"]
+}

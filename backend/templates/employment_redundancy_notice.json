@@ -1,0 +1,130 @@
+{
+  "template_id": "EMP005",
+  "template_name": "Notice of Redundancy",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": [
+    "Employment Rights Act 1996 s135-181",
+    "Trade Union and Labour Relations (Consolidation) Act 1992",
+    "ACAS Code on Redundancy"
+  ],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS", "review_frequency": "annual"},
+  "content": {
+    "title": "NOTICE OF REDUNDANCY",
+    "sections": [
+      {
+        "section_id": "header",
+        "text": "[EMPLOYER_NAME]\n[EMPLOYER_ADDRESS]\n\nDate: [DATE]\n\nPrivate and Confidential\n\n[EMPLOYEE_NAME]\n[EMPLOYEE_ADDRESS]\n\nDear [EMPLOYEE_NAME],",
+        "compliance_notes": "Marked confidential to maintain dignity"
+      },
+      {
+        "section_id": "subject",
+        "text": "Re: Notice of Redundancy - [JOB_TITLE]",
+        "compliance_notes": "Clear subject line"
+      },
+      {
+        "section_id": "notification",
+        "text": "Further to our consultation meetings on [CONSULTATION_DATES], I regret to inform you that your position of [JOB_TITLE] has been made redundant.\n\nThis letter confirms that your employment will terminate on [TERMINATION_DATE] by reason of redundancy.",
+        "compliance_notes": "Must follow full consultation process before issuing redundancy notice"
+      },
+      {
+        "section_id": "reason",
+        "text": "Reason for Redundancy:\n\n[BUSINESS_REASON - e.g., The Company is restructuring its [DEPARTMENT] department to reduce costs and improve efficiency. Your role has been identified as at risk because [SPECIFIC_REASON].]\n\nThe decision to make redundancies was necessary due to: [BUSINESS_JUSTIFICATION]",
+        "compliance_notes": "Must be a genuine redundancy situation under ERA 1996 s139: (a) business closure, (b) workplace closure, or (c) diminished requirement for work of a particular kind"
+      },
+      {
+        "section_id": "selection",
+        "text": "Selection Process:\n\nThe selection for redundancy was made using fair and objective criteria applied consistently across the pool of employees in similar roles. The criteria used were:\n\n[CRITERION_1: e.g., Skills and qualifications] - [SCORE]\n[CRITERION_2: e.g., Performance and disciplinary record] - [SCORE]\n[CRITERION_3: e.g., Attendance record] - [SCORE]\n[CRITERION_4: e.g., Experience and flexibility] - [SCORE]\n\nTotal Score: [TOTAL_SCORE]",
+        "compliance_notes": "Selection criteria must be objective, fair, and non-discriminatory. Avoid 'last in, first out' (LIFO) as it may indirectly discriminate by age"
+      },
+      {
+        "section_id": "alternatives",
+        "text": "Alternative Employment:\n\nWe have considered whether any suitable alternative employment is available within the Company. [OPTION 1: Unfortunately, there are no suitable alternative roles available at this time.] [OPTION 2: Details of available alternative roles are enclosed at Annex A. Please confirm by [RESPONSE_DATE] if you wish to be considered for any of these positions.]",
+        "compliance_notes": "Duty to consider and offer suitable alternative employment; unreasonable refusal of suitable alternative may affect redundancy payment"
+      },
+      {
+        "section_id": "notice",
+        "text": "Notice Period:\n\nYour contractual notice period is [CONTRACTUAL_NOTICE]. However, you are entitled to statutory minimum notice of [STATUTORY_NOTICE] based on your [YEARS_SERVICE] years of service.\n\nYou will receive [NOTICE_GIVEN] notice (being the greater of contractual and statutory), and your employment will terminate on [TERMINATION_DATE].\n\n[OPTION 1: You will be required to work your notice period.]\n[OPTION 2: You will be placed on garden leave during your notice period and should not attend the workplace unless requested.]\n[OPTION 3: The Company will make a payment in lieu of notice (PILON) and your employment will terminate immediately.]",
+        "compliance_notes": "Statutory notice: 1 week (1 month-2 years), +1 week per year (2-12 years), max 12 weeks (12+ years). Must give whichever is greater: contractual or statutory"
+      },
+      {
+        "section_id": "redundancy_payment",
+        "text": "Redundancy Payment:\n\nYou are entitled to a statutory redundancy payment calculated as follows:\n\n- Years of service: [YEARS_SERVICE] years\n- Calculation:\n  * [YEARS_UNDER_22] years aged under 22: [YEARS_UNDER_22] × 0.5 weeks' pay = [CALCULATION_1] weeks\n  * [YEARS_22_TO_40] years aged 22-40: [YEARS_22_TO_40] × 1 week's pay = [CALCULATION_2] weeks\n  * [YEARS_41_PLUS] years aged 41+: [YEARS_41_PLUS] × 1.5 weeks' pay = [CALCULATION_3] weeks\n  * Total: [TOTAL_WEEKS] weeks' pay\n\n- Weekly pay (capped): £[WEEKLY_PAY] (statutory cap £700 from April 2025)\n- Statutory redundancy payment: £[STATUTORY_AMOUNT]\n\n[OPTIONAL: In addition, the Company will make an ex gratia payment of £[EX_GRATIA_AMOUNT]]\n\nTotal payment: £[TOTAL_PAYMENT]\n\nThis will be paid on [PAYMENT_DATE] subject to deduction of tax and National Insurance as applicable.",
+        "compliance_notes": "Statutory redundancy pay: 0.5 week per year (under 22), 1 week (22-40), 1.5 weeks (41+). Max 20 years, weekly pay capped at £700 (April 2025). First £30,000 tax-free. Qualifying service: 2+ years"
+      },
+      {
+        "section_id": "other_payments",
+        "text": "Other Payments:\n\nYou will also receive payment for:\n\n- Accrued but untaken holiday: [HOLIDAY_DAYS] days = £[HOLIDAY_PAY]\n- [OPTIONAL: Outstanding commission/bonus: £[BONUS_AMOUNT]]\n- [OPTIONAL: Notice pay: £[NOTICE_PAY]]\n\nFinal payment total: £[FINAL_TOTAL]",
+        "compliance_notes": "Must pay all accrued entitlements including holiday pay"
+      },
+      {
+        "section_id": "benefits",
+        "text": "Benefits:\n\nYour benefits will cease on [TERMINATION_DATE]. Please note:\n\n- Pension contributions will cease on your last day\n- [BENEFIT_1 - e.g., Company car] must be returned by [RETURN_DATE]\n- [BENEFIT_2 - e.g., Health insurance] will terminate on [TERMINATION_DATE]\n- [BENEFIT_3 - e.g., Life assurance] will terminate on [TERMINATION_DATE]",
+        "compliance_notes": "Clearly state when benefits terminate"
+      },
+      {
+        "section_id": "job_search",
+        "text": "Time Off for Job Search:\n\nYou are entitled to reasonable paid time off during your notice period to look for alternative employment or arrange training, in accordance with ERA 1996 s52.\n\n[OPTIONAL: We will also provide outplacement support through [PROVIDER] to assist with your job search.]",
+        "compliance_notes": "Statutory right to reasonable paid time off for job hunting (employees with 2+ years' service being made redundant)"
+      },
+      {
+        "section_id": "property",
+        "text": "Return of Company Property:\n\nPlease return the following items by [RETURN_DATE]:\n\n- [PROPERTY_1]\n- [PROPERTY_2]\n- [PROPERTY_3]\n- All documents, data, and materials (in any format)\n- Company credit cards and access passes\n\nPlease also delete all Company data from personal devices and confirm compliance in writing.",
+        "compliance_notes": "Standard property return requirements"
+      },
+      {
+        "section_id": "references",
+        "text": "Reference:\n\nWe will provide a fair and accurate reference upon request from prospective employers.",
+        "compliance_notes": "No legal obligation to provide reference, but if provided must be fair and accurate"
+      },
+      {
+        "section_id": "appeal",
+        "text": "Right of Appeal:\n\nIf you wish to appeal against the decision to make you redundant or the selection process, you must submit your appeal in writing to [APPEAL_CONTACT] within [APPEAL_DAYS] working days of receiving this letter, stating your grounds for appeal.\n\nYour appeal will be heard by [APPEAL_PERSON/PANEL] who was/were not involved in the original decision.",
+        "compliance_notes": "Appeal process required for fair redundancy procedure; tribunal may increase award by 25% for ACAS Code breach"
+      },
+      {
+        "section_id": "closing",
+        "text": "I recognise this is difficult news. If you have any questions or wish to discuss this further, please contact [CONTACT_PERSON] on [CONTACT_DETAILS].\n\nYours sincerely,\n\n\n[SIGNATORY_NAME]\n[SIGNATORY_TITLE]",
+        "compliance_notes": "Empathetic closing"
+      }
+    ],
+    "annexes": [
+      {
+        "annex_id": "A",
+        "title": "Alternative Roles Available",
+        "content": "[LIST ALTERNATIVE POSITIONS IF AVAILABLE]"
+      }
+    ]
+  },
+  "placeholders": [
+    "EMPLOYER_NAME", "EMPLOYER_ADDRESS", "DATE", "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS",
+    "JOB_TITLE", "CONSULTATION_DATES", "TERMINATION_DATE", "BUSINESS_REASON",
+    "DEPARTMENT", "SPECIFIC_REASON", "BUSINESS_JUSTIFICATION", "CRITERION_1",
+    "CRITERION_2", "CRITERION_3", "CRITERION_4", "TOTAL_SCORE", "RESPONSE_DATE",
+    "CONTRACTUAL_NOTICE", "STATUTORY_NOTICE", "YEARS_SERVICE", "NOTICE_GIVEN",
+    "YEARS_UNDER_22", "YEARS_22_TO_40", "YEARS_41_PLUS", "CALCULATION_1",
+    "CALCULATION_2", "CALCULATION_3", "TOTAL_WEEKS", "WEEKLY_PAY",
+    "STATUTORY_AMOUNT", "EX_GRATIA_AMOUNT", "TOTAL_PAYMENT", "PAYMENT_DATE",
+    "HOLIDAY_DAYS", "HOLIDAY_PAY", "BONUS_AMOUNT", "NOTICE_PAY", "FINAL_TOTAL",
+    "BENEFIT_1", "BENEFIT_2", "BENEFIT_3", "RETURN_DATE", "PROVIDER",
+    "PROPERTY_1", "PROPERTY_2", "PROPERTY_3", "APPEAL_CONTACT", "APPEAL_DAYS",
+    "APPEAL_PERSON", "CONTACT_PERSON", "CONTACT_DETAILS", "SIGNATORY_NAME",
+    "SIGNATORY_TITLE"
+  ],
+  "compliance_checklist": [
+    "Full consultation process completed before notice issued",
+    "Genuine redundancy situation under ERA 1996 s139",
+    "Fair and objective selection criteria applied",
+    "Pool for selection properly identified",
+    "Alternative employment considered and offered if available",
+    "Correct notice period given (contractual/statutory maximum)",
+    "Statutory redundancy pay calculated correctly (2+ years service)",
+    "Weekly pay cap applied (£700 from April 2025)",
+    "All accrued entitlements paid (holiday, bonus, etc)",
+    "Appeal process offered",
+    "Collective consultation if 20+ redundancies (45+ days for 100+)",
+    "HR1 notification to DECC if 20+ redundancies"
+  ]
+}

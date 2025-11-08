@@ -1,0 +1,23 @@
+{
+  "template_id": "EMP010",
+  "template_name": "Flexible Working Request Response",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Employment Rights Act 1996 s80F-80I", "Flexible Working Regulations 2014"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS", "special_notes": "From April 2024, all employees have day-1 right to request (no 26-week qualifying period)"},
+  "content": {
+    "title": "FLEXIBLE WORKING REQUEST RESPONSE",
+    "response_type": "[APPROVED/REJECTED/TRIAL/MEETING]",
+    "sections": [
+      {"section_id": "header", "text": "[EMPLOYER_NAME]\n[EMPLOYER_ADDRESS]\n\n[DATE]\n\n[EMPLOYEE_NAME]\n[EMPLOYEE_ADDRESS]\n\nDear [EMPLOYEE_NAME],\n\nRe: Flexible Working Request dated [REQUEST_DATE]"},
+      {"section_id": "approval", "text": "I am pleased to confirm that your request to [DESCRIBE_REQUEST - e.g., work from home 3 days per week] has been approved.\n\nYour new working pattern will be:\n[NEW_PATTERN]\n\nEffective from: [START_DATE]\n\nThis is a permanent change to your contract. Your terms and conditions remain the same except:\n[CHANGES_TO_TERMS]\n\nPlease sign and return the attached contract variation.", "condition": "APPROVED"},
+      {"section_id": "rejection", "text": "I regret to inform you that your request to [DESCRIBE_REQUEST] cannot be approved for the following business reason(s):\n\n[SELECT FROM:\n- Burden of additional costs\n- Detrimental effect on ability to meet customer demand  \n- Inability to reorganize work among existing staff\n- Inability to recruit additional staff\n- Detrimental impact on quality\n- Detrimental impact on performance\n- Insufficiency of work during proposed working periods\n- Planned structural changes]\n\nSpecific reasons:\n[DETAILED_EXPLANATION]\n\nYou have the right to appeal this decision within 14 days by writing to [APPEAL_CONTACT].", "condition": "REJECTED"},
+      {"section_id": "trial", "text": "Your request has been approved on a trial basis for [TRIAL_PERIOD] months, commencing [START_DATE].\n\nWe will review the arrangement on [REVIEW_DATE]. If successful, it will become permanent.", "condition": "TRIAL"},
+      {"section_id": "meeting", "text": "I would like to discuss your request at a meeting on [MEETING_DATE] at [MEETING_TIME]. You may be accompanied by a colleague.\n\nPlease confirm your attendance.", "condition": "MEETING"}
+    ]
+  },
+  "placeholders": ["EMPLOYER_NAME", "EMPLOYER_ADDRESS", "DATE", "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS", "REQUEST_DATE", "DESCRIBE_REQUEST", "NEW_PATTERN", "START_DATE", "CHANGES_TO_TERMS", "DETAILED_EXPLANATION", "APPEAL_CONTACT", "TRIAL_PERIOD", "REVIEW_DATE", "MEETING_DATE", "MEETING_TIME"],
+  "compliance_checklist": ["Response within 2 months (3 months by agreement)", "If rejected, one of 8 statutory business reasons cited", "Appeal rights stated if rejected", "Permanent contract variation if approved", "Right to be accompanied at meeting"]
+}

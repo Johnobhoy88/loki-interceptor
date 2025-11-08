@@ -1,0 +1,18 @@
+{
+  "template_id": "COM009",
+  "template_name": "Framework Agreement",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Sale of Goods Act 1979", "Supply of Goods and Services Act 1982"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "FRAMEWORK AGREEMENT",
+    "purpose": "Sets out general terms for future orders/call-offs. No commitment to minimum volume.",
+    "key_sections": ["1. SCOPE: This Agreement governs all Orders placed by Customer with Supplier for [PRODUCTS/SERVICES].", "2. ORDERS: Customer may issue Orders (POs). Supplier accepts/rejects within [DAYS] days. Each Order forms a separate contract incorporating these terms.", "3. NO MINIMUM: No obligation to place Orders or minimum volume.", "4. PRICING: Prices in Schedule 1 or as quoted. Fixed for [PERIOD] then reviewable on [NOTICE] notice. Price increases: Customer may terminate affected Orders.", "5. DELIVERY: Per Order. Time not of essence unless stated. Delivery to [LOCATION]. Risk passes on delivery. Title passes on payment.", "6. QUALITY: Goods fit for purpose, as described, of satisfactory quality. Services with reasonable skill and care. Warranty: [PERIOD].", "7. IP: [Pre-existing IP retained. Developments: [CUSTOMER/SUPPLIER/SHARED] owns.]", "8. LIABILITY: Limited to [greater of Order value or £X]. No consequential loss. No limit for death/injury or fraud.", "9. CONFIDENTIALITY: Mutual obligations.", "10. TERM: [YEARS] from date. Either party may terminate on [NOTICE] notice. Termination does not affect existing Orders.", "11. AUDIT: Customer may audit compliance [annually] on [NOTICE] notice.", "12. MODERN SLAVERY: Supplier complies with Modern Slavery Act 2015. Annual statement if required.", "13. ANTI-BRIBERY: Parties comply with Bribery Act 2010. Zero tolerance.", "14. GOVERNING LAW: English law."],
+    "schedules": ["Schedule 1: Products/Services and Pricing", "Schedule 2: Service Levels (if applicable)"]
+  },
+  "placeholders": ["PRODUCTS", "SERVICES", "DAYS", "PERIOD", "NOTICE", "LOCATION", "YEARS"],
+  "compliance_checklist": ["No minimum volume commitment (true framework)", "Order process clear", "Pricing and review mechanism", "Quality standards defined", "IP ownership clear", "Liability cap reasonable", "Termination rights balanced", "Modern Slavery Act compliance", "Bribery Act compliance"]
+}

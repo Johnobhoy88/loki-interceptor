@@ -1,0 +1,22 @@
+{
+  "template_id": "EMP009",
+  "template_name": "Grievance Procedure Policy",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Employment Rights Act 1996 s13", "ACAS Code of Practice on Disciplinary and Grievance Procedures"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS"},
+  "content": {
+    "title": "GRIEVANCE PROCEDURE",
+    "sections": [
+      {"heading": "1. PURPOSE", "text": "1.1 This procedure provides a fair and effective method for employees to raise concerns about their work, working environment, or relationships with colleagues.\n\n1.2 It applies to all employees of [EMPLOYER_NAME].\n\n1.3 This procedure complies with the ACAS Code of Practice."},
+      {"heading": "2. INFORMAL RESOLUTION", "text": "2.1 Most grievances can be resolved informally by speaking with your line manager.\n\n2.2 If informal resolution is not possible or appropriate, use the formal procedure below."},
+      {"heading": "3. FORMAL GRIEVANCE", "text": "3.1 Submit your grievance in writing to [GRIEVANCE_CONTACT], stating:\n- The nature of your grievance\n- Supporting facts and evidence\n- How you would like it resolved\n\n3.2 Grievances should be raised promptly while the matter is still fresh.\n\n3.3 We will acknowledge your grievance within [ACK_DAYS] working days and arrange a meeting normally within [MEETING_DAYS] working days."},
+      {"heading": "4. GRIEVANCE MEETING", "text": "4.1 You will be invited to a meeting to discuss your grievance.\n\n4.2 You have the right to be accompanied by a work colleague or trade union representative.\n\n4.3 The meeting will be conducted by a manager who is not the subject of the grievance.\n\n4.4 We may adjourn to investigate your concerns.\n\n4.5 We will provide a written response within [RESPONSE_DAYS] working days, including:\n- Our findings\n- Any action we will take  \n- Your right to appeal"},
+      {"heading": "5. APPEAL", "text": "5.1 If you are not satisfied with the outcome, you may appeal in writing to [APPEAL_CONTACT] within [APPEAL_DAYS] working days.\n\n5.2 An appeal meeting will be arranged with a more senior manager.\n\n5.3 The appeal decision is final."}
+    ]
+  },
+  "placeholders": ["EMPLOYER_NAME", "GRIEVANCE_CONTACT", "ACK_DAYS", "MEETING_DAYS", "RESPONSE_DAYS", "APPEAL_CONTACT", "APPEAL_DAYS"],
+  "compliance_checklist": ["ACAS Code compliant", "Written grievance required", "Meeting arranged promptly", "Right to be accompanied", "Appeal process included"]
+}

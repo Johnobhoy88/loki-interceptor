@@ -1,0 +1,17 @@
+{
+  "template_id": "COM003",
+  "template_name": "Service Agreement",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Supply of Goods and Services Act 1982", "Consumer Rights Act 2015 (if B2C)", "Late Payment of Commercial Debts (Interest) Act 1998"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "SERVICE AGREEMENT",
+    "key_sections": ["1. SERVICES: [DESCRIPTION]. Performed with reasonable skill and care.", "2. FEES: £[AMOUNT] plus VAT. Payment within [DAYS] days. Late payment interest at 8% above Bank of England base rate (statutory right).", "3. TERM: [START_DATE] to [END_DATE] or [NOTICE_PERIOD] notice.", "4. IP: [Pre-existing IP retained. New IP: [CUSTOMER/SUPPLIER] owns.]", "5. LIABILITY: Limited to [CAP - e.g., fees paid in 12 months]. No limit for death/injury, fraud, or breach of statutory implied terms.", "6. TERMINATION: For breach (30 days' cure), insolvency, or convenience ([NOTICE]).", "7. DATA PROTECTION: Parties comply with UK GDPR. [IF PROCESSING: Data Processing Agreement attached.]", "8. CONFIDENTIALITY: Mutual obligations. Survives termination.", "9. GOVERNING LAW: English law. Exclusive jurisdiction."],
+    "schedules": ["Schedule 1: Service Specification", "Schedule 2: Fees and Payment Terms", "Schedule 3: Data Processing Agreement (if applicable)"]
+  },
+  "placeholders": ["DESCRIPTION", "AMOUNT", "DAYS", "START_DATE", "END_DATE", "NOTICE_PERIOD", "CAP"],
+  "compliance_checklist": ["Services defined clearly", "Fees and payment terms stated", "Liability cap reasonable (B2B)", "Consumer Rights Act compliance (B2C)", "IP ownership clear", "GDPR compliance (DPA if processing)", "Late payment statutory interest", "Termination rights balanced"]
+}

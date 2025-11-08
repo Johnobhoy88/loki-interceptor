@@ -1,0 +1,17 @@
+{
+  "template_id": "COM004",
+  "template_name": "Software License Agreement",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Copyright, Designs and Patents Act 1988", "Consumer Rights Act 2015 (B2C)"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "SOFTWARE LICENSE AGREEMENT",
+    "key_sections": ["1. GRANT: Non-exclusive, [non-transferable], [UK-only/worldwide] license to use Software for [PURPOSE]. [USERS] authorized users.", "2. RESTRICTIONS: No copying, modification, reverse engineering, sublicensing, or distribution. No removal of proprietary notices.", "3. FEES: [LICENSE_FEE] [one-time/annual/monthly]. Support: [SUPPORT_FEE].", "4. SUPPORT: [LEVEL - e.g., 9-5 weekday email support, bug fixes, updates included].", "5. WARRANTY: Software performs substantially as documented for [PERIOD - e.g., 90 days]. Exclusive remedy: repair or refund.", "6. DISCLAIMER: No other warranties (express or implied). Not fit for critical applications requiring fail-safe performance.", "7. LIABILITY: Limited to [fees paid in 12 months / license fee]. No consequential damages. No limit for death/injury or fraud.", "8. IP: Licensor owns all IP. Feedback may be used royalty-free.", "9. DATA: [Privacy policy link]. Licensor may collect usage data (anonymized).", "10. TERMINATION: For breach (30 days' cure) or non-payment (14 days). On termination, cease use and delete Software.", "11. UPDATES: [Included / separate fee / discretionary].", "12. AUDIT: Licensor may audit compliance [annually] on [30] days' notice.", "13. GOVERNING LAW: English law. Exclusive jurisdiction."],
+    "compliance_notes": "If B2C: Consumer Rights Act 2015 requires software fit for purpose, as described, and of satisfactory quality. Unfair contract terms restrictions apply."
+  },
+  "placeholders": ["PURPOSE", "USERS", "LICENSE_FEE", "SUPPORT_FEE", "LEVEL", "PERIOD"],
+  "compliance_checklist": ["License scope clear (users, territory, purpose)", "Restrictions stated", "Warranty period defined", "Liability cap reasonable", "IP ownership clear", "Termination rights", "Audit rights (if applicable)", "Consumer Rights Act compliance (B2C)", "GDPR compliance (usage data collection)", "Support terms clear"]
+}

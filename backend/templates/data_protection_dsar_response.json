@@ -1,0 +1,26 @@
+{
+  "template_id": "DP003",
+  "template_name": "Data Subject Access Request Response",
+  "category": "Data Protection",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["UK GDPR Article 15", "Data Protection Act 2018"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ICO", "deadline": "1 month (extendable to 3 months if complex)"},
+  "content": {
+    "title": "SUBJECT ACCESS REQUEST RESPONSE",
+    "body": "[COMPANY_NAME]\n[ADDRESS]\n\n[DATE]\n\n[DATA_SUBJECT_NAME]\n[DATA_SUBJECT_ADDRESS]\n\nDear [DATA_SUBJECT_NAME],\n\nRe: Data Subject Access Request\n\nThank you for your request dated [REQUEST_DATE] for access to your personal data under Article 15 of the UK GDPR.\n\n[OPTION 1 - COMPLIANT RESPONSE:]\n\nWe confirm that we hold personal data about you. The information is provided in the attached documents/enclosed USB drive.\n\n**Personal Data We Hold:**\n\nThe following categories of personal data are processed:\n\n1. [CATEGORY_1 - e.g., Identity Data]: [DETAILS]\n2. [CATEGORY_2 - e.g., Contact Data]: [DETAILS]\n3. [CATEGORY_3 - e.g., Financial Data]: [DETAILS]\n4. [CATEGORY_4 - e.g., Transaction Data]: [DETAILS]\n\n**Purposes of Processing:**\n\nWe process your personal data for:\n- [PURPOSE_1]\n- [PURPOSE_2]\n- [PURPOSE_3]\n\n**Legal Basis:**\n\nThe lawful bases for processing are:\n- [BASIS_1 - e.g., Performance of contract]\n- [BASIS_2 - e.g., Legal obligation]\n- [BASIS_3 - e.g., Legitimate interests]\n\n**Recipients:**\n\nYour personal data has been/may be disclosed to:\n- [RECIPIENT_1 - e.g., Payment processors]\n- [RECIPIENT_2 - e.g., Professional advisers]\n- [RECIPIENT_3 - e.g., Regulatory bodies]\n\n**Retention Period:**\n\nWe retain your personal data for [RETENTION_PERIOD] because [REASON].\n\n**Your Rights:**\n\nYou have the right to:\n- Request rectification of inaccurate data\n- Request erasure (in certain circumstances)\n- Request restriction of processing\n- Object to processing\n- Data portability (in certain circumstances)\n- Withdraw consent (where processing is based on consent)\n- Complain to the ICO: ico.org.uk or 0303 123 1113\n\n**International Transfers:**\n\n[IF NO TRANSFERS: Your personal data is not transferred outside the UK.]\n[IF TRANSFERS: Your personal data is transferred to [COUNTRIES]. Appropriate safeguards are in place: [SAFEGUARDS].]\n\n**Automated Decision-Making:**\n\n[IF NO ADM: We do not use automated decision-making or profiling.]\n[IF ADM: We use automated decision-making for [PURPOSE]. The logic is [EXPLANATION]. You have the right to request human intervention.]\n\n**Source of Data:**\n\n[IF DIRECTLY FROM DATA SUBJECT: We collected your personal data directly from you.]\n[IF THIRD PARTY: We obtained your personal data from [SOURCE].]\n\nIf you have any questions or wish to exercise any of your rights, please contact [DATA_PROTECTION_EMAIL].\n\n[OPTION 2 - EXTENSION NOTICE:]\n\nYour request is particularly complex [and/or involves a large volume of data]. We therefore require an additional 2 months to respond, as permitted by Article 12(3) UK GDPR. We will respond by [EXTENDED_DEADLINE].\n\n[OPTION 3 - REFUSAL:]\n\nWe are unable to comply with your request for the following reason:\n\n[SELECT:\n- The request is manifestly unfounded or excessive because [EXPLAIN]\n- We cannot identify you from the information provided. Please provide [ADDITIONAL_ID_INFO]\n- The request infringes the rights and freedoms of others because [EXPLAIN]\n- An exemption applies under Schedule 2 DPA 2018: [SPECIFY EXEMPTION]]\n\nYou have the right to complain to the Information Commissioner's Office if you are dissatisfied with this response.\n\n[ALL RESPONSES:]\n\nYours sincerely,\n\n[SIGNATORY_NAME]\n[DATA_PROTECTION_OFFICER / SIGNATORY_TITLE]"
+  },
+  "placeholders": ["COMPANY_NAME", "ADDRESS", "DATE", "DATA_SUBJECT_NAME", "DATA_SUBJECT_ADDRESS", "REQUEST_DATE", "CATEGORY_1", "CATEGORY_2", "CATEGORY_3", "CATEGORY_4", "PURPOSE_1", "PURPOSE_2", "PURPOSE_3", "BASIS_1", "BASIS_2", "BASIS_3", "RECIPIENT_1", "RECIPIENT_2", "RECIPIENT_3", "RETENTION_PERIOD", "REASON", "COUNTRIES", "SAFEGUARDS", "SOURCE", "DATA_PROTECTION_EMAIL", "EXTENDED_DEADLINE", "ADDITIONAL_ID_INFO", "SIGNATORY_NAME"],
+  "compliance_checklist": [
+    "Response within 1 month (or 3 if extended)",
+    "Extension notification given within 1 month if applicable",
+    "Free of charge (unless manifestly unfounded/excessive)",
+    "All Article 15 information provided: categories, purposes, lawful bases, recipients, retention, rights, transfers, automated decisions, source",
+    "Copy of personal data provided in accessible format",
+    "Third-party rights protected (data minimization)",
+    "Identity verified before disclosure",
+    "Refusal reasons clearly stated (if applicable)",
+    "Right to complain to ICO mentioned"
+  ]
+}

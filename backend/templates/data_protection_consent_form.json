@@ -1,0 +1,33 @@
+{
+  "template_id": "DP006",
+  "template_name": "Consent Form (GDPR Compliant)",
+  "category": "Data Protection",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["UK GDPR Article 7", "Data Protection Act 2018"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ICO"},
+  "content": {
+    "title": "CONSENT FORM",
+    "sections": [
+      {"heading": "PERSONAL DATA PROCESSING CONSENT", "text": "[COMPANY_NAME] would like to process your personal data for the purposes set out below.\n\nPlease read the following carefully and indicate your consent by ticking the appropriate boxes."},
+      {"heading": "YOUR INFORMATION", "text": "Name: _______________________\nEmail: _______________________\nDate: _______________________"},
+      {"heading": "CONSENT REQUESTS", "text": "Please tick the boxes below to indicate your consent:\n\n☐ I consent to [COMPANY_NAME] processing my personal data ([DATA_TYPES - e.g., name, email address, phone number]) for the purpose of [PURPOSE_1 - e.g., sending me marketing communications about products and services].\n\n☐ I consent to [COMPANY_NAME] sharing my personal data with [THIRD_PARTIES - e.g., our marketing partners] for the purpose of [PURPOSE_2 - e.g., sending me relevant offers from selected partners].\n\n☐ I consent to [COMPANY_NAME] processing my special category data ([SPECIAL_DATA - e.g., health information]) for the purpose of [PURPOSE_3 - e.g., providing tailored health and wellness recommendations].\n\n☐ I consent to receiving marketing communications by:\n   ☐ Email\n   ☐ SMS/Text message  \n   ☐ Phone\n   ☐ Post"},
+      {"heading": "IMPORTANT INFORMATION", "text": "**You can withdraw your consent at any time** by:\n- Emailing [WITHDRAWAL_EMAIL]\n- Clicking the unsubscribe link in our emails\n- Calling [PHONE_NUMBER]\n- Writing to [ADDRESS]\n\n**Your rights:**\n- Withdrawing consent does not affect the lawfulness of processing before withdrawal\n- You have the right to access, rectify, erase, restrict, port, and object to processing of your personal data\n- You have the right to complain to the ICO: ico.org.uk or 0303 123 1113\n\n**Further information:**\nFor full details of how we process your personal data, please see our Privacy Notice at [PRIVACY_NOTICE_URL]."},
+      {"heading": "SIGNATURE", "text": "I confirm that:\n- I have read and understood this consent form\n- My consent is freely given\n- I understand I can withdraw my consent at any time\n\nSignature: _______________________\nName: _______________________\nDate: _______________________"}
+    ]
+  },
+  "placeholders": ["COMPANY_NAME", "DATA_TYPES", "PURPOSE_1", "PURPOSE_2", "PURPOSE_3", "THIRD_PARTIES", "SPECIAL_DATA", "WITHDRAWAL_EMAIL", "PHONE_NUMBER", "ADDRESS", "PRIVACY_NOTICE_URL"],
+  "compliance_checklist": [
+    "Consent is freely given (no bundled consent, no detriment if refused)",
+    "Specific and informed (clear purpose stated)",
+    "Unambiguous indication (opt-in, not pre-ticked boxes)",
+    "Separate consent for different purposes (granular)",
+    "Easy withdrawal mechanism clearly explained",
+    "Link to full privacy notice provided",
+    "Records of consent maintained (who, when, what, how)",
+    "Special category data consent explicit",
+    "Age verification for children (<13 years requires parental consent)",
+    "Regular review of consent (refresh if stale)"
+  ]
+}

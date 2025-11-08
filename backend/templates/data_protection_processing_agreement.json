@@ -1,0 +1,47 @@
+{
+  "template_id": "DP002",
+  "template_name": "Data Processing Agreement (DPA)",
+  "category": "Data Protection",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["UK GDPR Article 28", "Data Protection Act 2018"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ICO"},
+  "content": {
+    "title": "DATA PROCESSING AGREEMENT",
+    "sections": [
+      {"section_id": "parties", "text": "This Data Processing Agreement ('DPA') is made on [DATE] between:\n\n(1) [CONTROLLER_NAME] of [CONTROLLER_ADDRESS] ('Controller'); and\n(2) [PROCESSOR_NAME] of [PROCESSOR_ADDRESS] ('Processor')\n\nin connection with the [MAIN_AGREEMENT - e.g., Service Agreement dated [DATE]]"},
+      {"section_id": "definitions", "text": "1. DEFINITIONS\n\n1.1 'UK GDPR' means the UK General Data Protection Regulation.\n\n1.2 'Personal Data', 'Data Subject', 'Processing', 'Controller', 'Processor', 'Sub-processor', and 'Personal Data Breach' have the meanings in UK GDPR.\n\n1.3 'Services' means [DESCRIPTION OF SERVICES].\n\n1.4 Terms defined in UK GDPR have the same meaning in this DPA."},
+      {"section_id": "scope", "text": "2. SCOPE AND ROLE\n\n2.1 This DPA governs the Processing of Personal Data by the Processor on behalf of the Controller in connection with the Services.\n\n2.2 The Controller is the data controller and the Processor is the data processor.\n\n2.3 The subject matter, nature, purpose, duration, types of Personal Data, and categories of Data Subjects are set out in Schedule 1 (Processing Details)."},
+      {"section_id": "processor_obligations", "text": "3. PROCESSOR OBLIGATIONS (Article 28(3))\n\nThe Processor shall:\n\n3.1 Process Personal Data only on documented instructions from the Controller (including transfers outside the UK), unless required by law. If required to process by law, the Processor will inform the Controller (unless prohibited).\n\n3.2 Ensure persons authorized to process Personal Data have committed to confidentiality or are under an appropriate statutory obligation of confidentiality.\n\n3.3 Implement appropriate technical and organizational measures to ensure a level of security appropriate to the risk (Article 32), including:\n   (a) Pseudonymization and encryption\n   (b) Ongoing confidentiality, integrity, availability, and resilience\n   (c) Ability to restore availability and access in the event of incident\n   (d) Regular testing and evaluation of effectiveness\n\n3.4 Take account of state of the art, implementation costs, nature, scope, context, and purposes of processing, and risks to data subjects.\n\n3.5 Not engage a Sub-processor without prior specific or general written authorization from the Controller.\n\n3.6 If general authorization, inform the Controller of changes and give the Controller opportunity to object (minimum [OBJECTION_PERIOD] days).\n\n3.7 Impose the same data protection obligations on Sub-processors by contract. The Processor remains fully liable to the Controller.\n\n3.8 Assist the Controller in ensuring compliance with Articles 32-36 (security, breach notification, DPIA, prior consultation) taking into account the nature of processing and information available.\n\n3.9 Assist the Controller in responding to Data Subject rights requests (access, rectification, erasure, restriction, portability, objection, automated decisions) taking into account the nature of processing.\n\n3.10 At the Controller's choice, delete or return all Personal Data after the end of Services, and delete existing copies (unless storage required by law).\n\n3.11 Make available to the Controller all information necessary to demonstrate compliance and allow for and contribute to audits and inspections by the Controller or its auditor.\n\n3.12 Immediately inform the Controller if an instruction infringes UK GDPR or other data protection law."},
+      {"section_id": "data_breach", "text": "4. PERSONAL DATA BREACHES\n\n4.1 The Processor shall notify the Controller without undue delay (and in any event within [BREACH_NOTIFICATION_HOURS] hours) after becoming aware of a Personal Data Breach.\n\n4.2 The notification shall include:\n   (a) Description of the breach\n   (b) Categories and approximate number of Data Subjects and Personal Data records affected\n   (c) Name and contact details of the DPO or other contact\n   (d) Likely consequences\n   (e) Measures taken or proposed to address the breach and mitigate adverse effects\n\n4.3 The Processor shall cooperate with the Controller in investigating and remediating the breach."},
+      {"section_id": "sub_processors", "text": "5. SUB-PROCESSORS\n\n5.1 The Controller [provides specific authorization for the Sub-processors listed in Schedule 2] OR [provides general authorization for Sub-processors subject to clause 3.6].\n\n5.2 Current Sub-processors are listed in Schedule 2.\n\n5.3 The Processor shall:\n   (a) Maintain an up-to-date list of Sub-processors\n   (b) Notify the Controller at least [NOTICE_DAYS] days before engaging a new Sub-processor\n   (c) Impose equivalent data protection obligations on Sub-processors\n   (d) Remain fully liable for Sub-processor acts/omissions"},
+      {"section_id": "audits", "text": "6. AUDITS AND INSPECTIONS\n\n6.1 The Controller may audit the Processor's compliance with this DPA on [AUDIT_FREQUENCY] notice.\n\n6.2 Audits may be conducted by the Controller or an independent third-party auditor.\n\n6.3 The Processor shall provide reasonable assistance and access to facilities, systems, and personnel.\n\n6.4 The Controller shall bear its own costs unless the audit reveals non-compliance, in which case the Processor shall bear the costs."},
+      {"section_id": "international_transfers", "text": "7. INTERNATIONAL TRANSFERS\n\n7.1 The Processor shall not transfer Personal Data outside the UK without the Controller's prior written consent.\n\n7.2 If transfer is authorized, the Processor shall ensure appropriate safeguards are in place:\n   (a) UK adequacy decision (s17A DPA 2018), or\n   (b) Standard Contractual Clauses (SCCs) or International Data Transfer Agreement (IDTA), or\n   (c) Binding Corporate Rules, or\n   (d) Other lawful mechanism under UK GDPR Article 46\n\n7.3 Details of authorized transfers are set out in Schedule 3."},
+      {"section_id": "liability", "text": "8. LIABILITY\n\n8.1 Each party's liability under this DPA is subject to the limitation of liability provisions in the Main Agreement.\n\n8.2 Nothing in this DPA limits either party's liability for:\n   (a) Death or personal injury caused by negligence\n   (b) Fraud or fraudulent misrepresentation\n   (c) Breach of confidentiality obligations\n   (d) Infringement of intellectual property rights"},
+      {"section_id": "term", "text": "9. TERM AND TERMINATION\n\n9.1 This DPA commences on [START_DATE] and continues for the duration of the Main Agreement.\n\n9.2 On termination, the Processor shall (at the Controller's election):\n   (a) Delete all Personal Data, or\n   (b) Return all Personal Data to the Controller in [FORMAT]\n\n9.3 The Processor shall certify in writing that it has complied with clause 9.2.\n\n9.4 Clauses [SURVIVING_CLAUSES] shall survive termination."},
+      {"section_id": "general", "text": "10. GENERAL\n\n10.1 This DPA is governed by the law of England and Wales.\n\n10.2 In the event of conflict between this DPA and the Main Agreement, this DPA prevails on data protection matters.\n\n10.3 Changes to this DPA must be in writing and signed by both parties.\n\n10.4 If any provision is invalid, the remainder continues in effect."}
+    ],
+    "schedules": [
+      {"schedule": 1, "title": "Processing Details", "content": "Subject matter: [DESCRIPTION]\nDuration: [PERIOD]\nNature and purpose: [DETAILS]\nTypes of Personal Data: [LIST]\nCategories of Data Subjects: [LIST]"},
+      {"schedule": 2, "title": "Authorized Sub-processors", "content": "[LIST OF SUB-PROCESSORS WITH CONTACT DETAILS AND PROCESSING ACTIVITIES]"},
+      {"schedule": 3, "title": "International Transfers", "content": "[DETAILS OF TRANSFERS, COUNTRIES, SAFEGUARDS]"}
+    ]
+  },
+  "placeholders": ["DATE", "CONTROLLER_NAME", "CONTROLLER_ADDRESS", "PROCESSOR_NAME", "PROCESSOR_ADDRESS", "MAIN_AGREEMENT", "DESCRIPTION OF SERVICES", "OBJECTION_PERIOD", "BREACH_NOTIFICATION_HOURS", "NOTICE_DAYS", "AUDIT_FREQUENCY", "START_DATE", "FORMAT", "SURVIVING_CLAUSES"],
+  "compliance_checklist": [
+    "Article 28(3) UK GDPR mandatory clauses included",
+    "Processing only on documented instructions",
+    "Confidentiality obligations on personnel",
+    "Appropriate security measures (Article 32)",
+    "Sub-processor authorization mechanism",
+    "Assistance with DSR and compliance obligations",
+    "Data breach notification procedure (<24 hours recommended)",
+    "Audit rights included",
+    "Data return/deletion on termination",
+    "International transfer safeguards",
+    "Processing details in Schedule 1",
+    "Sub-processors listed (if specific authorization)",
+    "Written contract in place"
+  ]
+}

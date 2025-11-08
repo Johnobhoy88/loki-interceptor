@@ -1,0 +1,137 @@
+{
+  "template_id": "EMP002",
+  "template_name": "Zero-Hours Contract (2025 Compliant)",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": [
+    "Employment Rights Act 1996",
+    "Exclusivity Terms for Zero Hours Workers Regulations 2015",
+    "Equality Act 2010",
+    "Employment Rights (Amendment) Act 2023"
+  ],
+  "metadata": {
+    "version": "1.0",
+    "language": "en-GB",
+    "regulatory_body": "ACAS",
+    "review_frequency": "annual",
+    "special_notes": "Exclusivity clauses prohibited since 2015; 2025 compliance includes right to request predictable working pattern"
+  },
+  "content": {
+    "title": "ZERO-HOURS EMPLOYMENT CONTRACT",
+    "sections": [
+      {
+        "section_id": "parties",
+        "heading": "PARTIES",
+        "text": "This contract is made on [CONTRACT_DATE] between:\n\n(1) [EMPLOYER_NAME], a company registered in England and Wales under company number [COMPANY_NUMBER], whose registered office is at [EMPLOYER_ADDRESS] (the 'Employer'); and\n\n(2) [EMPLOYEE_NAME] of [EMPLOYEE_ADDRESS] (the 'Worker').",
+        "compliance_notes": "Worker status provides certain employment rights without full employee status"
+      },
+      {
+        "section_id": "status",
+        "heading": "1. EMPLOYMENT STATUS",
+        "text": "1.1 This is a zero-hours contract. The Employer does not guarantee to provide you with work and you are not obliged to accept any work offered.\n\n1.2 You are engaged as a worker for the purposes of employment law. This means you are entitled to certain statutory rights including National Minimum Wage, holiday pay, and protection from discrimination.\n\n1.3 When work is offered and accepted, you will be under a duty to attend and perform that work diligently.",
+        "compliance_notes": "Worker status (not employee): entitled to NMW, holiday pay, discrimination protection, but not unfair dismissal rights (until 2 years' service)"
+      },
+      {
+        "section_id": "no_exclusivity",
+        "heading": "2. NO EXCLUSIVITY OF SERVICES",
+        "text": "2.1 You are not required to work exclusively for the Employer. You are free to work for other employers or to be self-employed.\n\n2.2 The Employer will not subject you to any detriment for working for another employer.\n\n2.3 This contract does not contain an exclusivity clause and you are under no restriction from seeking or accepting work from other sources.",
+        "compliance_notes": "CRITICAL: Exclusivity clauses in zero-hours contracts prohibited by Exclusivity Terms Regulations 2015. Breach can result in tribunal claims and compensation."
+      },
+      {
+        "section_id": "work_allocation",
+        "heading": "3. ALLOCATION OF WORK",
+        "text": "3.1 The Employer may offer you work from time to time by [OFFER_METHOD - e.g., phone, email, app notification].\n\n3.2 You are not obliged to accept any offer of work.\n\n3.3 If you accept an offer of work, you agree to attend at the time and location specified and perform the duties required.\n\n3.4 The Employer will endeavour to give you [NOTICE_PERIOD - e.g., 48 hours] notice of work opportunities where reasonably practicable.\n\n3.5 You have the right to request a more predictable working pattern after 26 weeks of continuous service in accordance with the Employment Rights Act 1996.",
+        "compliance_notes": "2025 Update: Right to request predictable working pattern introduced for zero-hours workers after 26 weeks' service (Employment Rights Amendment Act 2023)"
+      },
+      {
+        "section_id": "duties",
+        "heading": "4. DUTIES",
+        "text": "4.1 When undertaking work, your principal duties will include:\n[DUTY_1]\n[DUTY_2]\n[DUTY_3]\n\n4.2 You may be required to undertake such other reasonable duties as directed by the Employer.",
+        "compliance_notes": "Duties should be clearly defined but flexible for zero-hours arrangements"
+      },
+      {
+        "section_id": "remuneration",
+        "heading": "5. REMUNERATION",
+        "text": "5.1 You will be paid at the rate of £[HOURLY_RATE] per hour for all hours worked.\n\n5.2 Payment will be made [PAYMENT_FREQUENCY] by credit transfer on or before [PAYMENT_DAY].\n\n5.3 The Employer will deduct income tax and National Insurance contributions as required by law.\n\n5.4 Your hourly rate is reviewed annually and meets or exceeds the National Living Wage (£11.44/hour for workers aged 21+ from April 2025).",
+        "compliance_notes": "NLW rates from April 2025: £11.44 (21+), £8.60 (18-20), £6.40 (under 18), £6.40 (apprentice). Employers must pay for all hours worked, including training time."
+      },
+      {
+        "section_id": "holiday",
+        "heading": "6. HOLIDAY ENTITLEMENT",
+        "text": "6.1 You are entitled to 5.6 weeks' paid holiday per year (pro-rated based on hours worked).\n\n6.2 Holiday pay will be calculated as 12.07% of your total pay in each pay period (representing 5.6 weeks' holiday across 46.4 working weeks).\n\n6.3 Holiday pay will be [OPTION 1: included in your hourly rate as rolled-up holiday pay] OR [OPTION 2: paid when you take holiday after submitting a request].\n\n6.4 You must give [NOTICE_PERIOD] notice to take holiday, subject to the Employer's approval.",
+        "compliance_notes": "Rolled-up holiday pay is permitted for zero-hours workers if clearly identified. 12.07% calculation: 5.6 weeks ÷ 46.4 weeks = 12.07%"
+      },
+      {
+        "section_id": "sickness",
+        "heading": "7. SICKNESS",
+        "text": "7.1 If you are unable to attend work after accepting an engagement due to sickness, you must notify [NOTIFICATION_CONTACT] as soon as possible and at least [HOURS] hours before the start time.\n\n7.2 You may be entitled to Statutory Sick Pay (SSP) if you meet the eligibility criteria, currently £116.75 per week (2025 rate), subject to minimum earnings threshold.\n\n7.3 SSP eligibility requires average weekly earnings of at least £123 (2025 Lower Earnings Limit).",
+        "compliance_notes": "Zero-hours workers entitled to SSP if earnings exceed LEL averaged over relevant period"
+      },
+      {
+        "section_id": "pension",
+        "heading": "8. PENSION AUTO-ENROLMENT",
+        "text": "8.1 If you meet the auto-enrolment criteria (aged 22 to State Pension age and earning over £10,000 per year), you will be automatically enrolled into the Employer's pension scheme.\n\n8.2 The Employer will contribute [EMPLOYER_CONTRIBUTION]% of qualifying earnings and you will contribute [EMPLOYEE_CONTRIBUTION]% (minimum total 8%).\n\n8.3 You may opt out of the pension scheme in accordance with statutory requirements.",
+        "compliance_notes": "Auto-enrolment applies to zero-hours workers meeting earnings threshold (£10,000 p.a. in 2025)"
+      },
+      {
+        "section_id": "termination",
+        "heading": "9. TERMINATION",
+        "text": "9.1 Either party may terminate this contract by giving [NOTICE_PERIOD] written notice.\n\n9.2 If you have accepted work, either party may terminate the specific engagement by giving reasonable notice.\n\n9.3 The Employer may terminate this contract immediately for gross misconduct.",
+        "compliance_notes": "Notice periods should be reasonable; zero-hours workers have limited unfair dismissal protection unless 2+ years' service"
+      },
+      {
+        "section_id": "confidentiality",
+        "heading": "10. CONFIDENTIALITY",
+        "text": "10.1 You must not disclose any confidential information obtained during your engagement with the Employer.\n\n10.2 This obligation continues after termination of this contract.\n\n10.3 This does not prevent protected whistleblowing disclosures under the Employment Rights Act 1996.",
+        "compliance_notes": "Confidentiality obligations enforceable for workers as well as employees"
+      },
+      {
+        "section_id": "data_protection",
+        "heading": "11. DATA PROTECTION",
+        "text": "11.1 The Employer will process your personal data in accordance with UK GDPR and Data Protection Act 2018.\n\n11.2 Full details are provided in the Worker Privacy Notice.",
+        "compliance_notes": "GDPR applies to worker data; privacy notice required under Article 13"
+      },
+      {
+        "section_id": "governing_law",
+        "heading": "12. GOVERNING LAW",
+        "text": "12.1 This contract is governed by the law of England and Wales.",
+        "compliance_notes": "Standard jurisdiction clause"
+      }
+    ],
+    "signatures": {
+      "employer": {
+        "label": "Signed for and on behalf of [EMPLOYER_NAME]",
+        "signature_line": "______________________________",
+        "name": "[AUTHORISED_SIGNATORY_NAME]",
+        "title": "[AUTHORISED_SIGNATORY_TITLE]",
+        "date": "[SIGNATURE_DATE]"
+      },
+      "worker": {
+        "label": "Signed by the Worker",
+        "signature_line": "______________________________",
+        "name": "[EMPLOYEE_NAME]",
+        "date": "[SIGNATURE_DATE]"
+      }
+    }
+  },
+  "placeholders": [
+    "CONTRACT_DATE", "EMPLOYER_NAME", "COMPANY_NUMBER", "EMPLOYER_ADDRESS",
+    "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS", "OFFER_METHOD", "NOTICE_PERIOD",
+    "DUTY_1", "DUTY_2", "DUTY_3", "HOURLY_RATE", "PAYMENT_FREQUENCY",
+    "PAYMENT_DAY", "NOTIFICATION_CONTACT", "HOURS", "EMPLOYER_CONTRIBUTION",
+    "EMPLOYEE_CONTRIBUTION", "AUTHORISED_SIGNATORY_NAME", "AUTHORISED_SIGNATORY_TITLE"
+  ],
+  "compliance_checklist": [
+    "NO exclusivity clause present (prohibited by 2015 Regulations)",
+    "Hourly rate meets/exceeds NLW (£11.44 for 21+ in 2025)",
+    "Holiday pay calculation compliant (12.07% or equivalent)",
+    "Right to request predictable pattern mentioned (26 weeks)",
+    "Worker status clearly defined (not employee)",
+    "Auto-enrolment pension provisions included",
+    "SSP eligibility criteria stated",
+    "Data protection compliance referenced",
+    "No unfair contract terms"
+  ]
+}

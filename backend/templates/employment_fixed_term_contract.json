@@ -1,0 +1,155 @@
+{
+  "template_id": "EMP001",
+  "template_name": "Fixed-Term Employment Contract",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": [
+    "Employment Rights Act 1996",
+    "Fixed-term Employees (Prevention of Less Favourable Treatment) Regulations 2002",
+    "Equality Act 2010"
+  ],
+  "metadata": {
+    "version": "1.0",
+    "language": "en-GB",
+    "regulatory_body": "ACAS",
+    "review_frequency": "annual"
+  },
+  "content": {
+    "title": "FIXED-TERM EMPLOYMENT CONTRACT",
+    "sections": [
+      {
+        "section_id": "parties",
+        "heading": "PARTIES",
+        "text": "This contract is made on [CONTRACT_DATE] between:\n\n(1) [EMPLOYER_NAME], a company registered in England and Wales under company number [COMPANY_NUMBER], whose registered office is at [EMPLOYER_ADDRESS] (the 'Employer'); and\n\n(2) [EMPLOYEE_NAME] of [EMPLOYEE_ADDRESS] (the 'Employee').",
+        "compliance_notes": "Ensure all party details are accurate for legal enforceability"
+      },
+      {
+        "section_id": "commencement",
+        "heading": "1. COMMENCEMENT AND DURATION",
+        "text": "1.1 Your employment will commence on [START_DATE] and will continue until [END_DATE] unless terminated earlier in accordance with the terms of this contract.\n\n1.2 This is a fixed-term contract. The Employer has no obligation to offer you permanent employment at the end of the fixed term.\n\n1.3 The reason for the fixed-term nature of this contract is: [REASON_FOR_FIXED_TERM].\n\n1.4 [OPTIONAL: This contract may be extended by mutual written agreement.]",
+        "compliance_notes": "Fixed-term contracts must specify clear start and end dates. Under the 2002 Regulations, employees on successive fixed-term contracts for 4+ years automatically become permanent unless objectively justified."
+      },
+      {
+        "section_id": "job_title",
+        "heading": "2. JOB TITLE AND DUTIES",
+        "text": "2.1 Your job title is [JOB_TITLE].\n\n2.2 Your principal duties and responsibilities are set out in the job description attached at Schedule 1.\n\n2.3 You may be required to undertake such other duties as may reasonably be required by the Employer from time to time.",
+        "compliance_notes": "Job description should be comprehensive to avoid scope disputes"
+      },
+      {
+        "section_id": "place_of_work",
+        "heading": "3. PLACE OF WORK",
+        "text": "3.1 Your normal place of work will be [WORK_LOCATION].\n\n3.2 You may be required to work at such other locations as the Employer may reasonably require.",
+        "compliance_notes": "Specify primary location; mobility clause should be reasonable"
+      },
+      {
+        "section_id": "remuneration",
+        "heading": "4. REMUNERATION",
+        "text": "4.1 Your salary will be £[SALARY_AMOUNT] per annum, payable in [PAYMENT_FREQUENCY] instalments by credit transfer on or before the [PAYMENT_DAY] of each [month/week].\n\n4.2 The Employer will deduct income tax and National Insurance contributions as required by law.\n\n4.3 [OPTIONAL: Your salary will be reviewed annually on [REVIEW_DATE].]",
+        "compliance_notes": "Ensure salary meets National Minimum Wage/National Living Wage requirements (£11.44/hour from April 2025 for 21+)"
+      },
+      {
+        "section_id": "hours",
+        "heading": "5. WORKING HOURS",
+        "text": "5.1 Your normal working hours are [HOURS_PER_WEEK] hours per week, worked [WORKING_PATTERN].\n\n5.2 You may be required to work such additional hours as are reasonably necessary for the proper performance of your duties.\n\n5.3 The Employer will comply with the Working Time Regulations 1998, including the 48-hour maximum working week (unless you have opted out in writing).",
+        "compliance_notes": "Working Time Regulations 1998 - employees cannot be forced to work over 48 hours/week averaged over 17 weeks without opt-out"
+      },
+      {
+        "section_id": "holiday",
+        "heading": "6. ANNUAL LEAVE",
+        "text": "6.1 Your annual leave entitlement is [HOLIDAY_DAYS] days per year (including public holidays), pro-rated for the duration of this fixed-term contract.\n\n6.2 The holiday year runs from [HOLIDAY_YEAR_START] to [HOLIDAY_YEAR_END].\n\n6.3 All holiday must be approved in advance by your line manager.\n\n6.4 On termination of employment, you will be entitled to payment in lieu of accrued but untaken holiday, or required to repay holiday taken in excess of accrual.",
+        "compliance_notes": "Minimum statutory entitlement is 5.6 weeks (28 days for full-time workers) under Working Time Regulations 1998. Pro-rating calculation for fixed-term: (days entitled × months worked) ÷ 12"
+      },
+      {
+        "section_id": "sickness",
+        "heading": "7. SICKNESS ABSENCE",
+        "text": "7.1 If you are unable to attend work due to sickness or injury, you must notify [NOTIFICATION_CONTACT] by [NOTIFICATION_TIME] on the first day of absence.\n\n7.2 You must provide a self-certification for absences up to 7 days, and a fit note from a medical practitioner for absences exceeding 7 days.\n\n7.3 You may be entitled to Statutory Sick Pay (SSP) in accordance with statutory requirements, currently £116.75 per week (2025 rate).\n\n7.4 [OPTIONAL: The Employer operates a company sick pay scheme as detailed in Schedule 2.]",
+        "compliance_notes": "SSP eligibility: employees earning above Lower Earnings Limit (£123/week in 2025). SSP rate reviewed annually."
+      },
+      {
+        "section_id": "notice",
+        "heading": "8. NOTICE PERIOD",
+        "text": "8.1 Either party may terminate this contract before the end date by giving [NOTICE_PERIOD] written notice.\n\n8.2 The Employer reserves the right to make a payment in lieu of notice.\n\n8.3 Upon termination, you must return all Company property and delete all Company data from personal devices.",
+        "compliance_notes": "Minimum statutory notice (Employment Rights Act 1996): 1 week after 1 month's service, increasing by 1 week per year of service (max 12 weeks). Employee minimum: 1 week."
+      },
+      {
+        "section_id": "pension",
+        "heading": "9. PENSION",
+        "text": "9.1 The Employer operates an auto-enrolment pension scheme in compliance with the Pensions Act 2008.\n\n9.2 Eligible employees will be automatically enrolled and the Employer will contribute [EMPLOYER_CONTRIBUTION]% of qualifying earnings.\n\n9.3 You may opt out of the scheme in accordance with statutory requirements.",
+        "compliance_notes": "Auto-enrolment thresholds 2025: £10,000 earnings trigger, minimum contributions 8% (employer 3%, employee 5%)"
+      },
+      {
+        "section_id": "confidentiality",
+        "heading": "10. CONFIDENTIALITY",
+        "text": "10.1 You must not, during or after your employment, disclose or use any confidential information relating to the business or affairs of the Employer or its clients.\n\n10.2 This restriction does not apply to protected disclosures under the Employment Rights Act 1996 (whistleblowing).",
+        "compliance_notes": "Confidentiality clauses must not prevent protected whistleblowing disclosures"
+      },
+      {
+        "section_id": "data_protection",
+        "heading": "11. DATA PROTECTION",
+        "text": "11.1 The Employer will process your personal data in accordance with the UK GDPR and Data Protection Act 2018.\n\n11.2 Full details of how your data is processed are set out in the Employee Privacy Notice provided separately.",
+        "compliance_notes": "Employer must provide Article 13 privacy notice before or at point of data collection"
+      },
+      {
+        "section_id": "termination",
+        "heading": "12. TERMINATION ON EXPIRY",
+        "text": "12.1 This contract will automatically terminate on [END_DATE] without the need for notice unless extended by mutual written agreement.\n\n12.2 The Employer will not be liable for any compensation on expiry of the fixed term, except statutory entitlements accrued during employment.\n\n12.3 If you have been employed on successive fixed-term contracts for a total of 4 years or more, you will acquire permanent employee status unless the use of a fixed-term contract is objectively justified.",
+        "compliance_notes": "4-year rule (Fixed-term Employees Regulations 2002): After 4 years on successive fixed-term contracts, employee becomes permanent unless objectively justified"
+      },
+      {
+        "section_id": "governing_law",
+        "heading": "13. GOVERNING LAW",
+        "text": "13.1 This contract is governed by the law of England and Wales.\n\n13.2 The parties submit to the exclusive jurisdiction of the courts of England and Wales.",
+        "compliance_notes": "Jurisdiction clause standard for England & Wales employment contracts"
+      }
+    ],
+    "schedules": [
+      {
+        "schedule_number": 1,
+        "title": "Job Description",
+        "content": "[INSERT DETAILED JOB DESCRIPTION]"
+      },
+      {
+        "schedule_number": 2,
+        "title": "Company Sick Pay Scheme (if applicable)",
+        "content": "[INSERT COMPANY SICK PAY DETAILS]"
+      }
+    ],
+    "signatures": {
+      "employer": {
+        "label": "Signed for and on behalf of [EMPLOYER_NAME]",
+        "signature_line": "______________________________",
+        "name": "[AUTHORISED_SIGNATORY_NAME]",
+        "title": "[AUTHORISED_SIGNATORY_TITLE]",
+        "date": "[SIGNATURE_DATE]"
+      },
+      "employee": {
+        "label": "Signed by the Employee",
+        "signature_line": "______________________________",
+        "name": "[EMPLOYEE_NAME]",
+        "date": "[SIGNATURE_DATE]"
+      }
+    }
+  },
+  "placeholders": [
+    "CONTRACT_DATE", "EMPLOYER_NAME", "COMPANY_NUMBER", "EMPLOYER_ADDRESS",
+    "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS", "START_DATE", "END_DATE",
+    "REASON_FOR_FIXED_TERM", "JOB_TITLE", "WORK_LOCATION", "SALARY_AMOUNT",
+    "PAYMENT_FREQUENCY", "PAYMENT_DAY", "HOURS_PER_WEEK", "WORKING_PATTERN",
+    "HOLIDAY_DAYS", "HOLIDAY_YEAR_START", "HOLIDAY_YEAR_END",
+    "NOTIFICATION_CONTACT", "NOTIFICATION_TIME", "NOTICE_PERIOD",
+    "EMPLOYER_CONTRIBUTION", "AUTHORISED_SIGNATORY_NAME", "AUTHORISED_SIGNATORY_TITLE"
+  ],
+  "compliance_checklist": [
+    "Contract specifies clear start and end dates",
+    "Reason for fixed-term status documented",
+    "Salary meets NMW/NLW requirements (£11.44/hour 21+)",
+    "Working Time Regulations compliance confirmed",
+    "Minimum statutory notice periods met",
+    "Auto-enrolment pension provisions included",
+    "Data protection notice reference included",
+    "4-year successive contracts warning included",
+    "No unfair terms under Consumer Rights Act 2015"
+  ]
+}

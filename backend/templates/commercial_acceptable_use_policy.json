@@ -1,0 +1,17 @@
+{
+  "template_id": "COM007",
+  "template_name": "Acceptable Use Policy",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Computer Misuse Act 1990", "Communications Act 2003", "Malicious Communications Act 1988", "Online Safety Act 2023"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "ACCEPTABLE USE POLICY",
+    "sections": ["1. PURPOSE: This policy governs use of our services/platform.", "2. PROHIBITED USES:\n- Illegal activity\n- Fraud or misrepresentation\n- Infringing IP rights\n- Uploading malware/viruses\n- Hacking or unauthorized access (Computer Misuse Act)\n- Denial of service attacks\n- Spam or unsolicited marketing\n- Harassing, abusive, or threatening content (Online Safety Act 2023)\n- Hate speech or discrimination\n- Child sexual abuse material (CSAM)\n- Non-consensual intimate images\n- Terrorist content\n- False or misleading information causing harm\n- Impersonation\n- Excessive resource use affecting others", "3. CONTENT STANDARDS:\n- Must be accurate (where facts stated)\n- Must be genuinely held (where opinions stated)\n- Must comply with applicable law\n- Must not be defamatory, obscene, or offensive\n- Must not promote illegal activity\n- Must respect others' privacy", "4. MODERATION: We may (but are not obliged to) monitor, review, or remove content. We may use automated tools and human moderators.", "5. REPORTING: Report violations to [REPORT_EMAIL]. We will investigate and may remove content/suspend users.", "6. CONSEQUENCES:\n- Warning\n- Content removal\n- Account suspension\n- Account termination\n- Reporting to authorities\n- Legal action", "7. NO LIABILITY: We are not liable for user content (subject to Online Safety Act duties).", "8. COOPERATION: You must cooperate with investigations and legal requests.", "9. CHANGES: We may update this policy. Check regularly."],
+    "online_safety_act_2025": "Under Online Safety Act 2023 (fully effective 2024-2025), platforms must:\n- Take down illegal content (terrorism, CSAM, hate speech)\n- Protect children from harmful content\n- Assess and mitigate risks\n- Provide reporting and complaints mechanisms\n- Be transparent about content moderation\n- Empower users with safety controls"
+  },
+  "placeholders": ["REPORT_EMAIL"],
+  "compliance_checklist": ["Prohibited uses clearly defined", "Illegal content prohibited (Online Safety Act)", "Child safety provisions", "Reporting mechanism provided", "Consequences stated", "Moderation approach described", "Regular review process", "Cooperation with law enforcement"]
+}

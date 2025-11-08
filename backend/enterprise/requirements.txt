@@ -1,0 +1,57 @@
+# LOKI Enterprise Multi-Tenancy Requirements
+# Production-ready dependencies for enterprise features
+
+# Core dependencies
+PyJWT>=2.8.0                    # JWT token generation and validation
+cryptography>=41.0.0            # Cryptographic operations
+bcrypt>=4.1.0                   # Password hashing
+
+# Database
+psycopg2-binary>=2.9.9          # PostgreSQL adapter
+SQLAlchemy>=2.0.23              # ORM (optional, for advanced usage)
+
+# Cache & Session Management
+redis>=5.0.0                    # Redis client for caching and sessions
+hiredis>=2.2.3                  # Redis protocol parser (performance)
+
+# Security
+python-dotenv>=1.0.0            # Environment variable management
+secrets                         # Cryptographically secure random generation (stdlib)
+
+# HTTP & Web Framework (if using Flask/FastAPI)
+Flask>=3.0.0                    # Flask web framework (optional)
+Flask-CORS>=4.0.0               # CORS support (optional)
+fastapi>=0.104.0                # FastAPI framework (alternative to Flask)
+uvicorn>=0.24.0                 # ASGI server for FastAPI
+
+# Testing
+pytest>=7.4.3                   # Testing framework
+pytest-cov>=4.1.0               # Code coverage
+pytest-mock>=3.12.0             # Mocking support
+faker>=20.1.0                   # Fake data generation for tests
+
+# Code Quality
+black>=23.12.0                  # Code formatter
+flake8>=6.1.0                   # Linting
+mypy>=1.7.0                     # Static type checking
+isort>=5.13.0                   # Import sorting
+
+# Logging & Monitoring
+python-json-logger>=2.0.7       # JSON logging
+sentry-sdk>=1.39.0              # Error tracking (optional)
+
+# Utilities
+python-dateutil>=2.8.2          # Date/time utilities
+pydantic>=2.5.0                 # Data validation
+tenacity>=8.2.3                 # Retry logic
+
+# Optional: MFA Support
+pyotp>=2.9.0                    # TOTP/HOTP for 2FA
+qrcode>=7.4.2                   # QR code generation for MFA setup
+
+# Optional: OAuth2 Providers
+authlib>=1.3.0                  # OAuth2/OpenID Connect client
+requests>=2.31.0                # HTTP library
+
+# Optional: SAML Support
+python3-saml>=1.16.0            # SAML authentication

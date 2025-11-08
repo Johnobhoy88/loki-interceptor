@@ -1,0 +1,202 @@
+{
+  "template_id": "EMP003",
+  "template_name": "Permanent Employment Contract",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": [
+    "Employment Rights Act 1996",
+    "Equality Act 2010",
+    "Working Time Regulations 1998",
+    "Pensions Act 2008"
+  ],
+  "metadata": {
+    "version": "1.0",
+    "language": "en-GB",
+    "regulatory_body": "ACAS",
+    "review_frequency": "annual"
+  },
+  "content": {
+    "title": "PERMANENT EMPLOYMENT CONTRACT",
+    "sections": [
+      {
+        "section_id": "parties",
+        "heading": "PARTIES",
+        "text": "This contract is made on [CONTRACT_DATE] between:\n\n(1) [EMPLOYER_NAME], a company registered in England and Wales under company number [COMPANY_NUMBER], whose registered office is at [EMPLOYER_ADDRESS] (the 'Employer'); and\n\n(2) [EMPLOYEE_NAME] of [EMPLOYEE_ADDRESS] (the 'Employee').",
+        "compliance_notes": "Standard parties clause for permanent employment"
+      },
+      {
+        "section_id": "commencement",
+        "heading": "1. COMMENCEMENT",
+        "text": "1.1 Your employment commenced/will commence on [START_DATE].\n\n1.2 Your period of continuous employment began on [CONTINUITY_DATE] [and includes employment with [PREVIOUS_EMPLOYER] if applicable under TUPE].\n\n1.3 This is a contract of employment for an indefinite period, subject to the notice provisions in clause 8.",
+        "compliance_notes": "Continuous employment date crucial for statutory rights calculation"
+      },
+      {
+        "section_id": "probation",
+        "heading": "2. PROBATIONARY PERIOD",
+        "text": "2.1 Your employment is subject to a probationary period of [PROBATION_MONTHS] months from [START_DATE].\n\n2.2 During the probationary period, your employment may be terminated by either party giving [PROBATION_NOTICE] written notice.\n\n2.3 The Employer will review your performance before the end of the probationary period and may extend it by up to [EXTENSION_PERIOD] if necessary.\n\n2.4 Upon successful completion of probation, full contractual notice periods will apply.",
+        "compliance_notes": "Probation periods typically 3-6 months; shorter notice acceptable during probation but must still meet statutory minimum (1 week after 1 month)"
+      },
+      {
+        "section_id": "job_title",
+        "heading": "3. JOB TITLE AND DUTIES",
+        "text": "3.1 Your job title is [JOB_TITLE] and you will report to [REPORTS_TO].\n\n3.2 Your principal duties and responsibilities are set out in the job description at Schedule 1.\n\n3.3 You may be required to undertake such other duties as may reasonably be required and which are consistent with your position.\n\n3.4 The Employer reserves the right to vary your duties and reporting lines to meet business needs.",
+        "compliance_notes": "Flexibility clause should be reasonable and not fundamentally alter role"
+      },
+      {
+        "section_id": "place_of_work",
+        "heading": "4. PLACE OF WORK",
+        "text": "4.1 Your normal place of work is [WORK_LOCATION].\n\n4.2 You may be required to work temporarily or permanently at any other location within [GEOGRAPHIC_AREA] as the Employer may reasonably require.\n\n4.3 [OPTIONAL: You may work remotely for up to [REMOTE_DAYS] days per week subject to the Remote Working Policy.]",
+        "compliance_notes": "Mobility clause must be reasonable; include remote/hybrid arrangements if applicable"
+      },
+      {
+        "section_id": "remuneration",
+        "heading": "5. REMUNERATION",
+        "text": "5.1 Your basic salary is £[SALARY_AMOUNT] per annum, payable in equal monthly instalments in arrears on or before the [PAYMENT_DAY] of each month by credit transfer.\n\n5.2 The Employer will deduct income tax, National Insurance contributions, and any other deductions required by law.\n\n5.3 Your salary will be reviewed annually on [REVIEW_DATE], but the Employer is not obliged to increase it.\n\n5.4 [OPTIONAL: You may be eligible for an annual bonus of up to [BONUS_PERCENTAGE]% of salary subject to performance and the terms of the Bonus Scheme at Schedule 2.]",
+        "compliance_notes": "Ensure salary meets NMW/NLW requirements; bonus discretion clearly stated"
+      },
+      {
+        "section_id": "hours",
+        "heading": "6. WORKING HOURS",
+        "text": "6.1 Your normal working hours are [HOURS_PER_WEEK] hours per week, normally worked [WORKING_PATTERN].\n\n6.2 You may be required to work such additional hours as are reasonably necessary for the proper performance of your duties without additional remuneration.\n\n6.3 The Employer will comply with the Working Time Regulations 1998. Your average working time will not exceed 48 hours per week unless you have opted out in writing.\n\n6.4 You are entitled to:\n   - Daily rest period of 11 consecutive hours in each 24-hour period\n   - Weekly rest period of 24 consecutive hours in each 7-day period\n   - Rest break of 20 minutes if working more than 6 hours",
+        "compliance_notes": "Working Time Regulations 1998 compliance mandatory; opt-out must be voluntary and documented"
+      },
+      {
+        "section_id": "holiday",
+        "heading": "7. ANNUAL LEAVE",
+        "text": "7.1 Your annual leave entitlement is [HOLIDAY_DAYS] days per year (including public holidays).\n\n7.2 The holiday year runs from [HOLIDAY_YEAR_START] to [HOLIDAY_YEAR_END].\n\n7.3 Holiday must be requested and approved in advance via [BOOKING_SYSTEM].\n\n7.4 The Employer may require you to take or not take holiday on specified dates to meet business needs, giving reasonable notice.\n\n7.5 You may carry forward up to [CARRYOVER_DAYS] days into the next holiday year with manager approval.\n\n7.6 On termination, you will receive payment for accrued but untaken holiday, or repay holiday taken in excess of accrual.",
+        "compliance_notes": "Minimum statutory: 5.6 weeks (28 days full-time). Holiday pay must include regular overtime/commission (Harpur Trust v Brazel)"
+      },
+      {
+        "section_id": "notice",
+        "heading": "8. NOTICE PERIOD",
+        "text": "8.1 After completion of your probationary period, either party may terminate this contract by giving [NOTICE_PERIOD] written notice.\n\n8.2 The Employer will give you at least the statutory minimum notice:\n   - 1 week after 1 month to 2 years' service\n   - 1 week for each complete year of service from 2-12 years\n   - 12 weeks after 12 years' service\n\n8.3 The Employer may make a payment in lieu of notice (PILON) at its discretion.\n\n8.4 You must give at least [EMPLOYEE_NOTICE] notice or the statutory minimum, whichever is greater.",
+        "compliance_notes": "Contractual notice must meet or exceed statutory minimums (ERA 1996 s86); PILON clause allows summary termination with payment"
+      },
+      {
+        "section_id": "sickness",
+        "heading": "9. SICKNESS ABSENCE",
+        "text": "9.1 If you are unable to work due to sickness or injury, you must notify [NOTIFICATION_CONTACT] by [NOTIFICATION_TIME] on the first day of absence.\n\n9.2 You must:\n   - Provide self-certification for absences up to 7 calendar days\n   - Provide a fit note from a registered medical practitioner for absences exceeding 7 days\n   - Keep the Employer informed of your expected return date\n   - Attend occupational health appointments if required\n\n9.3 Statutory Sick Pay (SSP) is payable at £116.75 per week (2025 rate) for up to 28 weeks, subject to eligibility.\n\n9.4 [OPTIONAL: Company sick pay is provided as set out in Schedule 3.]",
+        "compliance_notes": "SSP: £116.75/week (2025), payable from 4th day, up to 28 weeks. Eligibility: earnings above LEL (£123/week in 2025)"
+      },
+      {
+        "section_id": "pension",
+        "heading": "10. PENSION",
+        "text": "10.1 The Employer operates a workplace pension scheme in compliance with auto-enrolment duties under the Pensions Act 2008.\n\n10.2 If you are an eligible jobholder (aged 22 to State Pension age, earning over £10,000 p.a.), you will be automatically enrolled.\n\n10.3 Contributions:\n   - Employer: [EMPLOYER_CONTRIBUTION]% of qualifying earnings (minimum 3%)\n   - Employee: [EMPLOYEE_CONTRIBUTION]% of qualifying earnings (minimum 5%)\n   - Total minimum: 8%\n\n10.4 Qualifying earnings band for 2025: £6,240 to £50,270.\n\n10.5 You may opt out within 30 days of enrolment and receive a refund, or cease contributions thereafter.",
+        "compliance_notes": "Auto-enrolment thresholds 2025: £10,000 trigger, £6,240-£50,270 qualifying band, 8% minimum total contribution"
+      },
+      {
+        "section_id": "other_employment",
+        "heading": "11. OUTSIDE INTERESTS",
+        "text": "11.1 You must devote your full time, attention, and abilities to your duties during working hours.\n\n11.2 You must not, without prior written consent, engage in any other business or employment whether paid or unpaid.\n\n11.3 You must disclose any financial interest that conflicts or may conflict with the Employer's business.",
+        "compliance_notes": "Restriction must be reasonable; cannot prevent non-competing activities outside working hours unreasonably"
+      },
+      {
+        "section_id": "confidentiality",
+        "heading": "12. CONFIDENTIALITY",
+        "text": "12.1 You must not, during or after your employment (without limitation in time), disclose to any person or use for your own purposes any confidential information relating to the business, clients, or affairs of the Employer.\n\n12.2 Confidential information includes:\n   - Trade secrets\n   - Customer and supplier lists\n   - Price lists and pricing strategies\n   - Marketing and business plans\n   - Financial information\n   - Technical data and know-how\n\n12.3 This clause does not prevent:\n   - Disclosure required by law\n   - Protected whistleblowing disclosures under ERA 1996\n   - Use of your own skill and knowledge",
+        "compliance_notes": "Post-termination confidentiality enforceable only for true trade secrets; cannot prevent protected disclosures"
+      },
+      {
+        "section_id": "intellectual_property",
+        "heading": "13. INTELLECTUAL PROPERTY",
+        "text": "13.1 All intellectual property rights in any work, invention, design, or other materials created by you in the course of your employment belong to the Employer.\n\n13.2 You agree to execute all documents necessary to vest such rights in the Employer.\n\n13.3 This includes rights created under the Copyright, Designs and Patents Act 1988 and all other intellectual property legislation.",
+        "compliance_notes": "Employer owns IP created during employment within scope of duties (CDPA 1988 s11)"
+      },
+      {
+        "section_id": "data_protection",
+        "heading": "14. DATA PROTECTION",
+        "text": "14.1 The Employer will process your personal data in accordance with UK GDPR and the Data Protection Act 2018.\n\n14.2 Full details of data processing are set out in the Employee Privacy Notice provided separately.\n\n14.3 You must comply with the Employer's data protection policies when handling personal data in the course of your duties.",
+        "compliance_notes": "Article 13 GDPR privacy notice required; employees are data processors when handling company data"
+      },
+      {
+        "section_id": "disciplinary",
+        "heading": "15. DISCIPLINARY AND GRIEVANCE PROCEDURES",
+        "text": "15.1 The Employer's disciplinary and grievance procedures are set out in the Staff Handbook and comply with the ACAS Code of Practice.\n\n15.2 The Employer may suspend you on full pay during any investigation.\n\n15.3 Gross misconduct may result in summary dismissal without notice or payment in lieu.",
+        "compliance_notes": "Must follow ACAS Code; failure can increase tribunal awards by 25%"
+      },
+      {
+        "section_id": "garden_leave",
+        "heading": "16. GARDEN LEAVE",
+        "text": "16.1 The Employer may, during your notice period, require you not to attend work while continuing to receive full pay and benefits (garden leave).\n\n16.2 During garden leave, you must:\n   - Remain available for work if required\n   - Not contact clients, suppliers, or employees\n   - Return all Company property immediately\n   - Continue to comply with all contractual obligations",
+        "compliance_notes": "Garden leave clause allows employer to protect business interests during notice period"
+      },
+      {
+        "section_id": "termination_obligations",
+        "heading": "17. TERMINATION OBLIGATIONS",
+        "text": "17.1 On termination, you must:\n   - Return all Company property, documents, and data\n   - Delete all Company information from personal devices\n   - Provide a signed statement confirming compliance\n   - Not retain copies of any confidential information\n\n17.2 The Employer may withhold final payments pending return of property.",
+        "compliance_notes": "Standard post-termination obligations; withholding must be reasonable and proportionate"
+      },
+      {
+        "section_id": "entire_agreement",
+        "heading": "18. ENTIRE AGREEMENT",
+        "text": "18.1 This contract, together with the Staff Handbook and referenced policies, constitutes the entire agreement between the parties.\n\n18.2 This contract supersedes all previous agreements, arrangements, and understandings.\n\n18.3 Any variation must be in writing and signed by both parties.",
+        "compliance_notes": "Entire agreement clause standard; oral variations may still be enforceable despite this clause"
+      },
+      {
+        "section_id": "governing_law",
+        "heading": "19. GOVERNING LAW AND JURISDICTION",
+        "text": "19.1 This contract is governed by the law of England and Wales.\n\n19.2 The parties submit to the exclusive jurisdiction of the Employment Tribunal and courts of England and Wales.",
+        "compliance_notes": "Standard jurisdiction clause; employment disputes typically require ET claim first"
+      }
+    ],
+    "schedules": [
+      {
+        "schedule_number": 1,
+        "title": "Job Description",
+        "content": "[INSERT DETAILED JOB DESCRIPTION]"
+      },
+      {
+        "schedule_number": 2,
+        "title": "Bonus Scheme (if applicable)",
+        "content": "[INSERT BONUS SCHEME TERMS]"
+      },
+      {
+        "schedule_number": 3,
+        "title": "Company Sick Pay Scheme (if applicable)",
+        "content": "[INSERT SICK PAY DETAILS]"
+      }
+    ],
+    "signatures": {
+      "employer": {
+        "label": "Signed for and on behalf of [EMPLOYER_NAME]",
+        "signature_line": "______________________________",
+        "name": "[AUTHORISED_SIGNATORY_NAME]",
+        "title": "[AUTHORISED_SIGNATORY_TITLE]",
+        "date": "[SIGNATURE_DATE]"
+      },
+      "employee": {
+        "label": "Signed by the Employee",
+        "signature_line": "______________________________",
+        "name": "[EMPLOYEE_NAME]",
+        "date": "[SIGNATURE_DATE]"
+      }
+    }
+  },
+  "placeholders": [
+    "CONTRACT_DATE", "EMPLOYER_NAME", "COMPANY_NUMBER", "EMPLOYER_ADDRESS",
+    "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS", "START_DATE", "CONTINUITY_DATE",
+    "PROBATION_MONTHS", "PROBATION_NOTICE", "EXTENSION_PERIOD", "JOB_TITLE",
+    "REPORTS_TO", "WORK_LOCATION", "GEOGRAPHIC_AREA", "REMOTE_DAYS",
+    "SALARY_AMOUNT", "PAYMENT_DAY", "REVIEW_DATE", "BONUS_PERCENTAGE",
+    "HOURS_PER_WEEK", "WORKING_PATTERN", "HOLIDAY_DAYS", "HOLIDAY_YEAR_START",
+    "HOLIDAY_YEAR_END", "BOOKING_SYSTEM", "CARRYOVER_DAYS", "NOTICE_PERIOD",
+    "EMPLOYEE_NOTICE", "NOTIFICATION_CONTACT", "NOTIFICATION_TIME",
+    "EMPLOYER_CONTRIBUTION", "EMPLOYEE_CONTRIBUTION", "AUTHORISED_SIGNATORY_NAME",
+    "AUTHORISED_SIGNATORY_TITLE"
+  ],
+  "compliance_checklist": [
+    "Salary meets NMW/NLW (£11.44/hour 21+ from April 2025)",
+    "Working Time Regulations compliance included",
+    "Statutory minimum notice periods met or exceeded",
+    "Holiday entitlement minimum 5.6 weeks",
+    "Auto-enrolment pension provisions compliant (8% minimum)",
+    "SSP provisions accurate (£116.75/week 2025)",
+    "Data protection compliance referenced",
+    "ACAS disciplinary procedures referenced",
+    "Confidentiality clause allows protected disclosures",
+    "No unfair contract terms",
+    "Continuous employment date recorded"
+  ]
+}

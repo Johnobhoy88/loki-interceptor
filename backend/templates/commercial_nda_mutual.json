@@ -1,0 +1,26 @@
+{
+  "template_id": "COM002",
+  "template_name": "NDA (Mutual)",
+  "category": "Commercial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Common law - contract and confidence"],
+  "metadata": {"version": "1.0", "language": "en-GB"},
+  "content": {
+    "title": "MUTUAL NON-DISCLOSURE AGREEMENT",
+    "parties": "(1) [PARTY_A_NAME] ('Party A'); (2) [PARTY_B_NAME] ('Party B') (together 'Parties')",
+    "recitals": "The Parties wish to exchange Confidential Information for the Purpose and agree to mutual confidentiality obligations.",
+    "key_clauses": {
+      "definition": "1. DEFINITIONS\n'Confidential Information' means information disclosed by either Party.\n'Disclosing Party' means the Party disclosing information.\n'Receiving Party' means the Party receiving information.\n'Purpose' means [PURPOSE].",
+      "obligations": "2. MUTUAL OBLIGATIONS\nEach Party as Receiving Party shall:\n(a) Keep Confidential Information secret\n(b) Use it only for the Purpose\n(c) Disclose only to employees/advisers on need-to-know basis\n(d) Protect with reasonable care",
+      "exclusions": "3. EXCLUSIONS\n(a) Public domain information\n(b) Prior lawful possession\n(c) Independent development\n(d) Lawful third-party receipt\n(e) Required disclosure by law (with notice)",
+      "term": "4. TERM\n[TERM] from date. Confidentiality survives [SURVIVAL] after termination.",
+      "return": "5. RETURN\nOn request/termination, return or destroy all Confidential Information.",
+      "no_partnership": "6. NO PARTNERSHIP\nThis Agreement does not create partnership, employment, or obligation to enter into further agreements.",
+      "governing_law": "7. GOVERNING LAW\nEnglish law. Exclusive jurisdiction of English courts."
+    }
+  },
+  "placeholders": ["PARTY_A_NAME", "PARTY_B_NAME", "PURPOSE", "TERM", "SURVIVAL"],
+  "compliance_checklist": ["Mutual obligations balanced", "Clear definitions", "Standard exclusions", "Appropriate term", "No binding commitment to transact"]
+}

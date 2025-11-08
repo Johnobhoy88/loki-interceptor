@@ -1,0 +1,45 @@
+{
+  "template_id": "DP001",
+  "template_name": "Privacy Notice (Data Use and Access Act 2025)",
+  "category": "Data Protection",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["UK GDPR", "Data Protection Act 2018", "Data (Use and Access) Act 2024 (effective 2025)"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ICO", "special_notes": "Updated for Data Use and Access Act 2025 - smart data scheme provisions"},
+  "content": {
+    "title": "PRIVACY NOTICE",
+    "sections": [
+      {"heading": "1. WHO WE ARE", "text": "[COMPANY_NAME] is the data controller responsible for your personal data.\n\nContact details:\n- Company: [COMPANY_NAME]\n- Address: [ADDRESS]\n- Email: [DATA_PROTECTION_EMAIL]\n- Data Protection Officer: [DPO_NAME] (if applicable)\n- ICO Registration: [ICO_NUMBER]"},
+      {"heading": "2. WHAT PERSONAL DATA WE COLLECT", "text": "We collect and process the following personal data:\n\n[CATEGORY_1 - e.g., Identity data]: [EXAMPLES - name, date of birth, etc.]\n[CATEGORY_2 - e.g., Contact data]: [EXAMPLES]\n[CATEGORY_3 - e.g., Financial data]: [EXAMPLES]\n[CATEGORY_4 - e.g., Transaction data]: [EXAMPLES]\n[CATEGORY_5 - e.g., Technical data]: [IP address, browser, cookies]\n[CATEGORY_6 - e.g., Usage data]: [how you use our website/services]\n[CATEGORY_7 - e.g., Marketing data]: [preferences, communication preferences]\n\n[IF SPECIAL CATEGORY DATA: We also process special category data: [SPECIFY - e.g., health data, biometric data] with your explicit consent/for legal obligations]"},
+      {"heading": "3. HOW WE COLLECT PERSONAL DATA", "text": "We collect personal data:\n\n- Directly from you (forms, correspondence, phone, email)\n- Automatically (cookies, analytics, server logs)\n- From third parties ([SPECIFY - e.g., credit reference agencies, publicly available sources])\n- [NEW 2025: Through smart data schemes under the Data (Use and Access) Act 2024 (if applicable)]"},
+      {"heading": "4. HOW WE USE YOUR PERSONAL DATA", "text": "We use your personal data for the following purposes:\n\n| Purpose | Lawful Basis | Data Categories |\n|---------|--------------|------------------|\n| [PURPOSE_1 - e.g., To provide services] | [Contract performance] | [Identity, Contact, Financial] |\n| [PURPOSE_2 - e.g., To comply with legal obligations] | [Legal obligation] | [Identity, Financial] |\n| [PURPOSE_3 - e.g., For marketing] | [Consent/Legitimate interests] | [Identity, Contact, Marketing] |\n| [PURPOSE_4 - e.g., To improve our services] | [Legitimate interests] | [Usage, Technical] |\n| [PURPOSE_5] | [Lawful basis] | [Data categories] |\n\nLegitimate Interests: Where we rely on legitimate interests, we have balanced our interests against your rights. You can object to processing based on legitimate interests (see section 8)."},
+      {"heading": "5. WHO WE SHARE YOUR DATA WITH", "text": "We share your personal data with:\n\n- Service providers: [CATEGORIES - e.g., IT, payment processors, marketing]\n- Professional advisers: [lawyers, accountants, auditors]\n- Regulatory bodies: [ICO, HMRC, FCA, etc.]\n- [IF INTERNATIONAL TRANSFERS: Third parties outside the UK (see section 6)]\n\nWe require all third parties to respect the security of your data and process it in accordance with data protection law."},
+      {"heading": "6. INTERNATIONAL TRANSFERS", "text": "[IF NO TRANSFERS: We do not transfer your personal data outside the UK.]\n\n[IF TRANSFERS: We transfer your personal data to [COUNTRIES/REGIONS].\n\nSafeguards in place:\n- [UK adequacy decision under s17A DPA 2018] OR\n- [Standard Contractual Clauses (SCCs)] OR  \n- [International Data Transfer Agreement (IDTA)] OR\n- [Binding Corporate Rules]\n\nYou can obtain a copy of the safeguards by contacting us.]"},
+      {"heading": "7. HOW LONG WE KEEP YOUR DATA", "text": "We retain personal data for as long as necessary for the purposes set out in this notice:\n\n| Data Category | Retention Period | Reason |\n|----------------|------------------|--------|\n| [CATEGORY_1] | [PERIOD - e.g., 6 years from end of contract] | [Legal obligation - tax/accounting] |\n| [CATEGORY_2] | [PERIOD] | [Reason] |\n| [CATEGORY_3] | [PERIOD] | [Reason] |\n\nAfter the retention period, we will securely delete or anonymize your data."},
+      {"heading": "8. YOUR RIGHTS", "text": "Under UK GDPR and Data Protection Act 2018, you have the following rights:\n\n1. Right of access (Art 15): Request a copy of your personal data\n2. Right to rectification (Art 16): Correct inaccurate data\n3. Right to erasure (Art 17): Request deletion in certain circumstances\n4. Right to restrict processing (Art 18): Limit how we use your data\n5. Right to data portability (Art 20): Receive your data in a structured format\n6. Right to object (Art 21): Object to processing based on legitimate interests or for marketing\n7. Rights related to automated decision-making (Art 22): Not be subject to solely automated decisions with significant effects\n\n[NEW 2025: Rights under Data (Use and Access) Act 2024:\n- Right to access your data through authorized smart data schemes\n- Right to control how your data is shared with third parties]\n\nTo exercise your rights, contact [DATA_PROTECTION_EMAIL].\n\nYou also have the right to complain to the Information Commissioner's Office (ICO):\n- Website: ico.org.uk\n- Helpline: 0303 123 1113\n- Address: Wycliffe House, Water Lane, Wilmslow, Cheshire SK9 5AF"},
+      {"heading": "9. AUTOMATED DECISION-MAKING", "text": "[IF NO ADM: We do not use automated decision-making or profiling.]\n\n[IF ADM: We use automated decision-making in the following circumstances:\n- [DESCRIBE - e.g., Credit scoring, fraud detection]\n- Logic involved: [EXPLANATION]\n- Significance: [CONSEQUENCES]\n- Right to human intervention: [PROCESS TO REQUEST REVIEW]\n\nYou have the right to request human intervention, express your point of view, and contest the decision.]"},
+      {"heading": "10. COOKIES", "text": "Our website uses cookies. See our Cookie Policy for details: [COOKIE_POLICY_LINK]"},
+      {"heading": "11. CHANGES TO THIS NOTICE", "text": "We may update this privacy notice from time to time. The latest version will always be available at [URL].\n\nLast updated: [DATE]"},
+      {"heading": "12. CONTACT US", "text": "Questions about this privacy notice or your personal data:\n\nEmail: [DATA_PROTECTION_EMAIL]\nPost: [ADDRESS]\nPhone: [PHONE]"}
+    ]
+  },
+  "placeholders": ["COMPANY_NAME", "ADDRESS", "DATA_PROTECTION_EMAIL", "DPO_NAME", "ICO_NUMBER", "CATEGORY_1", "CATEGORY_2", "CATEGORY_3", "CATEGORY_4", "CATEGORY_5", "CATEGORY_6", "CATEGORY_7", "PURPOSE_1", "PURPOSE_2", "PURPOSE_3", "PURPOSE_4", "PURPOSE_5", "CATEGORIES", "COUNTRIES", "PERIOD", "COOKIE_POLICY_LINK", "URL", "DATE", "PHONE"],
+  "compliance_checklist": [
+    "Article 13 UK GDPR requirements met",
+    "Identity of controller stated",
+    "Contact details for DPO (if applicable)",
+    "Categories of personal data listed",
+    "Purposes and lawful bases specified",
+    "Legitimate interests assessment completed",
+    "Recipients of data identified",
+    "International transfer safeguards detailed",
+    "Retention periods specified",
+    "All data subject rights explained",
+    "Right to complain to ICO stated",
+    "Automated decision-making disclosed",
+    "Cookie usage referenced",
+    "Data Use and Access Act 2025 provisions included (if applicable)",
+    "ICO registration number included"
+  ]
+}

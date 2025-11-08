@@ -1,0 +1,21 @@
+{
+  "template_id": "EMP012",
+  "template_name": "Paternity Leave Policy",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Employment Rights Act 1996", "Paternity and Adoption Leave Regulations 2002", "Additional Paternity Leave Regulations 2010"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS"},
+  "content": {
+    "title": "PATERNITY LEAVE POLICY",
+    "sections": [
+      {"heading": "1. ENTITLEMENT", "text": "1.1 Employees are entitled to 1 or 2 weeks' paternity leave if they:\n- Have or expect to have responsibility for the child's upbringing\n- Are the biological father, mother's partner, or child's adopter\n- Have at least 26 weeks' continuous service by the end of the 15th week before EWC\n\n1.2 Leave must be taken within 56 days of birth (or placement for adoption)."},
+      {"heading": "2. STATUTORY PATERNITY PAY (SPP)", "text": "2.1 SPP is £184.03/week or 90% of average weekly earnings (whichever is lower) for up to 2 weeks [2025 rate].\n\n2.2 Eligibility: 26 weeks' service and earnings above LEL (£123/week in 2025).\n\n2.3 [OPTIONAL: Enhanced paternity pay - [DETAILS]]"},
+      {"heading": "3. NOTIFICATION", "text": "3.1 Give notice by the 15th week before EWC (or within 7 days of matching for adoption), stating:\n- EWC/placement date\n- Whether taking 1 or 2 weeks\n- When you want leave to start\n\n3.2 You may change the start date by giving 28 days' notice."},
+      {"heading": "4. ADDITIONAL RIGHTS", "text": "4.1 Protection from detriment or dismissal for taking paternity leave.\n\n4.2 Right to return to the same job on the same terms."}
+    ]
+  },
+  "placeholders": ["EMPLOYER_NAME"],
+  "compliance_checklist": ["1-2 weeks' entitlement stated", "26 weeks' service requirement", "SPP rate correct (£184.03/week in 2025)", "56-day window for taking leave", "15-week notification deadline", "Return to same job guaranteed"]
+}

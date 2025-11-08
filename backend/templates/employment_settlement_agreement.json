@@ -1,0 +1,50 @@
+{
+  "template_id": "EMP015",
+  "template_name": "Settlement Agreement Template",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Employment Rights Act 1996 s203", "Equality Act 2010 s147"],
+  "metadata": {"version": "1.0", "language": "en-GB", "special_notes": "Must meet statutory conditions to be binding"},
+  "content": {
+    "title": "SETTLEMENT AGREEMENT",
+    "sections": [
+      {"section_id": "parties", "text": "This Agreement is made on [DATE] between:\n\n(1) [EMPLOYER_NAME] of [EMPLOYER_ADDRESS] (the 'Employer'); and\n\n(2) [EMPLOYEE_NAME] of [EMPLOYEE_ADDRESS] (the 'Employee')"},
+      {"section_id": "background", "text": "BACKGROUND:\n\nA. The Employee has been employed by the Employer as [JOB_TITLE] since [START_DATE].\n\nB. The parties have agreed to terminate the Employee's employment on the terms set out in this Agreement.\n\nC. This Agreement is intended to be a settlement agreement under s203 Employment Rights Act 1996 and s147 Equality Act 2010."},
+      {"section_id": "termination", "text": "1. TERMINATION\n\n1.1 The Employee's employment will terminate on [TERMINATION_DATE] by mutual agreement.\n\n1.2 [The Employee will work/be on garden leave/not be required to work] during the notice period.\n\n1.3 The Employee [will/will not] be required to attend the workplace."},
+      {"section_id": "payments", "text": "2. PAYMENTS\n\n2.1 The Employer will pay the Employee:\n\n(a) Salary to [TERMINATION_DATE]: £[SALARY_AMOUNT]\n(b) Payment in lieu of notice: £[PILON_AMOUNT]\n(c) Accrued holiday pay ([HOLIDAY_DAYS] days): £[HOLIDAY_PAY]\n(d) [OPTIONAL: Bonus/commission: £[BONUS_AMOUNT]]\n(e) Settlement payment (ex gratia): £[SETTLEMENT_AMOUNT]\n\nTotal: £[TOTAL_AMOUNT]\n\n2.2 Tax treatment:\n- Payments in 2.1(a)-(d) are subject to normal tax and NI deductions\n- Payment in 2.1(e) is payable tax-free up to £30,000 under s401 ITEPA 2003\n\n2.3 Payment will be made on [PAYMENT_DATE] by bank transfer.\n\n2.4 The Employee confirms these payments are in full and final settlement of all claims."},
+      {"section_id": "claims_waived", "text": "3. WAIVER OF CLAIMS\n\n3.1 The Employee waives all rights and claims against the Employer and its officers, employees, and associated companies, whether known or unknown, including:\n\n(a) Unfair dismissal (s94 ERA 1996)\n(b) Wrongful dismissal/breach of contract\n(c) Discrimination (Equality Act 2010)\n(d) Unlawful deduction from wages (s13 ERA 1996)\n(e) Redundancy pay (s135 ERA 1996)\n(f) Notice pay (s86 ERA 1996)\n(g) Holiday pay (WTR 1998)\n(h) Breach of TUPE 2006\n(i) Whistleblowing detriment (s47B ERA 1996)\n(j) Any other statutory or common law claims\n\n3.2 This waiver does not apply to:\n- Personal injury claims where facts not known at date of this Agreement\n- Accrued pension rights\n- Claims arising after the date of this Agreement"},
+      {"section_id": "independent_advice", "text": "4. INDEPENDENT LEGAL ADVICE\n\n4.1 The Employee confirms that they have received independent legal advice from [ADVISER_NAME] of [ADVISER_FIRM], a [solicitor/barrister/trade union officer/advice centre adviser] who is a relevant independent adviser for the purposes of s203 ERA 1996.\n\n4.2 The advice related to the terms and effect of this Agreement and its effect on the Employee's ability to pursue claims before an Employment Tribunal.\n\n4.3 [ADVISER_NAME] has insurance covering the risk of a claim by the Employee in respect of the advice (or is a trade union/advice centre exempt from this requirement).\n\n4.4 The Employer has agreed to pay up to £[LEGAL_FEE_CAP] plus VAT towards the Employee's legal costs, payable directly to [ADVISER_FIRM]."},
+      {"section_id": "conditions", "text": "5. CONDITIONS PRECEDENT\n\n5.1 This Agreement is conditional upon:\n\n(a) The Employee signing this Agreement and returning it by [RETURN_DATE]\n(b) The Certificate of Independent Advice (Schedule 1) being signed and returned\n(c) The Employee not revoking this Agreement within the 7-day cooling-off period (clause 5.2)\n\n5.2 The Employee may revoke this Agreement by written notice to [CONTACT] within 7 calendar days of signing. If revoked, this Agreement will be null and void."},
+      {"section_id": "property", "text": "6. RETURN OF PROPERTY\n\n6.1 The Employee must return by [TERMINATION_DATE]:\n- [PROPERTY_LIST]\n- All documents, data, and materials (in any format)\n- All passwords and access details\n\n6.2 The Employee must delete all Company data from personal devices and confirm compliance in writing."},
+      {"section_id": "confidentiality", "text": "7. CONFIDENTIALITY\n\n7.1 The Employee must keep confidential:\n(a) The fact, terms, and amount of this Agreement (except to immediate family, legal/financial advisers, or HMRC)\n(b) All confidential information relating to the Employer's business\n\n7.2 The Employer will keep confidential the fact and terms of this Agreement (except to professional advisers, insurers, HMRC, or as required by law).\n\n7.3 This does not prevent protected whistleblowing disclosures."},
+      {"section_id": "reference", "text": "8. REFERENCE\n\n8.1 The Employer will provide the agreed reference at Schedule 2 in response to prospective employers.\n\n8.2 The Employee may not claim the Employer has breached any duty of care in providing a reference based on this wording."},
+      {"section_id": "announcements", "text": "9. ANNOUNCEMENTS\n\n9.1 The parties agree that the departure will be announced as: [AGREED_WORDING - e.g., 'by mutual agreement to pursue other opportunities'].\n\n9.2 Neither party will make disparaging comments about the other."},
+      {"section_id": "other_terms", "text": "10. OTHER TERMS\n\n10.1 Post-termination restrictions in the contract of employment [remain in full force/are waived].\n\n10.2 Without prejudice and subject to contract negotiations are not admissible in any proceedings.\n\n10.3 This Agreement is in full and final settlement of all claims and supersedes all previous agreements.\n\n10.4 This Agreement is governed by English law and subject to the exclusive jurisdiction of the courts of England and Wales."}
+    ],
+    "schedules": [
+      {"schedule": 1, "title": "Certificate of Independent Advice", "content": "[ADVISER CERTIFICATE]"},
+      {"schedule": 2, "title": "Agreed Reference", "content": "[REFERENCE TEXT]"}
+    ],
+    "signatures": {
+      "employer": "Signed for [EMPLOYER_NAME]: _______________  Date: _______",
+      "employee": "Signed by [EMPLOYEE_NAME]: _______________  Date: _______"
+    }
+  },
+  "placeholders": ["DATE", "EMPLOYER_NAME", "EMPLOYER_ADDRESS", "EMPLOYEE_NAME", "EMPLOYEE_ADDRESS", "JOB_TITLE", "START_DATE", "TERMINATION_DATE", "SALARY_AMOUNT", "PILON_AMOUNT", "HOLIDAY_DAYS", "HOLIDAY_PAY", "BONUS_AMOUNT", "SETTLEMENT_AMOUNT", "TOTAL_AMOUNT", "PAYMENT_DATE", "ADVISER_NAME", "ADVISER_FIRM", "LEGAL_FEE_CAP", "RETURN_DATE", "CONTACT", "PROPERTY_LIST", "AGREED_WORDING"],
+  "compliance_checklist": [
+    "Independent legal advice obtained and confirmed",
+    "Adviser has professional indemnity insurance (or exempt)",
+    "Certificate of advice signed (Schedule 1)",
+    "All statutory claims expressly waived (s203 ERA / s147 EqA)",
+    "7-day cooling-off period included",
+    "Payment breakdown with tax treatment clear",
+    "£30,000 tax-free limit observed",
+    "Confidentiality obligations mutual and reasonable",
+    "Does not prevent whistleblowing",
+    "Personal injury carve-out included",
+    "Pension rights protected",
+    "Agreement dated and signed by both parties"
+  ]
+}

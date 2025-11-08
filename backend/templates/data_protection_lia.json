@@ -1,0 +1,37 @@
+{
+  "template_id": "DP007",
+  "template_name": "Legitimate Interest Assessment (LIA)",
+  "category": "Data Protection",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["UK GDPR Article 6(1)(f)", "Data Protection Act 2018"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ICO"},
+  "content": {
+    "title": "LEGITIMATE INTEREST ASSESSMENT (LIA)",
+    "sections": [
+      {"heading": "ASSESSMENT DETAILS", "text": "Processing activity: [PROCESSING_ACTIVITY]\nDate of assessment: [DATE]\nAssessed by: [ASSESSOR_NAME]\nReview date: [REVIEW_DATE]"},
+      {"heading": "STEP 1: PURPOSE TEST", "text": "**What is the legitimate interest?**\n\n[DESCRIBE INTEREST - e.g., To prevent fraud and ensure security of our systems; To send direct marketing to existing customers; To monitor employee use of company systems]\n\n**Is it a legitimate interest?**\n\n☐ Yes - it is lawful, clearly stated, and represents a real and present interest\n☐ No - do not proceed\n\nExplanation:\n[EXPLAIN WHY LEGITIMATE - e.g., Fraud prevention is a legitimate business interest recognized by ICO guidance; We have a commercial interest in promoting our products to existing customers; We have a business interest in protecting our systems and data]\n\n**Is it necessary for that purpose?**\n\n☐ Yes - it is targeted and proportionate\n☐ No - reconsider\n\nCould you achieve the same result in a less intrusive way?\n[EXPLAIN - e.g., No, fraud detection requires analyzing transaction patterns; No, we cannot effectively market without contact details; Yes, but only if we process employee data]"},
+      {"heading": "STEP 2: NECESSITY TEST", "text": "**Is processing necessary for the legitimate interest?**\n\n☐ Yes\n☐ No - you cannot use legitimate interests\n\n**Could you reasonably achieve the same result another way?**\n\nAlternative approaches considered:\n1. [ALTERNATIVE_1 - e.g., Using consent instead]\n   - Why not suitable: [REASON - e.g., Consent not appropriate for fraud prevention as individuals would not understand context]\n\n2. [ALTERNATIVE_2 - e.g., Anonymization]\n   - Why not suitable: [REASON - e.g., Cannot prevent fraud effectively with anonymized data]\n\n3. [ALTERNATIVE_3]\n   - Why not suitable: [REASON]\n\nConclusion: Processing is necessary and there is no less intrusive way to achieve the purpose."},
+      {"heading": "STEP 3: BALANCING TEST", "text": "**Data subjects' interests and fundamental rights**\n\n**Who are the data subjects?**\n[DESCRIBE - e.g., Existing customers, website visitors, employees]\n\n**What is your relationship with them?**\n[DESCRIBE - e.g., Contractual customer relationship, employment relationship, no prior relationship]\n\n**What personal data will you process?**\nCategories: [LIST - e.g., Name, email, IP address, transaction history]\n☐ Special category data: [SPECIFY - if yes, LI generally NOT appropriate]\n☐ Children's data: [if yes, LI generally NOT appropriate]\n\n**How will data subjects expect you to use their data?**\n☐ They would reasonably expect this processing\n☐ They would not expect this processing (objection risk HIGH)\n☐ Uncertain\n\nExplanation:\n[EXPLAIN - e.g., Customers expect us to prevent fraud; Employees expect monitoring of company systems; Individuals may not expect marketing from third-party sources]\n\n**Would they object if they knew?**\n☐ Unlikely\n☐ Possible\n☐ Likely (LI may not be appropriate)\n\n**Impact on data subjects:**\n\n| Factor | Assessment |\n|--------|------------|\n| Nature of data | [Low/Medium/High sensitivity] |\n| Intrusiveness | [Low/Medium/High] |\n| Potential harm | [Describe - e.g., Low - only standard marketing; High - risk of discrimination] |\n| Safeguards available | [List - e.g., Encryption, access controls, opt-out mechanism, transparency] |\n| Data minimization | [Only necessary data processed: Yes/No] |\n\n**Your legitimate interest:**\n\n| Factor | Assessment |\n|--------|------------|\n| Importance of interest | [Low/Medium/High - explain] |\n| Benefit to you | [Describe] |\n| Benefit to data subjects | [Describe - e.g., Better security, more relevant offers] |\n| Benefit to society | [Describe - e.g., Crime prevention] |\n\n**Balancing outcome:**\n\n☐ Data subjects' interests DO NOT override your legitimate interest - you can proceed\n☐ Data subjects' interests OVERRIDE your legitimate interest - you cannot use LI\n☐ Uncertain - seek legal advice\n\nReasoning:\n[EXPLAIN BALANCE - e.g., While processing involves some intrusion, the fraud prevention benefit is significant and data subjects expect reasonable security measures. Safeguards minimize risk. Overall, our legitimate interest is not overridden.]"},
+      {"heading": "STEP 4: SAFEGUARDS AND MITIGATION", "text": "**What safeguards will you implement to reduce impact?**\n\n1. Transparency:\n   ☐ Privacy notice provided\n   ☐ Clear explanation of LI basis\n   ☐ Easy-to-find information\n\n2. Opt-out:\n   ☐ Right to object clearly communicated\n   ☐ Easy opt-out mechanism provided\n   ☐ Opt-outs honored promptly\n\n3. Data minimization:\n   ☐ Only necessary data processed\n   ☐ Retention period limited to [PERIOD]\n   ☐ Regular review and deletion\n\n4. Security:\n   ☐ Encryption in transit and at rest\n   ☐ Access controls\n   ☐ Regular security audits\n   ☐ Staff training\n\n5. Other safeguards:\n   [LIST - e.g., Pseudonymization, aggregation, differential privacy]"},
+      {"heading": "CONCLUSION", "text": "**Can you rely on legitimate interests?**\n\n☐ YES - proceed with processing\n☐ NO - use a different lawful basis or do not process\n☐ UNCERTAIN - seek DPO/legal advice\n\n**Summary:**\n[SUMMARIZE DECISION - e.g., We can rely on legitimate interests for fraud prevention. The processing is necessary, proportionate, and our interest is not overridden by data subjects' rights. Appropriate safeguards are in place.]\n\n**Action required:**\n- ☐ Update privacy notice\n- ☐ Implement opt-out mechanism\n- ☐ Train staff\n- ☐ Review LIA in [REVIEW_PERIOD] months\n\n**Approved by:**\nName: [APPROVER_NAME]\nTitle: [APPROVER_TITLE]\nDate: [APPROVAL_DATE]"}
+    ]
+  },
+  "placeholders": ["PROCESSING_ACTIVITY", "DATE", "ASSESSOR_NAME", "REVIEW_DATE", "DESCRIBE INTEREST", "ALTERNATIVE_1", "ALTERNATIVE_2", "ALTERNATIVE_3", "PERIOD", "REVIEW_PERIOD", "APPROVER_NAME", "APPROVER_TITLE", "APPROVAL_DATE"],
+  "compliance_checklist": [
+    "Three-part test completed: Purpose, Necessity, Balancing",
+    "Legitimate interest clearly identified and documented",
+    "Necessity demonstrated (no less intrusive alternative)",
+    "Balancing test thoroughly conducted",
+    "Data subjects' expectations considered",
+    "Impact assessment completed",
+    "Safeguards identified and implemented",
+    "Right to object clearly communicated in privacy notice",
+    "LIA documented and retained",
+    "Regular review scheduled",
+    "Not used for special category data (unless exceptional)",
+    "Not used for children's data (unless exceptional)",
+    "Transparency obligations met"
+  ]
+}

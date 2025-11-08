@@ -1,0 +1,18 @@
+{
+  "template_id": "FIN002",
+  "template_name": "Risk Disclosure Statement",
+  "category": "Financial",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["FCA Conduct of Business Sourcebook (COBS)", "Financial Services and Markets Act 2000"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "FCA"},
+  "content": {
+    "title": "RISK DISCLOSURE STATEMENT",
+    "warning": "WARNING: Trading in financial instruments involves risk. You should not invest unless you understand the risks and can afford to lose your money.",
+    "sections": ["1. GENERAL RISKS:\n- Capital at risk: You may lose some or all of your investment\n- Past performance is not a reliable indicator of future results\n- Market volatility: Prices can go down as well as up\n- Liquidity risk: You may not be able to sell when you want\n- Currency risk: If investing in foreign assets, exchange rate fluctuations affect value", "2. SPECIFIC INVESTMENT RISKS:\n\n[IF EQUITIES]:\n- Share prices can be volatile\n- Company may fail or be delisted\n- Dividends not guaranteed\n- Shareholder rights may be limited\n\n[IF BONDS]:\n- Interest rate risk: Bond prices fall when rates rise\n- Credit risk: Issuer may default\n- Inflation risk: Returns may not keep pace with inflation\n\n[IF DERIVATIVES/CFDs]:\n- HIGH RISK: You can lose more than your initial investment\n- Leverage magnifies both gains and losses\n- Margin calls: You may be required to deposit additional funds\n- Fast-moving markets can result in rapid losses\n- CFDs are complex instruments - 70-80% of retail investors lose money\n\n[IF CRYPTOCURRENCIES]:\n- VERY HIGH RISK: Extremely volatile and speculative\n- No regulatory protection\n- May lose all your investment\n- Hacking and fraud risk\n- Tax treatment unclear\n\n[IF FUNDS]:\n- Fund value can fall as well as rise\n- Dilution impact from large inflows/outflows\n- Manager risk: Performance depends on fund manager\n- Charges reduce returns", "3. TAX: Tax treatment depends on individual circumstances and may change. Seek independent tax advice.", "4. NO ADVICE: [IF EXECUTION-ONLY: We do not provide investment advice. You make your own decisions.] [IF ADVISED: This is a personal recommendation based on your circumstances.]", "5. COMPLAINTS: If you have a complaint, contact [COMPLAINTS_EMAIL]. If not resolved, you may refer to Financial Ombudsman Service (www.financial-ombudsman.org.uk).", "6. COMPENSATION: We are covered by Financial Services Compensation Scheme (FSCS). If we fail, you may be entitled to compensation up to £85,000 (investments) or £50,000 (investment advice). Details: www.fscs.org.uk", "7. ACKNOWLEDGEMENT:\nI confirm:\n☐ I have read and understood this Risk Disclosure\n☐ I understand I may lose money\n☐ I can afford to lose the money I am investing\n☐ [IF HIGH RISK: I understand this is a high-risk investment not suitable for most investors]\n\nSignature: _______________  Date: _______________"],
+    "fca_requirements": "Under COBS:\n- Risk warnings must be clear, fair, and not misleading\n- Prominent warnings for high-risk products\n- CFD warning: '70-80% of retail investors lose money'\n- Appropriateness/suitability assessment for complex products\n- Enhanced warnings for retail clients"
+  },
+  "placeholders": ["COMPLAINTS_EMAIL"],
+  "compliance_checklist": ["Clear risk warnings (COBS)", "Product-specific risks disclosed", "Loss of capital warning prominent", "FSCS compensation explained", "Complaints procedure stated", "FOS referral right mentioned", "Tax warning included", "Advice vs execution-only status clear", "Client acknowledgement obtained", "CFD/crypto warnings (if applicable)"]
+}

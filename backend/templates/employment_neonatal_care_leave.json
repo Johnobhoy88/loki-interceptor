@@ -1,0 +1,21 @@
+{
+  "template_id": "EMP013",
+  "template_name": "Neonatal Care Leave Letter (2025)",
+  "category": "Employment",
+  "jurisdiction": "England & Wales",
+  "last_updated": "2025-01-01",
+  "compliance_year": 2025,
+  "legal_citations": ["Neonatal Care (Leave and Pay) Act 2023", "Employment Rights Act 1996"],
+  "metadata": {"version": "1.0", "language": "en-GB", "regulatory_body": "ACAS", "special_notes": "NEW - Effective from 6 April 2025"},
+  "content": {
+    "title": "NEONATAL CARE LEAVE POLICY",
+    "sections": [
+      {"heading": "1. ENTITLEMENT (NEW FROM APRIL 2025)", "text": "1.1 Employees are entitled to up to 12 weeks' neonatal care leave (day-1 right, no qualifying period) if their baby:\n- Is admitted to hospital within 28 days of birth, and\n- Requires neonatal care for 7 consecutive days or more\n\n1.2 Both parents can take neonatal leave (each entitled to 12 weeks).\n\n1.3 Leave must be taken in the first 68 weeks after birth."},
+      {"heading": "2. NEONATAL CARE PAY", "text": "2.1 Statutory Neonatal Care Pay (SNCP) is payable at £184.03/week [2025 rate] for up to 12 weeks.\n\n2.2 Eligibility: 26 weeks' continuous employment and earnings above LEL (£123/week).\n\n2.3 SNCP can be taken alongside other statutory payments (e.g., maternity, paternity).\n\n2.4 [OPTIONAL: Enhanced neonatal care pay - [DETAILS]]"},
+      {"heading": "3. NOTIFICATION", "text": "3.1 Notify your manager as soon as reasonably practicable that you wish to take neonatal leave, providing:\n- Expected start date\n- Expected duration\n\n3.2 Medical evidence may be required (e.g., hospital admission letter)."},
+      {"heading": "4. RIGHTS", "text": "4.1 Your contract continues during leave (except pay).\n\n4.2 Holiday continues to accrue.\n\n4.3 You are entitled to return to the same job.\n\n4.4 Protection from detriment or dismissal for taking neonatal leave."}
+    ]
+  },
+  "placeholders": ["EMPLOYER_NAME"],
+  "compliance_checklist": ["12 weeks' leave entitlement stated (NEW 2025)", "Day-1 right (no qualifying period for leave)", "26 weeks for pay", "SNCP rate correct (£184.03/week 2025)", "7-day hospital admission threshold", "68-week window stated", "Can be taken by both parents", "Protection from detriment included"]
+}
