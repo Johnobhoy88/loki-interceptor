@@ -29,11 +29,29 @@ cache = ValidationCache(max_size=500, ttl_seconds=1800)  # 30min TTL
 
 # Initialize async engine with parallel execution (max 4 concurrent gates)
 engine = AsyncLOKIEngine(max_workers=4)
+
+# Load core modules
 engine.load_module('hr_scottish')
 engine.load_module('gdpr_uk')
 engine.load_module('nda_uk')
 engine.load_module('tax_uk')
 engine.load_module('fca_uk')
+
+# Load new compliance modules (optional - won't break if missing)
+new_modules = [
+    'uk_employment',
+    'gdpr_advanced',
+    'fca_advanced',
+    'scottish_law',
+    'industry_specific'
+]
+
+for module_name in new_modules:
+    try:
+        engine.load_module(module_name)
+        print(f"✓ Loaded module: {module_name}")
+    except Exception as e:
+        print(f"⚠ Could not load module {module_name}: {str(e)}")
 
 anthropic_interceptor = AnthropicInterceptor(engine)
 openai_interceptor = OpenAIInterceptor(engine)
