@@ -1,0 +1,156 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Test Database
+  postgres-test:
+    image: postgres:15-alpine
+    container_name: loki-postgres-test
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${TEST_POSTGRES_DB:-loki_test}
+      POSTGRES_USER: ${TEST_POSTGRES_USER:-loki}
+      POSTGRES_PASSWORD: ${TEST_POSTGRES_PASSWORD:-testpass}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    ports:
+      - "${TEST_POSTGRES_PORT:-5433}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${TEST_POSTGRES_USER:-loki}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - loki-test-network
+
+  # Redis Test Cache
+  redis-test:
+    image: redis:7-alpine
+    container_name: loki-redis-test
+    restart: unless-stopped
+    command: redis-server --requirepass ${TEST_REDIS_PASSWORD:-testpass} --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_test_data:/data
+    ports:
+      - "${TEST_REDIS_PORT:-6380}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - loki-test-network
+
+  # Test Backend API
+  backend-test:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: loki-backend-test
+    restart: unless-stopped
+    environment:
+      FLASK_ENV: testing
+      FLASK_DEBUG: 1
+      SECRET_KEY: test-secret-key-do-not-use-in-production
+
+      # Test Database
+      DATABASE_URL: postgresql://${TEST_POSTGRES_USER:-loki}:${TEST_POSTGRES_PASSWORD:-testpass}@postgres-test:5432/${TEST_POSTGRES_DB:-loki_test}
+      TEST_DATABASE_URL: postgresql://${TEST_POSTGRES_USER:-loki}:${TEST_POSTGRES_PASSWORD:-testpass}@postgres-test:5432/${TEST_POSTGRES_DB:-loki_test}
+
+      # Test Redis
+      REDIS_URL: redis://:${TEST_REDIS_PASSWORD:-testpass}@redis-test:6379/0
+      TEST_REDIS_URL: redis://:${TEST_REDIS_PASSWORD:-testpass}@redis-test:6379/0
+
+      # API Keys (mocked in tests)
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-test-key}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-test-key}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-test-key}
+
+      # Test Settings
+      PORT: 5003
+      WORKERS: 1
+      MAX_WORKERS: 1
+      CACHE_TTL: 300
+
+      # Security - relaxed for testing
+      RATE_LIMIT_ENABLED: false
+      CORS_ORIGINS: http://localhost:*,http://127.0.0.1:*
+
+      # Monitoring - disabled for tests
+      PROMETHEUS_ENABLED: false
+      LOG_LEVEL: debug
+    volumes:
+      - ./backend:/app
+      - backend_test_logs:/app/logs
+    ports:
+      - "${TEST_BACKEND_PORT:-5003}:5003"
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - loki-test-network
+
+  # Test Frontend
+  frontend-test:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: loki-frontend-test
+    restart: unless-stopped
+    environment:
+      BACKEND_URL: http://backend-test:5003
+      REACT_APP_API_URL: http://backend-test:5003
+    ports:
+      - "${TEST_FRONTEND_PORT:-8081}:80"
+    depends_on:
+      - backend-test
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    networks:
+      - loki-test-network
+
+  # Prometheus for Test Monitoring
+  prometheus-test:
+    image: prom/prometheus:latest
+    container_name: loki-prometheus-test
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_test_data:/prometheus
+    ports:
+      - "${TEST_PROMETHEUS_PORT:-9091}:9090"
+    networks:
+      - loki-test-network
+    profiles:
+      - monitoring
+
+volumes:
+  postgres_test_data:
+    driver: local
+  redis_test_data:
+    driver: local
+  backend_test_logs:
+    driver: local
+  prometheus_test_data:
+    driver: local
+
+networks:
+  loki-test-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16

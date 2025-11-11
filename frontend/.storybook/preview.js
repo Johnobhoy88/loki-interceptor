@@ -1,0 +1,34 @@
+import React from 'react';
+import '../src/design-system/tokens.css';
+
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+  backgrounds: {
+    default: 'dark',
+    values: [
+      {
+        name: 'dark',
+        value: '#0a0e1a',
+      },
+      {
+        name: 'light',
+        value: '#ffffff',
+      },
+    ],
+  },
+  layout: 'centered',
+};
+
+export const decorators = [
+  (Story) => (
+    <div style={{ padding: '2rem', minWidth: '300px' }}>
+      <Story />
+    </div>
+  ),
+];

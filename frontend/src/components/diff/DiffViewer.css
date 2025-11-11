@@ -1,0 +1,397 @@
+.diff-viewer-container {
+  background: white;
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.diff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--bg-secondary, #f5f5f5);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+.diff-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.old-title {
+  color: #dc2626;
+}
+
+.new-title {
+  color: #16a34a;
+}
+
+.separator {
+  color: var(--text-secondary, #666);
+}
+
+.diff-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.additions {
+  color: #16a34a;
+}
+
+.deletions {
+  color: #dc2626;
+}
+
+.side-by-side-diff {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+}
+
+.side-by-side-diff .diff-header {
+  display: grid;
+  grid-template-columns: 50% 50% 100px;
+  gap: 1px;
+  background: var(--border-color, #e0e0e0);
+}
+
+.column-header {
+  padding: 12px;
+  background: var(--bg-secondary, #f5f5f5);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.diff-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.diff-line {
+  display: grid;
+  grid-template-columns: 50px 1fr 100px;
+  gap: 1px;
+  background: var(--border-color, #e0e0e0);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.diff-line:hover {
+  background: var(--bg-hover, #f0f0f0);
+}
+
+.diff-line.selected {
+  outline: 2px solid var(--primary-color, #2563eb);
+}
+
+.diff-line.insert {
+  background: rgba(22, 163, 74, 0.05);
+}
+
+.diff-line.delete {
+  background: rgba(220, 38, 38, 0.05);
+}
+
+.diff-line.modify {
+  background: rgba(251, 146, 60, 0.05);
+}
+
+.line-number {
+  padding: 8px;
+  background: var(--bg-secondary, #f7f7f7);
+  text-align: right;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--text-secondary, #666);
+}
+
+.line-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-color, #e0e0e0);
+}
+
+.old-content,
+.new-content {
+  padding: 8px 12px;
+  background: white;
+  overflow-x: auto;
+}
+
+.diff-line.delete .old-content {
+  background: #ffeef0;
+}
+
+.diff-line.insert .new-content {
+  background: #e6ffed;
+}
+
+.diff-line.modify .old-content {
+  background: #fff5e6;
+}
+
+.diff-line.modify .new-content {
+  background: #e6f7ff;
+}
+
+.line-text {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  white-space: pre;
+}
+
+.line-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px;
+  background: white;
+}
+
+.btn-accept-change,
+.btn-reject-change {
+  padding: 4px 8px;
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.btn-accept-change {
+  color: #16a34a;
+}
+
+.btn-accept-change:hover {
+  background: #e6ffed;
+  border-color: #16a34a;
+}
+
+.btn-reject-change {
+  color: #dc2626;
+}
+
+.btn-reject-change:hover {
+  background: #ffeef0;
+  border-color: #dc2626;
+}
+
+.correction-annotation {
+  grid-column: 1 / -1;
+  background: #fffbeb;
+  border-top: 1px solid #fbbf24;
+  padding: 8px 12px;
+}
+
+.annotation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  color: #92400e;
+}
+
+.annotation-count {
+  flex: 1;
+}
+
+.expand-icon {
+  font-size: 10px;
+}
+
+.annotation-details {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #fbbf24;
+}
+
+.correction-detail {
+  margin-bottom: 12px;
+}
+
+.correction-detail:last-child {
+  margin-bottom: 0;
+}
+
+.correction-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.type-icon {
+  font-size: 14px;
+}
+
+.type-name {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.confidence {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 10px;
+}
+
+.confidence.high {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.confidence.medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.confidence.low {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.correction-text-change {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.original-text {
+  color: #dc2626;
+  text-decoration: line-through;
+}
+
+.arrow {
+  color: var(--text-secondary, #666);
+}
+
+.corrected-text {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.correction-explanation {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-secondary, #666);
+  line-height: 1.4;
+}
+
+.unified-diff {
+  background: white;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+}
+
+.diff-content {
+  overflow-x: auto;
+}
+
+.unified-line {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border-color, #f0f0f0);
+}
+
+.unified-line.insert {
+  background: #e6ffed;
+}
+
+.unified-line.delete {
+  background: #ffeef0;
+}
+
+.unified-line.modify {
+  background: #fff5e6;
+}
+
+.line-numbers {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary, #f7f7f7);
+  padding: 4px 8px;
+  min-width: 80px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--text-secondary, #666);
+  user-select: none;
+}
+
+.old-line-number,
+.new-line-number {
+  display: block;
+  line-height: 1.5;
+}
+
+.line-marker {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.unified-line.insert .line-marker {
+  color: #16a34a;
+}
+
+.unified-line.delete .line-marker {
+  color: #dc2626;
+}
+
+.unified-line.modify .line-marker {
+  color: #fb923c;
+}
+
+.line-content {
+  flex: 1;
+  padding: 4px 12px;
+  overflow-x: auto;
+}
+
+.line-content pre {
+  margin: 0;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+.line-content .old-text {
+  color: #dc2626;
+}
+
+.line-content .new-text {
+  color: #16a34a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .diff-viewer-container,
+  .side-by-side-diff,
+  .unified-diff {
+    background: var(--bg-primary, #1e1e1e);
+  }
+
+  .old-content,
+  .new-content,
+  .line-actions {
+    background: var(--bg-primary, #1e1e1e);
+  }
+}

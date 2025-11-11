@@ -1,0 +1,106 @@
+# NLP Requirements for LOKI Interceptor
+# Pattern & NLP Specialist Enhancements
+# Version: 1.0
+# Last updated: 2025-11-11
+
+# ====================================
+# Core NLP Libraries
+# ====================================
+
+# Semantic Similarity & Embeddings
+sentence-transformers>=2.2.0
+transformers>=4.30.0
+
+# Natural Language Processing
+spacy>=3.7.0
+nltk>=3.8.0
+
+# Readability Metrics
+textstat>=0.7.3
+
+# Sentiment Analysis
+textblob>=0.17.0
+
+# ====================================
+# Supporting Libraries
+# ====================================
+
+# Scientific Computing
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+
+# Text Processing
+regex>=2023.0.0
+
+# ====================================
+# Optional Dependencies
+# ====================================
+
+# spaCy English Model (install separately)
+# python -m spacy download en_core_web_sm
+
+# NLTK Data (install separately if needed)
+# python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
+
+# ====================================
+# Performance Optimization (Optional)
+# ====================================
+
+# GPU Acceleration (if CUDA available)
+# torch>=2.0.0+cu118
+
+# Faster text processing
+# python-Levenshtein>=0.21.0
+
+# ====================================
+# Development Dependencies (Optional)
+# ====================================
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Code Quality
+pylint>=2.17.0
+black>=23.0.0
+mypy>=1.4.0
+
+# ====================================
+# Installation Instructions
+# ====================================
+#
+# Basic Installation:
+#   pip install -r requirements-nlp.txt
+#
+# With spaCy English model:
+#   python -m spacy download en_core_web_sm
+#
+# With NLTK data:
+#   python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
+#
+# Full installation (all optional):
+#   pip install -r requirements-nlp.txt textblob python-Levenshtein
+#   python -m spacy download en_core_web_sm
+#   python -c "import nltk; nltk.download('all')"
+#
+# ====================================
+# Compatibility
+# ====================================
+#
+# Python: 3.8+
+# OS: Linux, macOS, Windows
+# Memory: 2GB+ recommended
+# Disk: 1GB+ for models
+#
+# ====================================
+# Notes
+# ====================================
+#
+# - sentence-transformers downloads models on first use (~400MB)
+# - spaCy en_core_web_sm model is ~40MB
+# - All NLP modules work with fallback implementations if optional deps missing
+# - GPU acceleration significantly improves semantic matching performance
+#

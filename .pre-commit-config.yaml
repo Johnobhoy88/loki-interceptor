@@ -1,0 +1,157 @@
+# Pre-commit hook configuration for code quality standards
+# Install with: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # YAML formatter and linter
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        stages: [commit]
+      - id: end-of-file-fixer
+        name: Fix end of file
+        stages: [commit]
+      - id: check-yaml
+        name: Check YAML syntax
+        args: ['--unsafe']
+        stages: [commit]
+      - id: check-json
+        name: Check JSON syntax
+        stages: [commit]
+      - id: check-added-large-files
+        name: Check for large files
+        args: ['--maxkb=1000']
+        stages: [commit]
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+        stages: [commit]
+      - id: check-case-conflict
+        name: Check for case conflicts
+        stages: [commit]
+      - id: detect-private-key
+        name: Detect private keys
+        stages: [commit]
+      - id: mixed-line-ending
+        name: Fix mixed line endings
+        args: ['--fix=lf']
+        stages: [commit]
+
+  # Python code formatter (Black)
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        name: Format with Black
+        language_version: python3.11
+        stages: [commit]
+        args: ['--line-length=100']
+
+  # Import sorting (isort)
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: Sort imports with isort
+        stages: [commit]
+        args: ['--profile=black', '--line-length=100']
+
+  # Python code style (Flake8)
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        name: Lint with Flake8
+        stages: [commit]
+        args: [
+          '--max-line-length=100',
+          '--extend-ignore=E203,W503,E501',
+          '--max-complexity=10'
+        ]
+        additional_dependencies: [
+          'flake8-docstrings',
+          'flake8-bugbear',
+          'flake8-comprehensions',
+          'flake8-annotations',
+          'flake8-bandit',
+          'flake8-simplify'
+        ]
+
+  # Type checking (mypy)
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        name: Type check with mypy
+        stages: [commit]
+        args: [
+          '--ignore-missing-imports',
+          '--warn-redundant-casts',
+          '--warn-unused-ignores',
+          '--warn-unused-configs'
+        ]
+        additional_dependencies: [
+          'types-requests',
+          'types-redis',
+          'types-PyYAML',
+          'types-setuptools',
+          'types-click',
+          'SQLAlchemy[mypy]'
+        ]
+
+  # Docstring coverage
+  - repo: https://github.com/econchick/interrogate
+    rev: 1.5.0
+    hooks:
+      - id: interrogate
+        name: Check docstring coverage
+        stages: [commit]
+        args: ['--vv', '--fail-under=50']
+
+  # Security scanning (Bandit)
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        name: Security check with Bandit
+        stages: [commit]
+        args: ['-c', '.bandit', '--severity-level=medium']
+        exclude: ^tests/
+
+  # License compliance
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.4
+    hooks:
+      - id: forbid-crlf
+        name: Forbid CRLF line endings
+        stages: [commit]
+
+  # Markdown formatting
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.12.0
+    hooks:
+      - id: markdownlint
+        name: Lint Markdown files
+        stages: [commit]
+        args: ['--fix']
+
+  # TOML formatter
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.13
+    hooks:
+      - id: validate-pyproject
+        name: Validate pyproject.toml
+        stages: [commit]
+
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false

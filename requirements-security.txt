@@ -1,0 +1,22 @@
+# Security Dependencies for LOKI Interceptor
+# Install with: pip install -r requirements-security.txt
+
+# Cryptography
+cryptography>=41.0.0
+
+# HTML Sanitization
+bleach>=6.0.0
+
+# Redis (for distributed rate limiting)
+redis>=5.0.0
+
+# Testing (optional)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# JWT (already in requirements)
+PyJWT>=2.8.0
+
+# Flask (already in requirements)
+Flask>=2.3.0
+Flask-CORS>=4.0.0

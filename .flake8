@@ -1,0 +1,64 @@
+[flake8]
+# Flake8 configuration for code style enforcement
+# Max line length (aligned with Black formatter)
+max-line-length = 100
+
+# Error codes to ignore
+# E203: whitespace before ':' (conflicts with Black)
+# W503: line break before binary operator (conflicts with Black)
+# E501: line too long (handled by Black)
+ignore = E203, W503, E501
+
+# Maximum cyclomatic complexity
+max-complexity = 10
+
+# File types to check
+include = *.py
+
+# Directories and patterns to exclude
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    env,
+    .tox,
+    .eggs,
+    *.egg-info,
+    build,
+    dist,
+    .pytest_cache,
+    .mypy_cache,
+    node_modules,
+    migrations,
+    .claude
+
+# Plugin configuration
+# flake8-docstrings: require docstrings for modules, classes, and functions
+# D100: Missing docstring in public module
+# D104: Missing docstring in public package
+# D105: Missing docstring in magic method
+docstring-convention = google
+
+# flake8-bugbear: Find likely bugs and design problems
+extend-select = B,C4,B9
+
+# flake8-bandit: Security checks (skip test files)
+extend-exclude = tests,test_*.py
+
+# Import order configuration (for flake8-isort)
+use-flake8-isort = True
+
+# Annotations (flake8-annotations)
+suppress-none-returning = False
+suppress-dummy-args = False
+
+# Simplify (flake8-simplify)
+max-noqa-lines = 1
+
+# Formatter compatibility
+per-file-ignores =
+    __init__.py:F401,F403,D104,D100
+    tests/*.py:D100,D101,D102,D103
+    tests/compliance/*.py:D100,D101,D102,D103
+    */migrations/*:E402,D100,D101,D102,D103

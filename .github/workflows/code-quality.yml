@@ -1,0 +1,383 @@
+name: Code Quality Checks
+
+on:
+  push:
+    branches: [main, develop, 'feature/**']
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run code quality checks daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  code-formatting:
+    name: Code Formatting
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install black isort
+
+      - name: Check Black formatting
+        run: |
+          black --check --diff backend/ tests/
+
+      - name: Check isort import sorting
+        run: |
+          isort --check-only --diff backend/ tests/
+
+  linting:
+    name: Linting (Flake8)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 flake8-docstrings flake8-bugbear \
+                      flake8-comprehensions flake8-annotations \
+                      flake8-bandit flake8-simplify
+
+      - name: Run Flake8
+        run: |
+          flake8 backend/ tests/ --statistics --count
+
+      - name: Generate Flake8 report
+        if: always()
+        run: |
+          flake8 backend/ tests/ --format=json > flake8-report.json || true
+          cat flake8-report.json
+
+  type-checking:
+    name: Type Checking (MyPy)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mypy types-requests types-redis types-PyYAML \
+                      types-click SQLAlchemy[mypy]
+          pip install -r requirements.txt
+
+      - name: Run mypy
+        run: |
+          mypy backend/ --junit-xml=mypy-report.xml || true
+
+      - name: Upload mypy results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: mypy-report-${{ matrix.python-version }}
+          path: mypy-report.xml
+
+  security:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit safety
+          pip install -r requirements.txt
+
+      - name: Run Bandit security scan
+        run: |
+          bandit -r backend/ -f json -o bandit-report.json || true
+          cat bandit-report.json
+
+      - name: Check for vulnerable dependencies
+        run: |
+          safety check --json || true
+
+      - name: Upload security results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-reports
+          path: |
+            bandit-report.json
+
+  code-complexity:
+    name: Code Complexity Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 radon lizard
+
+      - name: Check McCabe complexity with Flake8
+        run: |
+          flake8 backend/ --max-complexity=10 --format=json > complexity-report.json || true
+
+      - name: Analyze with Radon
+        run: |
+          radon cc backend/ -a -j > radon-complexity.json || true
+          radon mi backend/ -j > radon-maintainability.json || true
+
+      - name: Analyze with Lizard
+        run: |
+          lizard backend/ -l python --csv > lizard-metrics.csv || true
+
+      - name: Upload complexity reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: complexity-reports
+          path: |
+            complexity-report.json
+            radon-complexity.json
+            radon-maintainability.json
+            lizard-metrics.csv
+
+  docstring-coverage:
+    name: Docstring Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install interrogate
+
+      - name: Check docstring coverage
+        run: |
+          interrogate backend/ --vv --fail-under=50 --json > docstring-coverage.json || true
+
+      - name: Generate HTML report
+        run: |
+          interrogate backend/ --vv --fail-under=50 -o coverage_html.html || true
+
+      - name: Upload docstring reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: docstring-reports
+          path: |
+            docstring-coverage.json
+            coverage_html.html
+
+  tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_loki
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio pytest-cov pytest-xdist pytest-timeout
+
+      - name: Run tests with coverage
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_loki
+        run: |
+          pytest tests/ backend/tests/ \
+            --cov=backend \
+            --cov-report=term-missing \
+            --cov-report=html:htmlcov \
+            --cov-report=xml:coverage.xml \
+            --junitxml=junit.xml \
+            -v
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ matrix.python-version }}
+          path: |
+            junit.xml
+            coverage.xml
+            htmlcov/
+
+  dependency-check:
+    name: Dependency Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit safety
+          pip install -r requirements.txt
+
+      - name: Run pip-audit
+        run: |
+          pip-audit --desc || true
+
+      - name: Check with safety
+        run: |
+          safety check --db insecure --json > safety-report.json || true
+
+      - name: Upload dependency reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-reports
+          path: safety-report.json
+
+  quality-gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    needs: [code-formatting, linting, type-checking, security, tests]
+    if: always()
+
+    steps:
+      - name: Check job statuses
+        run: |
+          if [[ "${{ needs.code-formatting.result }}" == "failure" ]] || \
+             [[ "${{ needs.linting.result }}" == "failure" ]] || \
+             [[ "${{ needs.type-checking.result }}" == "failure" ]] || \
+             [[ "${{ needs.security.result }}" == "failure" ]] || \
+             [[ "${{ needs.tests.result }}" == "failure" ]]; then
+            echo "❌ Code quality checks failed"
+            exit 1
+          fi
+          echo "✅ All code quality checks passed"
+
+  comment-pr:
+    name: Comment PR with Results
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && always()
+    needs: [code-formatting, linting, type-checking, security, tests]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Create PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const formatStatus = (status) => {
+              return status === 'success' ? '✅' : '❌';
+            };
+
+            const comment = `## Code Quality Report
+
+            | Check | Status |
+            |-------|--------|
+            | Formatting | ${formatStatus('${{ needs.code-formatting.result }}')} |
+            | Linting | ${formatStatus('${{ needs.linting.result }}')} |
+            | Type Checking | ${formatStatus('${{ needs.type-checking.result }}')} |
+            | Security | ${formatStatus('${{ needs.security.result }}')} |
+            | Tests | ${formatStatus('${{ needs.tests.result }}')} |
+
+            View detailed reports in the artifacts section.`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

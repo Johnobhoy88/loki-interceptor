@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOKI Correction Explainability Report - Example</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            border-radius: 8px 8px 0 0;
+        }
+        .header h1 { font-size: 32px; margin-bottom: 10px; }
+        .header .subtitle { font-size: 16px; opacity: 0.9; }
+        .content { padding: 40px; }
+        .section { margin-bottom: 40px; }
+        .section-title {
+            font-size: 24px;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e7ff;
+        }
+        .correction-box {
+            background: #f8fafc;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .correction-box .label {
+            font-weight: 600;
+            color: #64748b;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .correction-box .text { font-size: 16px; line-height: 1.8; }
+        .original {
+            text-decoration: line-through;
+            color: #ef4444;
+            background: #fef2f2;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .corrected {
+            color: #10b981;
+            background: #f0fdf4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .stat-card .label { font-size: 14px; color: #64748b; }
+        .confidence-bar {
+            background: #e2e8f0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .confidence-fill {
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .citation {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .citation-title { font-weight: 700; color: #92400e; margin-bottom: 10px; }
+        .citation-url {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .citation-url:hover { text-decoration: underline; }
+        .reasoning-step {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+        .step-question { font-size: 18px; font-weight: 600; color: #1e293b; }
+        .footer {
+            background: #f8fafc;
+            padding: 30px 40px;
+            border-radius: 0 0 8px 8px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Correction Explainability Report</h1>
+            <div class="subtitle">Generated by LOKI Enterprise Compliance Platform - Example Report</div>
+        </div>
+
+        <div class="content">
+            <!-- Correction Overview -->
+            <div class="section">
+                <h2 class="section-title">Correction Overview</h2>
+
+                <div class="correction-box">
+                    <div class="label">Original Text</div>
+                    <div class="text">
+                        <span class="original">We may use your personal data for marketing purposes</span>
+                    </div>
+                </div>
+
+                <div class="correction-box">
+                    <div class="label">Corrected Text</div>
+                    <div class="text">
+                        <span class="corrected">With your explicit consent, we will use your personal data for marketing purposes only</span>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="value">95%</div>
+                        <div class="label">Confidence</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">76%</div>
+                        <div class="label">Risk Reduction</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">10</div>
+                        <div class="label">Reasoning Steps</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">2</div>
+                        <div class="label">Legal Citations</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explanation -->
+            <div class="section">
+                <h2 class="section-title">Why This Correction?</h2>
+                <p style="font-size: 16px; line-height: 1.8; color: #475569;">
+                    This correction addresses a compliance issue identified in your document. Under GDPR Article 6, all data processing must have a lawful basis. The original text did not clearly establish explicit consent, which could result in regulatory violations and fines up to 4% of annual turnover. This correction updates the text to meet current requirements, ensuring compliance and reducing risk.
+                </p>
+
+                <div style="margin-top: 20px;">
+                    <strong style="color: #667eea;">Legal Basis:</strong><br>
+                    UK GDPR Article 6 (Lawfulness of processing)
+                </div>
+            </div>
+
+            <!-- Confidence Analysis -->
+            <div class="section">
+                <h2 class="section-title">Confidence Analysis</h2>
+
+                <div class="confidence-bar">
+                    <div class="confidence-fill" style="width: 95%;">
+                        95% Confidence
+                    </div>
+                </div>
+
+                <p style="margin: 20px 0; font-size: 16px; line-height: 1.8;">
+                    <strong>VERY HIGH CONFIDENCE:</strong> This correction is strongly recommended with high certainty. Multiple factors support its appropriateness and regulatory necessity. Primary supporting factor: pattern_match (95%).
+                </p>
+
+                <div style="margin-top: 20px;">
+                    <strong style="color: #667eea;">Recommendation:</strong><br>
+                    Apply this correction automatically. Safe for production use.
+                </div>
+            </div>
+
+            <!-- Reasoning Chain -->
+            <div class="section">
+                <h2 class="section-title">Reasoning Chain</h2>
+                <p style="margin-bottom: 20px; color: #64748b;">
+                    Step-by-step logical analysis of how this correction was determined:
+                </p>
+
+                <div class="reasoning-step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-question">What issue was detected in the document?</div>
+                    </div>
+                    <div style="margin-left: 47px;">
+                        <p><strong>Process:</strong> Analyzed text using gdpr_uk compliance gate</p>
+                        <p><strong>Result:</strong> Detected ERROR severity issue in document</p>
+                        <p><strong>Reasoning:</strong> The gdpr_uk gate identified text that does not meet current regulatory standards. This was flagged as ERROR severity based on the potential compliance impact.</p>
+                        <p style="margin-top: 15px;"><strong>Confidence:</strong> <span style="color: #10b981;">95%</span></p>
+                    </div>
+                </div>
+
+                <div class="reasoning-step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-question">Does this match any known compliance patterns?</div>
+                    </div>
+                    <div style="margin-left: 47px;">
+                        <p><strong>Process:</strong> Compared against library of 500+ regulatory patterns</p>
+                        <p><strong>Result:</strong> Matched pattern: gdpr_consent_pattern</p>
+                        <p><strong>Reasoning:</strong> Our pattern library contains validated corrections for common compliance issues. This issue matches a known pattern with established correction procedures.</p>
+                        <p style="margin-top: 15px;"><strong>Confidence:</strong> <span style="color: #10b981;">90%</span></p>
+                    </div>
+                </div>
+
+                <div class="reasoning-step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-question">What regulatory requirements apply?</div>
+                    </div>
+                    <div style="margin-left: 47px;">
+                        <p><strong>Process:</strong> Reviewed applicable UK regulations and guidance</p>
+                        <p><strong>Result:</strong> Identified specific regulatory requirements</p>
+                        <p><strong>Reasoning:</strong> Each compliance gate is backed by specific UK regulations. We identified the exact legal requirements that apply to this issue and confirmed the correction addresses them.</p>
+                        <p style="margin-top: 15px;"><strong>Confidence:</strong> <span style="color: #10b981;">95%</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legal Citations -->
+            <div class="section">
+                <h2 class="section-title">Legal Citations</h2>
+
+                <div class="citation">
+                    <div class="citation-title">UK GDPR Article 6 - Lawfulness of processing</div>
+                    <div style="font-family: 'Courier New', monospace; color: #b45309; margin-bottom: 10px;">Article 6(1)(a)</div>
+                    <p style="margin: 10px 0; font-style: italic;">
+                        "Processing shall be lawful only if and to the extent that at least one of the following applies: (a) the data subject has given consent to the processing of his or her personal data"
+                    </p>
+                    <p style="margin: 10px 0;">
+                        <strong>Relevance:</strong> Establishes requirement for explicit consent
+                    </p>
+                    <a href="https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/lawful-basis-for-processing/" class="citation-url" target="_blank">
+                        View Full Text →
+                    </a>
+                </div>
+
+                <div class="citation">
+                    <div class="citation-title">UK GDPR Article 7 - Conditions for consent</div>
+                    <div style="font-family: 'Courier New', monospace; color: #b45309; margin-bottom: 10px;">Article 7</div>
+                    <p style="margin: 10px 0; font-style: italic;">
+                        "Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data."
+                    </p>
+                    <p style="margin: 10px 0;">
+                        <strong>Relevance:</strong> Establishes requirements for valid consent
+                    </p>
+                    <a href="https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/consent/" class="citation-url" target="_blank">
+                        View Full Text →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Impact Analysis -->
+            <div class="section">
+                <h2 class="section-title">Impact Analysis</h2>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #1e293b; margin-bottom: 15px;">Risk Assessment</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="value" style="color: #ef4444;">90%</div>
+                            <div class="label">Risk Before</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" style="color: #10b981;">5%</div>
+                            <div class="label">Risk After</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" style="color: #10b981;">95%</div>
+                            <div class="label">Risk Reduction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #1e293b; margin-bottom: 15px;">Affected Areas</h3>
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 6px;">
+                        <strong>Document Sections:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Privacy Policy section</li>
+                            <li>Data Processing Terms</li>
+                            <li>Consent mechanisms</li>
+                        </ul>
+
+                        <strong style="display: block; margin-top: 15px;">Related Documents:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Privacy Policy</li>
+                            <li>Cookie Policy</li>
+                            <li>Data Processing Agreements</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: #1e293b; margin-bottom: 15px;">Action Plan</h3>
+                    <h4 style="color: #ef4444; margin-top: 20px;">Immediate Actions</h4>
+                    <ul style="list-style: none;">
+                        <li style="padding: 12px 16px; margin: 8px 0; background: #f8fafc; border-left: 4px solid #667eea; border-radius: 4px;">
+                            Apply this correction to the document <span style="background: #667eea; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; margin-left: 10px;">NOW</span>
+                        </li>
+                        <li style="padding: 12px 16px; margin: 8px 0; background: #f8fafc; border-left: 4px solid #667eea; border-radius: 4px;">
+                            Update compliance documentation (Compliance posture) <span style="background: #667eea; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; margin-left: 10px;">NOW</span>
+                        </li>
+                    </ul>
+
+                    <h4 style="color: #f59e0b; margin-top: 20px;">Short-term Actions (1 week)</h4>
+                    <ul style="list-style: none;">
+                        <li style="padding: 12px 16px; margin: 8px 0; background: #f8fafc; border-left: 4px solid #667eea; border-radius: 4px;">
+                            Review related documents for similar issues <span style="background: #667eea; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; margin-left: 10px;">1 WEEK</span>
+                        </li>
+                        <li style="padding: 12px 16px; margin: 8px 0; background: #f8fafc; border-left: 4px solid #667eea; border-radius: 4px;">
+                            Update compliance documentation <span style="background: #667eea; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; margin-left: 10px;">1 WEEK</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>LOKI Enterprise Compliance Platform</strong></p>
+            <p>This report provides transparent explainability for all document corrections.</p>
+            <p>For questions, contact your compliance team.</p>
+        </div>
+    </div>
+</body>
+</html>

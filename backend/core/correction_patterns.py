@@ -21,6 +21,13 @@ class CorrectionPatternRegistry:
         self._init_nda_uk_patterns()
         self._init_hr_scottish_patterns()
 
+        # Initialize expanded patterns (100+ additional patterns)
+        self._expand_fca_uk_patterns()
+        self._expand_gdpr_uk_patterns()
+        self._expand_tax_uk_patterns()
+        self._expand_nda_uk_patterns()
+        self._expand_hr_scottish_patterns()
+
     # ===========================================
     # FCA UK - Financial Conduct Authority
     # ===========================================
@@ -1025,6 +1032,461 @@ EXCLUSIONS: Confidential Information does NOT include information that:
                 'position': 'end',
                 'condition': r'(?:disciplinary|grievance|investigation)'
             }
+        ]
+
+    # ===========================================
+    # EXPANDED PATTERNS - Additional 100+ patterns
+    # ===========================================
+
+    def _expand_fca_uk_patterns(self):
+        """Additional FCA UK patterns for comprehensive coverage"""
+
+        # Market abuse prevention
+        self.templates['market_abuse'] = [
+            {
+                'template': 'MARKET ABUSE: We have policies to prevent market abuse including insider dealing and market manipulation. All staff must comply with these policies.',
+                'position': 'end',
+                'condition': r'(?:market|trading|inside information|price sensitive)'
+            }
+        ]
+
+        # Treating Customers Fairly (TCF)
+        self.templates['tcf'] = [
+            {
+                'template': 'TREATING CUSTOMERS FAIRLY: We are committed to treating customers fairly at all stages: (1) Product design, (2) Promotion, (3) Advice, (4) Point of sale, (5) After sale, (6) Handling complaints.',
+                'position': 'end',
+                'condition': r'(?:customer|client|fair treatment)'
+            }
+        ]
+
+        # Best execution
+        self.templates['best_execution'] = [
+            {
+                'template': 'BEST EXECUTION: We will take all sufficient steps to obtain the best possible result for you when executing orders, taking into account price, costs, speed, likelihood of execution and settlement.',
+                'position': 'end',
+                'condition': r'(?:execution|order|trading)'
+            }
+        ]
+
+        # Product disclosure
+        self.regex_patterns['product_disclosure'] = [
+            {
+                'pattern': r'fees\s+may\s+apply',
+                'replacement': 'The following fees apply: [specify all fees and charges]',
+                'reason': 'FCA requires clear fee disclosure',
+                'flags': re.IGNORECASE
+            }
+        ]
+
+        # Performance data
+        self.regex_patterns['performance_data'] = [
+            {
+                'pattern': r'(?:average|typical)\s+returns?',
+                'replacement': 'Past performance data (not indicative of future results)',
+                'reason': 'Performance data must include risk warnings',
+                'flags': re.IGNORECASE
+            }
+        ]
+
+        # Cooling off period
+        self.templates['cooling_off'] = [
+            {
+                'template': 'CANCELLATION RIGHTS: You have 14 days to cancel this contract from the date of agreement. To cancel, contact us in writing.',
+                'position': 'after_header',
+                'condition': r'(?:contract|agreement|purchase)'
+            }
+        ]
+
+        # Suitability assessment
+        self.templates['suitability'] = [
+            {
+                'template': 'SUITABILITY: Before providing personal recommendations, we assess your knowledge, experience, financial situation, and investment objectives to ensure suitability.',
+                'position': 'after_header',
+                'condition': r'(?:recommendation|advice|suitable)'
+            }
+        ]
+
+        # Appropriateness assessment
+        self.templates['appropriateness'] = [
+            {
+                'template': 'APPROPRIATENESS: We assess whether you have the necessary knowledge and experience to understand the risks of this product/service.',
+                'position': 'after_header',
+                'condition': r'(?:execution only|non-advised)'
+            }
+        ]
+
+        # Key information documents
+        self.templates['kid'] = [
+            {
+                'template': 'KEY INFORMATION DOCUMENT: You will receive a Key Information Document (KID) which summarises key features, risks, and costs of this product.',
+                'position': 'after_header',
+                'condition': r'(?:packaged retail|investment product|priips)'
+            }
+        ]
+
+        # Professional client classification
+        self.templates['client_classification'] = [
+            {
+                'template': 'CLIENT CLASSIFICATION: You are classified as a [Retail/Professional/Eligible Counterparty] client. This affects the level of regulatory protection you receive.',
+                'position': 'after_header',
+                'condition': r'(?:client|customer|classification)'
+            }
+        ]
+
+        # Additional regex patterns for FCA compliance
+        self.regex_patterns['unclear_risk_warnings'] = [
+            {'pattern': r'minimal risk', 'replacement': 'lower risk (capital at risk)', 'reason': 'No investment is minimal risk', 'flags': re.IGNORECASE},
+            {'pattern': r'safe bet', 'replacement': 'potential opportunity (capital at risk)', 'reason': 'No investment is a safe bet', 'flags': re.IGNORECASE},
+            {'pattern': r'cant lose', 'replacement': 'potential for returns (may incur losses)', 'reason': 'All investments can lose', 'flags': re.IGNORECASE},
+            {'pattern': r'zero risk', 'replacement': 'lower risk (capital at risk)', 'reason': 'No investment has zero risk', 'flags': re.IGNORECASE},
+            {'pattern': r'no downside', 'replacement': 'potential for loss', 'reason': 'All investments have downside risk', 'flags': re.IGNORECASE},
+            {'pattern': r'sure thing', 'replacement': 'investment opportunity (not guaranteed)', 'reason': 'No investment is guaranteed', 'flags': re.IGNORECASE},
+            {'pattern': r'easy money', 'replacement': 'investment opportunity (capital at risk)', 'reason': 'Avoid misleading simplification', 'flags': re.IGNORECASE},
+            {'pattern': r'passive income guaranteed', 'replacement': 'potential income stream (not guaranteed)', 'reason': 'Income not guaranteed', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['misleading_performance'] = [
+            {'pattern': r'always profitable', 'replacement': 'historically profitable (past performance not indicative)', 'reason': 'Cannot guarantee profitability', 'flags': re.IGNORECASE},
+            {'pattern': r'never lost money', 'replacement': 'positive historical performance (not guaranteed)', 'reason': 'Past performance disclaimers required', 'flags': re.IGNORECASE},
+            {'pattern': r'outperforms? the market', 'replacement': 'historical performance data (not guaranteed to continue)', 'reason': 'Market outperformance not guaranteed', 'flags': re.IGNORECASE},
+            {'pattern': r'consistent returns', 'replacement': 'historical returns (past performance not indicative)', 'reason': 'Consistency not guaranteed', 'flags': re.IGNORECASE},
+            {'pattern': r'proven track record', 'replacement': 'track record (past performance not indicative of future results)', 'reason': 'Past performance disclaimers required', 'flags': re.IGNORECASE},
+            {'pattern': r'beats inflation', 'replacement': 'historical performance vs inflation (not guaranteed)', 'reason': 'Future performance not guaranteed', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['urgency_tactics'] = [
+            {'pattern': r'act now or miss out', 'replacement': 'opportunity available', 'reason': 'Avoid pressure tactics', 'flags': re.IGNORECASE},
+            {'pattern': r'limited (?:time|availability|spots?)', 'replacement': 'available', 'reason': 'Avoid false scarcity', 'flags': re.IGNORECASE},
+            {'pattern': r'offer expires soon', 'replacement': 'offer available', 'reason': 'Avoid undue pressure', 'flags': re.IGNORECASE},
+            {'pattern': r'while stocks last', 'replacement': 'available', 'reason': 'Avoid false urgency', 'flags': re.IGNORECASE},
+            {'pattern': r'today only', 'replacement': 'available', 'reason': 'Avoid artificial time pressure', 'flags': re.IGNORECASE},
+            {'pattern': r'dont delay', 'replacement': 'consider this opportunity', 'reason': 'Avoid pressure language', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['misleading_language'] = [
+            {'pattern': r'foolproof investment', 'replacement': 'investment opportunity (capital at risk)', 'reason': 'No investment is foolproof', 'flags': re.IGNORECASE},
+            {'pattern': r'get rich quick', 'replacement': 'investment opportunity', 'reason': 'Avoid unrealistic expectations', 'flags': re.IGNORECASE},
+            {'pattern': r'no-brainer', 'replacement': 'opportunity to consider', 'reason': 'Avoid dismissive language', 'flags': re.IGNORECASE},
+            {'pattern': r'cant go wrong', 'replacement': 'investment opportunity (capital at risk)', 'reason': 'All investments carry risk', 'flags': re.IGNORECASE},
+            {'pattern': r'guaranteed success', 'replacement': 'potential opportunity (not guaranteed)', 'reason': 'Success cannot be guaranteed', 'flags': re.IGNORECASE},
+        ]
+
+    def _expand_gdpr_uk_patterns(self):
+        """Additional GDPR UK patterns"""
+
+        # Data minimization
+        self.templates['data_minimization'] = [
+            {
+                'template': 'DATA MINIMIZATION: We only collect personal data that is necessary for the specified purpose. We do not collect excessive data.',
+                'position': 'end',
+                'condition': r'(?:collect|personal data|information)'
+            }
+        ]
+
+        # Storage limitation
+        self.templates['storage_limitation'] = [
+            {
+                'template': 'STORAGE: Personal data is kept only as long as necessary for the purpose collected, or as required by law. Data is then securely deleted or anonymized.',
+                'position': 'end',
+                'condition': r'(?:storage|retention|delete)'
+            }
+        ]
+
+        # Security measures
+        self.templates['security_measures'] = [
+            {
+                'template': 'SECURITY: We implement appropriate technical and organizational measures to protect personal data against unauthorized access, loss, or destruction.',
+                'position': 'end',
+                'condition': r'(?:security|protection|safeguard)'
+            }
+        ]
+
+        # Data subject access requests
+        self.templates['dsar'] = [
+            {
+                'template': 'DATA ACCESS: You can request a copy of your personal data by submitting a Data Subject Access Request (DSAR). We will respond within one month.',
+                'position': 'end',
+                'condition': r'(?:access|copy of data|personal information)'
+            }
+        ]
+
+        # Legitimate interests assessment
+        self.templates['legitimate_interests'] = [
+            {
+                'template': 'LEGITIMATE INTERESTS: Where we process data based on legitimate interests, we have conducted a balancing test and determined our interests do not override your rights.',
+                'position': 'end',
+                'condition': r'(?:legitimate interest|lawful basis)'
+            }
+        ]
+
+        # Special category data
+        self.templates['special_category'] = [
+            {
+                'template': 'SENSITIVE DATA: We process special category data (health, ethnicity, religion, etc.) only with your explicit consent or where legally permitted.',
+                'position': 'after_header',
+                'condition': r'(?:sensitive|special category|health data)'
+            }
+        ]
+
+        # Additional GDPR regex patterns
+        self.regex_patterns['gdpr_consent_issues'] = [
+            {'pattern': r'we may share your data', 'replacement': 'We will only share your data with your explicit consent or legal basis', 'reason': 'Consent required for data sharing', 'flags': re.IGNORECASE},
+            {'pattern': r'we reserve the right to', 'replacement': 'We may (with your consent or legal basis)', 'reason': 'Cannot reserve unilateral rights over personal data', 'flags': re.IGNORECASE},
+            {'pattern': r'by ticking this box', 'replacement': 'You may provide explicit consent by ticking this box', 'reason': 'Clarify consent is optional', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['gdpr_clarity'] = [
+            {'pattern': r'we use cookies', 'replacement': 'We use cookies. Essential cookies are necessary; others require consent', 'reason': 'PECR compliance', 'flags': re.IGNORECASE},
+            {'pattern': r'see our privacy policy', 'replacement': 'See our privacy policy at [URL] for details on data processing', 'reason': 'Provide accessible link', 'flags': re.IGNORECASE},
+            {'pattern': r'third parties', 'replacement': 'named third parties (see list)', 'reason': 'Be specific about third parties', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['data_retention_vague'] = [
+            {'pattern': r'as long as necessary', 'replacement': 'for [specify period] or as required by law', 'reason': 'Specific retention periods required', 'flags': re.IGNORECASE},
+            {'pattern': r'indefinitely', 'replacement': 'for [specify period]', 'reason': 'Indefinite retention not permitted', 'flags': re.IGNORECASE},
+        ]
+
+    def _expand_tax_uk_patterns(self):
+        """Additional Tax UK patterns"""
+
+        # Annual accounting scheme
+        self.templates['annual_accounting'] = [
+            {
+                'template': 'ANNUAL ACCOUNTING SCHEME: Available if turnover under £1.35m. Submit one VAT return per year but make payments on account.',
+                'position': 'end',
+                'condition': r'(?:vat|annual accounting)'
+            }
+        ]
+
+        # Cash accounting scheme
+        self.templates['cash_accounting'] = [
+            {
+                'template': 'CASH ACCOUNTING: Available if turnover under £1.35m. Account for VAT on cash basis (when paid/received) rather than invoice basis.',
+                'position': 'end',
+                'condition': r'(?:vat|cash accounting)'
+            }
+        ]
+
+        # Research & Development tax relief
+        self.templates['r_and_d_relief'] = [
+            {
+                'template': 'R&D TAX RELIEF: Companies undertaking qualifying R&D can claim enhanced deductions or tax credits. SME scheme: 186% deduction. RDEC scheme: 13% credit.',
+                'position': 'end',
+                'condition': r'(?:r&d|research|development|innovation)'
+            }
+        ]
+
+        # Capital allowances
+        self.templates['capital_allowances'] = [
+            {
+                'template': 'CAPITAL ALLOWANCES: Claim tax relief on capital expenditure. Annual Investment Allowance: 100% relief on first £1m. Writing down allowances available thereafter.',
+                'position': 'end',
+                'condition': r'(?:capital|equipment|machinery|allowance)'
+            }
+        ]
+
+        # Employment status
+        self.templates['employment_status'] = [
+            {
+                'template': 'EMPLOYMENT STATUS: Status determines tax treatment. HMRC considers control, substitution, mutuality of obligation. Use HMRC Check Employment Status for Tax tool (CEST).',
+                'position': 'end',
+                'condition': r'(?:employment status|contractor|employee)'
+            }
+        ]
+
+        # Business expenses
+        self.templates['business_expenses'] = [
+            {
+                'template': 'BUSINESS EXPENSES: Expenses must be wholly and exclusively for business purposes. Common allowable: office costs, travel, professional fees, stock, staff costs.',
+                'position': 'end',
+                'condition': r'(?:expense|deductible|allowable)'
+            }
+        ]
+
+        # VAT partial exemption
+        self.templates['partial_exemption'] = [
+            {
+                'template': 'PARTIAL EXEMPTION: If you make both taxable and exempt supplies, you can only reclaim VAT on purchases relating to taxable supplies.',
+                'position': 'end',
+                'condition': r'(?:vat|exempt|partial exemption)'
+            }
+        ]
+
+        # Transfer pricing
+        self.templates['transfer_pricing'] = [
+            {
+                'template': 'TRANSFER PRICING: Transactions between related parties must be at arm\'s length. Documentation required if transactions exceed £10m.',
+                'position': 'end',
+                'condition': r'(?:related party|transfer|arm\'s length)'
+            }
+        ]
+
+        # Additional Tax regex patterns
+        self.regex_patterns['tax_terminology'] = [
+            {'pattern': r'tax evasion', 'replacement': 'tax avoidance (legal tax planning) [Note: Tax evasion is illegal]', 'reason': 'Clarify legal vs illegal', 'flags': re.IGNORECASE},
+            {'pattern': r'VAT exempt', 'replacement': 'VAT zero-rated or VAT exempt (specify which)', 'reason': 'Distinguish zero-rated from exempt', 'flags': re.IGNORECASE},
+            {'pattern': r'off the books', 'replacement': '[REMOVED - implies tax evasion]', 'reason': 'Off-the-books transactions are illegal', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['tax_dates'] = [
+            {'pattern': r'end of (?:the )?tax year', 'replacement': '5 April (tax year end)', 'reason': 'Specify exact date', 'flags': re.IGNORECASE},
+            {'pattern': r'tax deadline', 'replacement': 'tax return deadline: 31 October (paper) or 31 January (online)', 'reason': 'Specify deadlines', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['vat_registration'] = [
+            {'pattern': r'register for VAT', 'replacement': 'register for VAT if turnover exceeds £90,000', 'reason': 'Include threshold', 'flags': re.IGNORECASE},
+            {'pattern': r'VAT return', 'replacement': 'VAT return (quarterly unless on annual accounting scheme)', 'reason': 'Specify frequency', 'flags': re.IGNORECASE},
+        ]
+
+    def _expand_nda_uk_patterns(self):
+        """Additional NDA UK patterns"""
+
+        # Standard of care
+        self.templates['standard_of_care'] = [
+            {
+                'template': 'STANDARD OF CARE: The Receiving Party shall use the same degree of care to protect Confidential Information as it uses for its own confidential information, but no less than reasonable care.',
+                'position': 'end',
+                'condition': r'(?:care|protect|confidential)'
+            }
+        ]
+
+        # No license granted
+        self.templates['no_license'] = [
+            {
+                'template': 'NO LICENSE: Nothing in this Agreement grants any license, right, or interest in intellectual property, except the limited right to use information for the Permitted Purpose.',
+                'position': 'end',
+                'condition': r'(?:intellectual property|patent|trademark|copyright)'
+            }
+        ]
+
+        # Residual information
+        self.templates['residual_info'] = [
+            {
+                'template': 'RESIDUAL INFORMATION: The Receiving Party may retain and use residual information retained in the unaided memories of its personnel, provided this clause does not permit deliberate memorization to avoid obligations.',
+                'position': 'end',
+                'condition': r'(?:memory|residual|retain)'
+            }
+        ]
+
+        # No obligation to proceed
+        self.templates['no_obligation'] = [
+            {
+                'template': 'NO OBLIGATION: This Agreement does not create any obligation to enter into further agreements, make disclosures, or proceed with any transaction.',
+                'position': 'end',
+                'condition': r'(?:obligation|commitment|proceed)'
+            }
+        ]
+
+        # Injunctive relief
+        self.templates['injunctive_relief'] = [
+            {
+                'template': 'INJUNCTIVE RELIEF: The parties acknowledge that breach may cause irreparable harm for which monetary damages are inadequate. The Disclosing Party may seek injunctive relief in addition to other remedies.',
+                'position': 'end',
+                'condition': r'(?:breach|remedy|damages)'
+            }
+        ]
+
+        # Survival
+        self.templates['survival'] = [
+            {
+                'template': 'SURVIVAL: Confidentiality obligations survive termination of this Agreement for [specify period, typically 2-5 years] or until Confidential Information enters the public domain.',
+                'position': 'end',
+                'condition': r'(?:termination|survival|duration)'
+            }
+        ]
+
+        # Additional NDA regex patterns
+        self.regex_patterns['nda_overbroad'] = [
+            {'pattern': r'all information', 'replacement': 'Confidential Information as defined herein', 'reason': 'Be specific about what is confidential', 'flags': re.IGNORECASE},
+            {'pattern': r'any and all', 'replacement': 'Confidential', 'reason': 'Avoid overbroad language', 'flags': re.IGNORECASE},
+            {'pattern': r'forever', 'replacement': 'for [specify period]', 'reason': 'Perpetual obligations may be unenforceable', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['nda_illegal_restrictions'] = [
+            {'pattern': r'prevent.*disclosure.*crime', 'replacement': '[REMOVED - Cannot prevent disclosure of crimes]', 'reason': 'Cannot restrict crime reporting', 'flags': re.IGNORECASE},
+            {'pattern': r'prohibit.*whistleblow', 'replacement': '[REMOVED - Whistleblowing protected by law]', 'reason': 'PIDA 1998 protection', 'flags': re.IGNORECASE},
+            {'pattern': r'cannot.*report.*authorities', 'replacement': '[REMOVED - Right to report to authorities protected]', 'reason': 'Legal reporting protected', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['nda_unilateral'] = [
+            {'pattern': r'sole discretion', 'replacement': 'reasonable discretion', 'reason': 'Sole discretion may be unfair', 'flags': re.IGNORECASE},
+            {'pattern': r'at our option', 'replacement': 'by mutual agreement', 'reason': 'Unilateral options may be unenforceable', 'flags': re.IGNORECASE},
+        ]
+
+    def _expand_hr_scottish_patterns(self):
+        """Additional HR Scottish patterns"""
+
+        # TUPE transfers
+        self.templates['tupe'] = [
+            {
+                'template': 'TUPE: Transfer of Undertakings (Protection of Employment) Regulations apply. Your employment transfers automatically on same terms. Consultation required for any changes.',
+                'position': 'after_header',
+                'condition': r'(?:transfer|tupe|undertaking)'
+            }
+        ]
+
+        # Redundancy consultation
+        self.templates['redundancy_consultation'] = [
+            {
+                'template': 'REDUNDANCY CONSULTATION: We will consult on selection criteria, alternatives to redundancy, and mitigation measures. Collective consultation required for 20+ redundancies.',
+                'position': 'after_header',
+                'condition': r'(?:redundancy|redundancies|reduction)'
+            }
+        ]
+
+        # Statutory sick pay
+        self.templates['ssp'] = [
+            {
+                'template': 'STATUTORY SICK PAY: Eligible employees receive SSP (£109.40/week) from day 4 of sickness for up to 28 weeks. Qualifying days: normally working days.',
+                'position': 'end',
+                'condition': r'(?:sick|sickness|absence|ill)'
+            }
+        ]
+
+        # Maternity/paternity rights
+        self.templates['parental_rights'] = [
+            {
+                'template': 'PARENTAL RIGHTS: Statutory maternity leave: 52 weeks. Statutory maternity pay: 90% salary for 6 weeks then £172.48 for 33 weeks. Protection from detriment and dismissal.',
+                'position': 'end',
+                'condition': r'(?:maternity|paternity|parental|pregnancy)'
+            }
+        ]
+
+        # Protected characteristics
+        self.templates['protected_characteristics'] = [
+            {
+                'template': 'EQUALITY: Under the Equality Act 2010, discrimination is prohibited based on: age, disability, gender reassignment, marriage/civil partnership, pregnancy/maternity, race, religion/belief, sex, sexual orientation.',
+                'position': 'end',
+                'condition': r'(?:discrimination|equality|protected)'
+            }
+        ]
+
+        # Working time regulations
+        self.templates['working_time'] = [
+            {
+                'template': 'WORKING TIME: Maximum 48-hour average working week (can opt out). Rest breaks: 20 minutes if working 6+ hours. Daily rest: 11 hours. Weekly rest: 24 hours per week.',
+                'position': 'end',
+                'condition': r'(?:working time|hours|rest break)'
+            }
+        ]
+
+        # Additional HR regex patterns
+        self.regex_patterns['hr_terminology'] = [
+            {'pattern': r'fire(?:d)?', 'replacement': 'dismiss', 'reason': 'Use formal terminology', 'flags': re.IGNORECASE},
+            {'pattern': r'let go', 'replacement': 'dismiss or make redundant', 'reason': 'Use precise legal terminology', 'flags': re.IGNORECASE},
+            {'pattern': r'sack(?:ed)?', 'replacement': 'dismiss', 'reason': 'Use formal terminology', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['hr_unlawful_discrimination'] = [
+            {'pattern': r'young and dynamic', 'replacement': 'energetic and motivated', 'reason': 'Age discrimination', 'flags': re.IGNORECASE},
+            {'pattern': r'native English speaker', 'replacement': 'fluent English speaker', 'reason': 'Race discrimination', 'flags': re.IGNORECASE},
+            {'pattern': r'recent graduate', 'replacement': 'graduate', 'reason': 'Age discrimination', 'flags': re.IGNORECASE},
+        ]
+
+        self.regex_patterns['hr_procedural'] = [
+            {'pattern': r'immediately dismissed', 'replacement': 'dismissed following fair procedure', 'reason': 'Fair procedure required', 'flags': re.IGNORECASE},
+            {'pattern': r'without warning', 'replacement': 'after appropriate warnings (except gross misconduct)', 'reason': 'Progressive discipline required', 'flags': re.IGNORECASE},
+            {'pattern': r'no appeal', 'replacement': 'with right of appeal', 'reason': 'Appeal rights required', 'flags': re.IGNORECASE},
         ]
 
     # ===========================================

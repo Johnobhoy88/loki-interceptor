@@ -547,3 +547,134 @@ def session_cleanup():
     yield
     # Final cleanup
     pass
+
+
+# ============================================================================
+# E2E TEST FIXTURES
+# ============================================================================
+
+@pytest.fixture(scope="session")
+def test_config():
+    """
+    Main test configuration fixture for E2E tests.
+    Returns configuration for all environment-dependent parameters.
+    """
+    return {
+        "backend_url": os.getenv("BACKEND_URL", "http://localhost:5002"),
+        "frontend_url": os.getenv("FRONTEND_URL", "http://localhost:80"),
+        "api_timeout": int(os.getenv("API_TIMEOUT", "30")),
+        "headless": os.getenv("HEADLESS_BROWSER", "true").lower() == "true",
+    }
+
+
+@pytest.fixture(scope="session")
+def smoke_config():
+    """Load smoke test configuration."""
+    return {
+        "backend_url": os.getenv("BACKEND_URL", "http://localhost:5002"),
+        "frontend_url": os.getenv("FRONTEND_URL", "http://localhost:80"),
+        "timeout": int(os.getenv("SMOKE_TEST_TIMEOUT", "10")),
+    }
+
+
+@pytest.fixture(scope="session")
+def database_url():
+    """Get database URL from environment or use test database."""
+    return os.getenv(
+        "TEST_DATABASE_URL",
+        "postgresql://loki:changeme@localhost:5433/loki_test"
+    )
+
+
+@pytest.fixture(scope="session")
+def redis_url():
+    """Get Redis URL from environment."""
+    return os.getenv(
+        "TEST_REDIS_URL",
+        "redis://:changeme@localhost:6380/0"
+    )
+
+
+@pytest.fixture(scope="function")
+def db_session_pg(database_url):
+    """
+    PostgreSQL database session fixture for integration tests.
+    Provides a clean database session for each test.
+    """
+    try:
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker
+
+        engine = create_engine(database_url, echo=False)
+        SessionLocal = sessionmaker(bind=engine)
+        session = SessionLocal()
+
+        yield session
+
+        session.rollback()
+        session.close()
+    except Exception as e:
+        pytest.skip(f"Database connection failed: {str(e)}")
+
+
+@pytest.fixture(scope="function")
+def redis_client_pg(redis_url):
+    """
+    Redis client fixture for integration tests.
+    Provides a Redis client and clears data after test completes.
+    """
+    try:
+        import redis
+        client = redis.from_url(redis_url, decode_responses=True)
+        # Verify connection
+        client.ping()
+
+        yield client
+
+        client.flushdb()  # Clear test data
+        client.close()
+    except Exception as e:
+        pytest.skip(f"Redis connection failed: {str(e)}")
+
+
+@pytest.fixture(scope="function")
+def api_client_session():
+    """HTTP client fixture for API testing."""
+    import requests
+    session = requests.Session()
+    yield session
+    session.close()
+
+
+@pytest.fixture(scope="session")
+def chaos_config():
+    """Load chaos engineering configuration."""
+    return {
+        "enabled": os.getenv("CHAOS_ENABLED", "true").lower() == "true",
+        "failure_rate": float(os.getenv("CHAOS_FAILURE_RATE", "0.1")),
+        "delay_ms": int(os.getenv("CHAOS_DELAY_MS", "100")),
+        "timeout": int(os.getenv("CHAOS_TIMEOUT", "30")),
+    }
+
+
+# ============================================================================
+# PYTEST MARKERS (Additional)
+# ============================================================================
+
+def pytest_configure(config):
+    """Configure additional pytest markers."""
+    config.addinivalue_line(
+        "markers", "e2e: end-to-end tests"
+    )
+    config.addinivalue_line(
+        "markers", "smoke: smoke tests for quick validation"
+    )
+    config.addinivalue_line(
+        "markers", "chaos: chaos engineering tests"
+    )
+    config.addinivalue_line(
+        "markers", "database: database-related tests"
+    )
+    config.addinivalue_line(
+        "markers", "cache: cache-related tests"
+    )
