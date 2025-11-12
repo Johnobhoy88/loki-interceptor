@@ -1,0 +1,9 @@
+# Minimal dependencies for Vercel deployment
+# Total size: ~10MB (well under 50MB limit)
+
+Flask==3.0.0
+Flask-Cors==4.0.0
+Werkzeug==3.0.1
+
+# Note: Full backend requires separate deployment
+# See VERCEL_DEPLOYMENT.md for instructions
